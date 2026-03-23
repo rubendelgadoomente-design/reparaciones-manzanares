@@ -54,9 +54,10 @@ export default function Home() {
               <h3 style={{ color: 'white', marginBottom: '1rem', fontSize: '1.5rem' }}>¿Avería no urgente?</h3>
               <p style={{ color: '#CBD5E1', marginBottom: '2rem' }}>Déjanos tu número y te damos presupuesto sin compromiso hoy mismo.</p>
               
-              <form action="https://formsubmit.co/ruben.delgadoomente@gmail.com" method="POST" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <input type="hidden" name="_subject" value="NUEVO CLIENTE: Presupuesto web Reparaciones" />
-                <input type="hidden" name="_captcha" value="false" />
+              <form action="https://api.web3forms.com/submit" method="POST" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <input type="hidden" name="access_key" value="8579a69c-e7a0-412b-9679-46792d42e9b3" />
+                <input type="hidden" name="subject" value="NUEVO CLIENTE: Presupuesto web Reparaciones" />
+                <input type="hidden" name="redirect" value="https://reparacionesmanzanares.es" />
                 
                 <input type="tel" name="telefono" placeholder="Tu Teléfono" required style={{ padding: '1rem', borderRadius: 'var(--radius-md)', border: 'none', fontSize: '1rem', outline: 'none' }} />
                 
