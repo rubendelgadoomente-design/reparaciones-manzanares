@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 const PHONE_NUMBER = "669 162 085";
-const WA_LINK = `https://wa.me/34669162085?text=Hola,%20necesito%20ayuda%20urgente%20con%20una%20reparaci%C3%B3n.`;
+const WA_LINK = `https://wa.me/34669162085?text=Hola%20Reparaciones%20Manzanares,%20tengo%20una%20aver%C3%ADa%20urgente%20en%20casa.%20%C2%BFMe%20pod%C3%A9is%20ayudar?`;
 
 export default function RootLayout({
   children,
@@ -83,7 +83,7 @@ export default function RootLayout({
           href={WA_LINK}
           target="_blank"
           rel="noopener noreferrer"
-          className="whatsapp-btn"
+          className="whatsapp-btn animate-pulse-wa"
           style={{
             position: 'fixed',
             bottom: '80px', // Raised to make room for mobile call bar
