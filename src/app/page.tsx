@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -25,7 +26,7 @@ export default function Home() {
               padding: '0.5rem 1rem', borderRadius: '20px', fontWeight: 600, fontSize: '0.9rem',
               marginBottom: '1.5rem', border: '1px solid rgba(255,109,0,0.3)'
             }}>
-              🚨 Asistencia de Averías en menos de 30 minutos
+              🚨 Servicio de Asistencia Urgente en la Zona
             </div>
             <h1 style={{ color: 'white', fontSize: '3.5rem', marginBottom: '1.5rem' }}>
               Técnicos <span style={{ color: 'var(--color-accent)' }}>Especialistas</span> en la Sierra de Madrid.
@@ -103,8 +104,8 @@ export default function Home() {
               <div style={{ width: '60px', height: '60px', margin: '0 auto 1.5rem auto', backgroundColor: 'rgba(255,109,0,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-accent)' }}>
                 <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               </div>
-              <h3 style={{ marginBottom: '0.5rem', fontSize: '1.25rem' }}>Rapidez Garantizada</h3>
-              <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)' }}>Un técnico en tu casa en menos de 30 minutos para averías urgentes en toda la sierra.</p>
+              <h3 style={{ marginBottom: '0.5rem', fontSize: '1.25rem' }}>Respuesta Rápida</h3>
+              <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)' }}>Atendemos tus urgencias con la máxima prioridad para minimizar daños y esperas.</p>
             </div>
             
             <div style={{ textAlign: 'center', padding: '2.5rem 1.5rem', backgroundColor: 'white', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)', border: '1px solid #E2E8F0' }}>
@@ -134,7 +135,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. SERVICES GRID */}
+      {/* 4. STATS SECTION */}
+      <section style={{ padding: '4rem 0', backgroundColor: 'var(--color-primary)', color: 'white' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', textAlign: 'center' }}>
+            <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-lg)', border: '1px solid rgba(255,255,255,0.1)' }}>
+              <div style={{ fontSize: '3.5rem', fontWeight: 800, color: 'var(--color-accent)', marginBottom: '0.5rem' }}>+15</div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 600, color: '#E2E8F0' }}>Años de Experiencia</div>
+            </div>
+            <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-lg)', border: '1px solid rgba(255,255,255,0.1)' }}>
+              <div style={{ fontSize: '3.5rem', fontWeight: 800, color: 'var(--color-accent)', marginBottom: '0.5rem' }}>+2k</div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 600, color: '#E2E8F0' }}>Averías Solucionadas</div>
+            </div>
+            <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-lg)', border: '1px solid rgba(255,255,255,0.1)' }}>
+              <div style={{ fontSize: '3.5rem', fontWeight: 800, color: 'var(--color-accent)', marginBottom: '0.5rem' }}>100%</div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 600, color: '#E2E8F0' }}>Garantía Oficial</div>
+            </div>
+            <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-lg)', border: '1px solid rgba(255,255,255,0.1)' }}>
+              <div style={{ fontSize: '3.5rem', fontWeight: 800, color: 'var(--color-accent)', marginBottom: '0.5rem' }}>24/7</div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 600, color: '#E2E8F0' }}>Asistencia de Urgencias</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. SERVICES GRID */}
       <section id="servicios" style={{ padding: '5rem 0', backgroundColor: 'white' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
@@ -145,19 +170,19 @@ export default function Home() {
               <div style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>🚰</div>
               <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Fontanería Urgente</h3>
               <p style={{ marginBottom: '1.5rem' }}>Detección de fugas, desatascos con maquinaria, cambio de grifería, roturas de tuberías y humedades.</p>
-              <span style={{ fontWeight: 600, color: 'var(--color-accent)' }}>Saber más →</span>
+              <Link href="/fontanero-manzanares-el-real" style={{ fontWeight: 600, color: 'var(--color-accent)', textDecoration: 'none' }}>Saber más →</Link>
             </div>
             <div className="service-card" style={{ backgroundColor: 'var(--color-bg)', padding: '2.5rem', borderRadius: 'var(--radius-lg)', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
               <div style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>⚡</div>
               <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Averías Eléctricas</h3>
               <p style={{ marginBottom: '1.5rem' }}>Solución a apagones, cortocircuitos, emisión de boletines eléctricos e instalación de iluminación LED.</p>
-              <span style={{ fontWeight: 600, color: 'var(--color-accent)' }}>Saber más →</span>
+              <Link href="/electricista-manzanares-el-real" style={{ fontWeight: 600, color: 'var(--color-accent)', textDecoration: 'none' }}>Saber más →</Link>
             </div>
             <div className="service-card" style={{ backgroundColor: 'var(--color-bg)', padding: '2.5rem', borderRadius: 'var(--radius-lg)', cursor: 'pointer', border: '1px solid #E2E8F0' }}>
               <div style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>🔥</div>
               <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Revisión de Calderas</h3>
               <p style={{ marginBottom: '1.5rem' }}>Reparación de errores, mantenimiento anual y cambios de calderas de gas, gasoil y biomasa.</p>
-              <span style={{ fontWeight: 600, color: 'var(--color-accent)' }}>Saber más →</span>
+              <Link href="/reparacion-calderas-manzanares-el-real" style={{ fontWeight: 600, color: 'var(--color-accent)', textDecoration: 'none' }}>Saber más →</Link>
             </div>
           </div>
         </div>
@@ -236,6 +261,35 @@ export default function Home() {
               </div>
               <p style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.6 }}>"Cambio de caldera antigua por una nueva Saunier Duval. Me explicaron el funcionamiento genial y tramitaron la garantía sin yo pedirlo. Muy satisfecho con el trabajo."</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. FAQs SECTION */}
+      <section style={{ padding: '6rem 0', backgroundColor: '#F8FAFC' }}>
+        <div className="container" style={{ maxWidth: '800px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', color: 'var(--color-primary)' }}>Preguntas Frecuentes</h2>
+            <p style={{ fontSize: '1.1rem', color: 'var(--color-text-muted)' }}>Resolvemos tus dudas más comunes antes de que nos llames.</p>
+          </div>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {[
+              { q: '¿Cobráis el desplazamiento?', a: 'El desplazamiento es gratuito siempre que se acepte el presupuesto de reparación. Si finalmente decides no realizar el servicio, solo se factura la visita técnica de diagnóstico mínima para cubrir los gastos de traslado.' },
+              { q: '¿Cuánto tardáis en llegar a una urgencia?', a: 'Para averías críticas como fugas masivas o cortes de luz, priorizamos la asistencia. Intentamos estar lo antes posible en tu domicilio para evitar daños mayores, dependiendo siempre del volumen de avisos.' },
+              { q: '¿Dais garantía de vuestras reparaciones?', a: 'Sí, absolutamente. Ofrecemos 6 meses de garantía por escrito en todas las reparaciones de mano de obra, y hasta 3 años en instalaciones nuevas de componentes electrónicos, calderas o repuestos, según marca la ley vigente.' },
+              { q: '¿Se puede pagar con tarjeta?', a: 'Por supuesto. Todos nuestros operarios llevan TPV móvil para facilitar el pago con tarjeta en el acto. También aceptamos efectivo, Bizum y transferencia bancaria inmediata.' }
+            ].map((faq, i) => (
+              <details key={i} style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: 'var(--radius-lg)', padding: '1.5rem', cursor: 'pointer', boxShadow: 'var(--shadow-sm)' }}>
+                <summary style={{ fontSize: '1.15rem', fontWeight: 600, color: '#334155', listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  {faq.q}
+                  <span style={{ color: 'var(--color-accent)', fontSize: '1.5rem', fontWeight: 400 }}>+</span>
+                </summary>
+                <p style={{ marginTop: '1rem', color: '#64748B', lineHeight: 1.6, fontSize: '1rem' }}>
+                  {faq.a}
+                </p>
+              </details>
+            ))}
           </div>
         </div>
       </section>
