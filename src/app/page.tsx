@@ -54,7 +54,7 @@ export default function Home() {
               <h3 style={{ color: 'white', marginBottom: '1rem', fontSize: '1.5rem' }}>¿Avería no urgente?</h3>
               <p style={{ color: '#CBD5E1', marginBottom: '2rem' }}>Déjanos tu número y te damos presupuesto sin compromiso hoy mismo.</p>
               
-              <form action="https://formsubmit.co/presupuestos@reparacionesmanzanares.es" method="POST" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <form action="https://formsubmit.co/ruben.delgadoomente@gmail.com" method="POST" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <input type="hidden" name="_subject" value="NUEVO CLIENTE: Presupuesto web Reparaciones" />
                 <input type="hidden" name="_captcha" value="false" />
                 
