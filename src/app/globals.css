@@ -106,3 +106,14 @@ p {
 .whatsapp-btn:hover {
   transform: scale(1.1);
 }
+
+.mobile-only-cta {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .mobile-only-cta {
+    display: flex !important;
+  }
+}
+
