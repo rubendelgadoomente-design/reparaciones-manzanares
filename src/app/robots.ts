@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://reparacionesmanzanares.es';
+  const baseUrl = 'https://www.reparacionesmanzanares.es';
 
   return {
     rules: {

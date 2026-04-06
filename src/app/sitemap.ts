@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { locations, services, slugify } from '../data/seoData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://reparacionesmanzanares.es';
+  const baseUrl = 'https://www.reparacionesmanzanares.es';
   
   const routes: MetadataRoute.Sitemap = [
     {
@@ -10,6 +10,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 1,
+    },
+    {
+      url: `${baseUrl}/nosotros`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/contacto`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
     },
   ];
 
@@ -19,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       routes.push({
         url: `${baseUrl}/${slug}`,
         lastModified: new Date(),
-        changeFrequency: 'yearly',
+        changeFrequency: 'monthly',
         priority: 0.8,
       });
     });

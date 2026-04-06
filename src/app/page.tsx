@@ -2,8 +2,51 @@ import React from 'react';
 import Link from 'next/link';
 
 export default function Home() {
+  const faqs = [
+    { q: '¿Cobráis el desplazamiento?', a: 'El desplazamiento es gratuito siempre que se acepte el presupuesto de reparación. Si finalmente decides no realizar el servicio, solo se factura la visita técnica de diagnóstico mínima para cubrir los gastos de traslado.' },
+    { q: '¿Cuánto tardáis en llegar a una urgencia?', a: 'Para averías críticas como fugas masivas o cortes de luz, priorizamos la asistencia. Intentamos estar lo antes posible en tu domicilio para permitirte recuperar la normalidad de forma inmediata.' },
+    { q: '¿Dais garantía de vuestras reparaciones?', a: 'Sí, absolutamente. Ofrecemos 6 meses de garantía por escrito en todas las reparaciones de mano de obra, y hasta 3 años en instalaciones nuevas de componentes electrónicos, calderas o repuestos, según marca la ley vigente.' },
+    { q: '¿Se puede pagar con tarjeta?', a: 'Por supuesto. Todos nuestros operarios llevan TPV móvil para facilitar el pago con tarjeta en el acto. También aceptamos efectivo, Bizum y transferencia bancaria inmediata.' }
+  ];
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a
+      }
+    }))
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Reparaciones Manzanares",
+    "url": "https://www.reparacionesmanzanares.es",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://www.reparacionesmanzanares.es/?s={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
       {/* 1. HERO SECTION */}
       <section style={{
         backgroundColor: 'var(--color-primary)',
@@ -26,13 +69,13 @@ export default function Home() {
               padding: '0.5rem 1rem', borderRadius: '20px', fontWeight: 600, fontSize: '0.9rem',
               marginBottom: '1.5rem', border: '1px solid rgba(255,109,0,0.3)'
             }}>
-              🚨 Servicio de Asistencia Urgente en la Zona
+              🚨 Asistencia Técnica Urgente en la Zona
             </div>
-            <h1 style={{ color: 'white', fontSize: '3.5rem', marginBottom: '1.5rem' }}>
-              Técnicos <span style={{ color: 'var(--color-accent)' }}>Especialistas</span> en la Sierra de Madrid.
+            <h1 style={{ color: 'white', fontSize: '3.5rem', marginBottom: '1.5rem', lineHeight: 1.1 }}>
+              Fontanero y Electricista <span style={{ color: 'var(--color-accent)' }}>Urgente 24h</span> en Manzanares el Real.
             </h1>
             <p style={{ fontSize: '1.25rem', color: '#CBD5E1', marginBottom: '2.5rem', maxWidth: '600px' }}>
-              Solucionamos al instante problemas de <strong>fontanería, electricidad y calderas</strong>. Sin intermediarios, trato directo y garantía por escrito.
+              Solucionamos al instante problemas de <strong>fontanería, electricidad y calderas</strong> en toda la Sierra de Madrid. Trato directo, garantía por escrito y precios transparentes.
             </p>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               <a href="tel:+34669162085" className="btn btn-accent animate-pulse" style={{ fontSize: '1.2rem' }}>
@@ -58,7 +101,7 @@ export default function Home() {
               <form action="https://api.web3forms.com/submit" method="POST" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <input type="hidden" name="access_key" value="8579a69c-e7a0-412b-9679-46792d42e9b3" />
                 <input type="hidden" name="subject" value="NUEVO CLIENTE: Presupuesto web Reparaciones" />
-                <input type="hidden" name="redirect" value="https://reparacionesmanzanares.es" />
+                <input type="hidden" name="redirect" value="https://www.reparacionesmanzanares.es" />
                 
                 <input type="tel" name="telefono" placeholder="Tu Teléfono" required style={{ padding: '1rem', borderRadius: 'var(--radius-md)', border: 'none', fontSize: '1rem', outline: 'none' }} />
                 

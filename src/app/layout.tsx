@@ -2,23 +2,96 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import './globals.css'
 
-export const metadata: Metadata = {
-  title: 'Reparaciones Manzanares | Fontaneros y Electricistas 24h',
-  description: 'Servicio urgente 24h de fontanería, electricidad y calderas. Cobertura rápida en toda la Sierra de Madrid (Colmenar, Villalba, Manzanares).',
-}
-
+const baseUrl = 'https://www.reparacionesmanzanares.es';
 const PHONE_NUMBER = "669 162 085";
-const WA_LINK = `https://wa.me/34669162085?text=Hola%20Reparaciones%20Manzanares,%20tengo%20una%20aver%C3%ADa%20urgente%20en%20casa.%20%C2%BFMe%20pod%C3%A9is%20ayudar?`;
+const PHONE_RAW = "669162085";
+const WA_LINK = `https://wa.me/34${PHONE_RAW}?text=Hola%20Reparaciones%20Manzanares,%20tengo%20una%20aver%C3%ADa%20urgente%20en%20casa.%20%C2%BFMe%20pod%C3%A9is%20ayudar?`;
+
+export const metadata: Metadata = {
+  title: {
+    default: 'Reparaciones Manzanares | Fontaneros, Electricistas y Cerrajeros 24h Sierra de Madrid',
+    template: '%s | Reparaciones Manzanares'
+  },
+  description: 'Servicio técnico urgente 24h: fontanería, electricidad, cerrajería y calderas en la Sierra de Madrid. Técnicos autorizados 24h.',
+  keywords: ['fontanero urgente Manzanares', 'electricista 24h Sierra Madrid', 'cerrajero urgente Manzanares el Real', 'reparación calderas', 'manitas a domicilio'],
+  authors: [{ name: 'Reparaciones Manzanares' }],
+  metadataBase: new URL(baseUrl),
+  alternates: {
+    canonical: baseUrl,
+  },
+  openGraph: {
+    title: 'Reparaciones Manzanares | Servicio Técnico 24h Sierra de Madrid',
+    description: 'Asistencia técnica inmediata: Fontanería, Electricidad, Cerrajería y Calderas.',
+    url: baseUrl,
+    siteName: 'Reparaciones Manzanares',
+    locale: 'es_ES',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Reparaciones Manzanares | 24h Urgencias',
+    description: 'Técnicos especialistas en reparaciones del hogar en la Sierra de Madrid.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  }
+}
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Reparaciones Manzanares",
+    "image": `${baseUrl}/logo.png`, 
+    "@id": `${baseUrl}/#organization`,
+    "url": baseUrl,
+    "telephone": `+34${PHONE_RAW}`,
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Servicio a Domicilio",
+      "addressLocality": "Manzanares el Real",
+      "addressRegion": "Madrid",
+      "postalCode": "28410",
+      "addressCountry": "ES"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 40.7271,
+      "longitude": -3.8614
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+      ],
+      "opens": "00:00",
+      "closes": "23:59"
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Manzanares el Real" },
+      { "@type": "City", "name": "Colmenar Viejo" },
+      { "@type": "City", "name": "Collado Villalba" },
+      { "@type": "City", "name": "Moralzarzal" },
+      { "@type": "City", "name": "Soto del Real" },
+      { "@type": "City", "name": "Guadarrama" },
+      { "@type": "City", "name": "Alpedrete" }
+    ]
+  };
+
   return (
     <html lang="es" style={{ scrollBehavior: 'smooth' }}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body>
         <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-MZ2KMK12PM" />
@@ -47,18 +120,30 @@ export default function RootLayout({
             alignItems: 'center',
             height: '80px'
           }}>
-            <div style={{ fontWeight: 800, fontSize: '1.5rem', color: 'var(--color-primary)' }}>
-              Reparaciones<span style={{ color: 'var(--color-accent)' }}>Manzanares</span>
+            <a href="/" style={{ textDecoration: 'none' }}>
+              <div style={{ fontWeight: 800, fontSize: '1.5rem', color: 'var(--color-primary)' }}>
+                Reparaciones<span style={{ color: 'var(--color-accent)' }}>Manzanares</span>
+              </div>
+            </a>
+            <div className="nav-links" style={{ display: 'none', gap: '1.25rem', alignItems: 'center' }}>
+              <a href="/nosotros" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600 }}>Nosotros</a>
+              <a href="/fontanero-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Fontanería</a>
+              <a href="/electricista-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Electricidad</a>
+              <a href="/cerrajero-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Cerrajería</a>
+              <a href="/reparacion-calderas-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Calderas</a>
+              <a href="/contacto" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600 }}>Contacto</a>
             </div>
             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-              <span style={{ fontWeight: 600, fontSize: '1.2rem', color: 'var(--color-primary)', display: 'none', '@media (minWidth: 768px)': { display: 'block' } } as any}>
-                Llámanos: {PHONE_NUMBER}
-              </span>
-              <a href={`tel:${PHONE_NUMBER.replace(/\s+/g, '')}`} className="btn btn-accent" style={{ padding: '0.6rem 1.2rem', fontSize: '1rem' }}>
-                📞 Urgencias 24h
+              <a href={`tel:${PHONE_RAW}`} className="btn btn-accent" style={{ padding: '0.6rem 1.2rem', fontSize: '1rem' }}>
+                📞 24h
               </a>
             </div>
           </div>
+          <style dangerouslySetInnerHTML={{ __html: `
+            @media (min-width: 1024px) {
+              .nav-links { display: flex !important; }
+            }
+          `}} />
         </nav>
         
         {children}
@@ -67,14 +152,47 @@ export default function RootLayout({
           backgroundColor: 'var(--color-primary)',
           color: 'white',
           padding: '4rem 0',
-          marginTop: '4rem',
-          textAlign: 'center'
+          marginTop: '4rem'
         }}>
-          <div className="container">
-            <h3 style={{ color: 'white' }}>Reparaciones Manzanares</h3>
-            <p style={{ color: '#A0AEC0', marginTop: '1rem' }}>Servicio técnico experto en la Sierra de Madrid.</p>
-            <p style={{ color: '#A0AEC0', marginTop: '0.5rem', fontWeight: 'bold' }}>Teléfono: {PHONE_NUMBER}</p>
-            <p style={{ color: '#A0AEC0', marginTop: '1.5rem', fontSize: '0.9rem' }}>© 2026 Todos los derechos reservados.</p>
+          <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '3rem', textAlign: 'left' }}>
+            <div>
+              <h3 style={{ color: 'white', marginBottom: '1.5rem' }}>Reparaciones Manzanares</h3>
+              <p style={{ color: '#A0AEC0', fontSize: '0.95rem', lineHeight: 1.6 }}>
+                Tu servicio técnico de confianza en la Sierra de Madrid (Zona Norte). Técnicos autorizados en reparaciones urgentes y mantenimiento del hogar.
+              </p>
+              <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <a href="/nosotros" style={{ color: 'white', textDecoration: 'none', fontSize: '0.9rem' }}>Sobre nosotros →</a>
+                <a href="/contacto" style={{ color: 'white', textDecoration: 'none', fontSize: '0.9rem' }}>Página de contacto →</a>
+              </div>
+            </div>
+            
+            <div>
+              <h4 style={{ color: 'white', marginBottom: '1.5rem', fontSize: '1.2rem' }}>Oficios 24h</h4>
+              <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                <li><a href="/fontanero-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Fontanería Urgente</a></li>
+                <li><a href="/electricista-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Electricista 24 Horas</a></li>
+                <li><a href="/cerrajero-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Cerrajero de Urgencia</a></li>
+                <li><a href="/reparacion-calderas-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Reparación de Calderas</a></li>
+                <li><a href="/aire-acondicionado-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Aire Acondicionado</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 style={{ color: 'white', marginBottom: '1.5rem', fontSize: '1.2rem' }}>Top Localidades</h4>
+              <ul style={{ listStyle: 'none', padding: 0, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.8rem' }}>
+                <li><a href="/fontanero-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none', fontSize: '0.85rem' }}>Manzanares</a></li>
+                <li><a href="/fontanero-colmenar-viejo" style={{ color: '#A0AEC0', textDecoration: 'none', fontSize: '0.85rem' }}>Colmenar</a></li>
+                <li><a href="/fontanero-collado-villalba" style={{ color: '#A0AEC0', textDecoration: 'none', fontSize: '0.85rem' }}>Villalba</a></li>
+                <li><a href="/fontanero-soto-del-real" style={{ color: '#A0AEC0', textDecoration: 'none', fontSize: '0.85rem' }}>Soto</a></li>
+                <li><a href="/fontanero-moralzarzal" style={{ color: '#A0AEC0', textDecoration: 'none', fontSize: '0.85rem' }}>Moralzarzal</a></li>
+                <li><a href="/fontanero-guadarrama" style={{ color: '#A0AEC0', textDecoration: 'none', fontSize: '0.85rem' }}>Guadarrama</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="container" style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)', textAlign: 'center' }}>
+            <p style={{ color: '#A0AEC0', fontSize: '0.85rem' }}>
+              © 2026 Reparaciones Manzanares. Todos los derechos reservados. | Técnicos Autorizados Comunidad de Madrid.
+            </p>
           </div>
         </footer>
 
@@ -86,8 +204,8 @@ export default function RootLayout({
           className="whatsapp-btn animate-pulse-wa"
           style={{
             position: 'fixed',
-            bottom: '80px', // Raised to make room for mobile call bar
-            right: '20px',
+            bottom: '100px',
+            right: '25px',
             backgroundColor: '#25D366',
             color: 'white',
             width: '60px',
@@ -119,11 +237,11 @@ export default function RootLayout({
           boxShadow: '0 -4px 10px rgba(0,0,0,0.1)',
           zIndex: 9998,
         }}>
-          <a href={`tel:${PHONE_NUMBER.replace(/\s+/g, '')}`} className="btn btn-accent pulse-btn" style={{ width: '100%', fontSize: '1.2rem', padding: '0.8rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}>
+          <a href={`tel:${PHONE_RAW}`} className="btn btn-accent pulse-btn" style={{ width: '100%', fontSize: '1.2rem', padding: '0.8rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}>
             <span style={{ fontSize: '1.4rem' }}>📞</span> ¡Llamar Técnico Ahora!
           </a>
         </div>
       </body>
     </html>
-  )
+  );
 }
