@@ -104,6 +104,27 @@ export default function RootLayout({
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-MZ2KMK12PM');
+
+              window.trackEvent = async function(type, service = '', location = '') {
+                try {
+                  // Track in our local stats
+                  await fetch('/api/track', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type, service, location })
+                  });
+                  
+                  // Track in Google Analytics too
+                  if (typeof gtag === 'function') {
+                    gtag('event', type, {
+                      'service': service,
+                      'location': location
+                    });
+                  }
+                } catch (e) {
+                  console.error('Tracking failed', e);
+                }
+              };
             `,
           }}
         />
@@ -134,7 +155,9 @@ export default function RootLayout({
               <a href="/contacto" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600 }}>Contacto</a>
             </div>
             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-              <a href={`tel:${PHONE_RAW}`} className="btn btn-accent" style={{ padding: '0.6rem 1.2rem', fontSize: '1rem' }}>
+              <a href={`tel:${PHONE_RAW}`} 
+                 onClick={() => (window as any).trackEvent?.('call', 'navbar')}
+                 className="btn btn-accent" style={{ padding: '0.6rem 1.2rem', fontSize: '1rem' }}>
                 📞 24h
               </a>
             </div>
@@ -201,6 +224,7 @@ export default function RootLayout({
           href={WA_LINK}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => (window as any).trackEvent?.('whatsapp', 'floating')}
           className="whatsapp-btn animate-pulse-wa"
           style={{
             position: 'fixed',
@@ -237,7 +261,9 @@ export default function RootLayout({
           boxShadow: '0 -4px 10px rgba(0,0,0,0.1)',
           zIndex: 9998,
         }}>
-          <a href={`tel:${PHONE_RAW}`} className="btn btn-accent pulse-btn" style={{ width: '100%', fontSize: '1.2rem', padding: '0.8rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}>
+          <a href={`tel:${PHONE_RAW}`} 
+             onClick={() => (window as any).trackEvent?.('call', 'sticky-mobile')}
+             className="btn btn-accent pulse-btn" style={{ width: '100%', fontSize: '1.2rem', padding: '0.8rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}>
             <span style={{ fontSize: '1.4rem' }}>📞</span> ¡Llamar Técnico Ahora!
           </a>
         </div>

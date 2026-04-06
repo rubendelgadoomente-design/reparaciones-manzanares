@@ -146,7 +146,9 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
             Servicio de averías y reparaciones urgentes las 24 horas. Atendemos en el municipio de <strong>{location}</strong> y toda la zona norte de Madrid de forma inmediata, con técnicos autorizados y tarifas competitivas.
           </p>
           <div style={{ marginTop: '2.5rem' }}>
-             <a href="tel:+34669162085" className="btn btn-accent animate-pulse" style={{ fontSize: '1.25rem', padding: '1.2rem 2.5rem' }}>
+             <a href="tel:+34669162085" 
+                onClick={() => (window as any).trackEvent?.('call', service.id, location)}
+                className="btn btn-accent animate-pulse" style={{ fontSize: '1.25rem', padding: '1.2rem 2.5rem' }}>
                Llamar Equipo {location}: 669 162 085
              </a>
           </div>
@@ -186,7 +188,9 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
                    </li>
                  ))}
                </ul>
-               <a href="tel:+34669162085" className="btn btn-accent" style={{ width: '100%', marginTop: '2rem', padding: '1rem' }}>Pedir Presupuesto Cerrado</a>
+                <a href="tel:+34669162085" 
+                   onClick={() => (window as any).trackEvent?.('budget', service.id, location)}
+                   className="btn btn-accent" style={{ width: '100%', marginTop: '2rem', padding: '1rem' }}>Pedir Presupuesto Cerrado</a>
              </div>
            </div>
          </div>
