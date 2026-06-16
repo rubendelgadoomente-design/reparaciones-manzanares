@@ -125,6 +125,17 @@ export default function RootLayout({
                   console.error('Tracking failed', e);
                 }
               };
+
+              // Global event delegation for clicks on elements with data-track-event
+              document.addEventListener('click', function(e) {
+                const target = e.target.closest('[data-track-event]');
+                if (target) {
+                  const eventType = target.getAttribute('data-track-event');
+                  const service = target.getAttribute('data-track-service') || '';
+                  const location = target.getAttribute('data-track-location') || '';
+                  window.trackEvent(eventType, service, location);
+                }
+              });
             `,
           }}
         />
@@ -156,7 +167,8 @@ export default function RootLayout({
             </div>
             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
               <a href={`tel:${PHONE_RAW}`} 
-                 onClick={() => (window as any).trackEvent?.('call', 'navbar')}
+                 data-track-event="call"
+                 data-track-service="navbar"
                  className="btn btn-accent" style={{ padding: '0.6rem 1.2rem', fontSize: '1rem' }}>
                 📞 24h
               </a>
@@ -224,7 +236,8 @@ export default function RootLayout({
           href={WA_LINK}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => (window as any).trackEvent?.('whatsapp', 'floating')}
+          data-track-event="whatsapp"
+          data-track-service="floating"
           className="whatsapp-btn animate-pulse-wa"
           style={{
             position: 'fixed',
@@ -262,7 +275,8 @@ export default function RootLayout({
           zIndex: 9998,
         }}>
           <a href={`tel:${PHONE_RAW}`} 
-             onClick={() => (window as any).trackEvent?.('call', 'sticky-mobile')}
+             data-track-event="call"
+             data-track-service="sticky-mobile"
              className="btn btn-accent pulse-btn" style={{ width: '100%', fontSize: '1.2rem', padding: '0.8rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}>
             <span style={{ fontSize: '1.4rem' }}>📞</span> ¡Llamar Técnico Ahora!
           </a>

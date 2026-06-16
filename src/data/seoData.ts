@@ -1,20 +1,29 @@
-export const locations = [
-  "Manzanares el Real",
-  "Colmenar Viejo",
-  "Collado Villalba",
-  "Moralzarzal",
-  "Alpedrete",
-  "Guadarrama",
-  "Cerceda",
-  "El Boalo",
-  "Mataelpino",
-  "Becerril de la Sierra",
-  "Navacerrada",
-  "Cercedilla",
-  "Los Molinos",
-  "Miraflores de la Sierra",
-  "Soto del Real"
+export interface LocationData {
+  name: string;
+  timeToArrive: string;
+  localReferences: string;
+  neighborhoods: string;
+}
+
+export const locationsData: LocationData[] = [
+  { name: "Manzanares el Real", timeToArrive: "15 minutos", localReferences: "cerca del Castillo de los Mendoza y los accesos a La Pedriza", neighborhoods: "la zona centro, urbanización Peña El Gato y los principales accesos residenciales" },
+  { name: "Colmenar Viejo", timeToArrive: "20 minutos", localReferences: "junto a la Basílica y el Parque de los Héroes", neighborhoods: "La Estación, El Mirador, Los Arcos y el centro histórico del pueblo" },
+  { name: "Collado Villalba", timeToArrive: "15 minutos", localReferences: "por el eje de la A-6 y el polígono P-29", neighborhoods: "Los Belgas, Parque de la Coruña, Villalba Pueblo y El Gorronal" },
+  { name: "Moralzarzal", timeToArrive: "15 minutos", localReferences: "junto a la Plaza de Toros cubierta y la carretera de Mataelpino", neighborhoods: "el centro urbano, Las Hachuelas y las urbanizaciones perimetrales" },
+  { name: "Alpedrete", timeToArrive: "20 minutos", localReferences: "cerca de las antiguas canteras de piedra y el Ayuntamiento", neighborhoods: "Mataespesa, Los Llanos, el centro y la zona de la estación" },
+  { name: "Guadarrama", timeToArrive: "25 minutos", localReferences: "junto a la Plaza Mayor y la antigua carretera de Los Leones", neighborhoods: "Prado San Juan, La Serranilla y el casco antiguo" },
+  { name: "Cerceda", timeToArrive: "10 minutos", localReferences: "por la rotonda principal y el nudo de la M-607", neighborhoods: "Las Portilleras, el centro neurálgico y la carretera de Navacerrada" },
+  { name: "El Boalo", timeToArrive: "10 minutos", localReferences: "cerca de la ermita de San Isidro y a las faldas de La Maliciosa", neighborhoods: "el núcleo urbano principal y las urbanizaciones dispersas" },
+  { name: "Mataelpino", timeToArrive: "15 minutos", localReferences: "junto a la plaza del pueblo y los inicios de las rutas de montaña", neighborhoods: "el centro histórico y las zonas de chalets de la parte alta" },
+  { name: "Becerril de la Sierra", timeToArrive: "20 minutos", localReferences: "a un paso del Paseo de San Sebastián y la Iglesia", neighborhoods: "el casco urbano y las grandes urbanizaciones de la zona" },
+  { name: "Navacerrada", timeToArrive: "25 minutos", localReferences: "cerca del acceso al embalse y la subida al puerto de montaña", neighborhoods: "el centro neurálgico, la zona turística y los chalets del área del embalse" },
+  { name: "Cercedilla", timeToArrive: "30 minutos", localReferences: "junto a la estación de tren y el inicio del Valle de la Fuenfría", neighborhoods: "Los Gavilanes, el centro del pueblo y la zona de la estación" },
+  { name: "Los Molinos", timeToArrive: "25 minutos", localReferences: "cerca de la parroquia de la Purísima Concepción", neighborhoods: "el tranquilo barrio de la estación y el centro del municipio" },
+  { name: "Miraflores de la Sierra", timeToArrive: "25 minutos", localReferences: "junto a la histórica Fuente Nueva y el puerto de la Morcuera", neighborhoods: "el centro urbano de calles estrechas y las urbanizaciones de la carretera de Soto" },
+  { name: "Soto del Real", timeToArrive: "15 minutos", localReferences: "cerca del anillo ciclista y el viaducto", neighborhoods: "el casco urbano, Peña Real y la zona de Sotosierra" }
 ];
+
+export const locations = locationsData.map(l => l.name);
 
 export interface ServiceFAQ {
   q: string;
