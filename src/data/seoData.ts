@@ -3,24 +3,115 @@ export interface LocationData {
   timeToArrive: string;
   localReferences: string;
   neighborhoods: string;
+  uniqueContent: string;
 }
 
 export const locationsData: LocationData[] = [
-  { name: "Manzanares el Real", timeToArrive: "15 minutos", localReferences: "cerca del Castillo de los Mendoza y los accesos a La Pedriza", neighborhoods: "la zona centro, urbanización Peña El Gato y los principales accesos residenciales" },
-  { name: "Colmenar Viejo", timeToArrive: "20 minutos", localReferences: "junto a la Basílica y el Parque de los Héroes", neighborhoods: "La Estación, El Mirador, Los Arcos y el centro histórico del pueblo" },
-  { name: "Collado Villalba", timeToArrive: "15 minutos", localReferences: "por el eje de la A-6 y el polígono P-29", neighborhoods: "Los Belgas, Parque de la Coruña, Villalba Pueblo y El Gorronal" },
-  { name: "Moralzarzal", timeToArrive: "15 minutos", localReferences: "junto a la Plaza de Toros cubierta y la carretera de Mataelpino", neighborhoods: "el centro urbano, Las Hachuelas y las urbanizaciones perimetrales" },
-  { name: "Alpedrete", timeToArrive: "20 minutos", localReferences: "cerca de las antiguas canteras de piedra y el Ayuntamiento", neighborhoods: "Mataespesa, Los Llanos, el centro y la zona de la estación" },
-  { name: "Guadarrama", timeToArrive: "25 minutos", localReferences: "junto a la Plaza Mayor y la antigua carretera de Los Leones", neighborhoods: "Prado San Juan, La Serranilla y el casco antiguo" },
-  { name: "Cerceda", timeToArrive: "10 minutos", localReferences: "por la rotonda principal y el nudo de la M-607", neighborhoods: "Las Portilleras, el centro neurálgico y la carretera de Navacerrada" },
-  { name: "El Boalo", timeToArrive: "10 minutos", localReferences: "cerca de la ermita de San Isidro y a las faldas de La Maliciosa", neighborhoods: "el núcleo urbano principal y las urbanizaciones dispersas" },
-  { name: "Mataelpino", timeToArrive: "15 minutos", localReferences: "junto a la plaza del pueblo y los inicios de las rutas de montaña", neighborhoods: "el centro histórico y las zonas de chalets de la parte alta" },
-  { name: "Becerril de la Sierra", timeToArrive: "20 minutos", localReferences: "a un paso del Paseo de San Sebastián y la Iglesia", neighborhoods: "el casco urbano y las grandes urbanizaciones de la zona" },
-  { name: "Navacerrada", timeToArrive: "25 minutos", localReferences: "cerca del acceso al embalse y la subida al puerto de montaña", neighborhoods: "el centro neurálgico, la zona turística y los chalets del área del embalse" },
-  { name: "Cercedilla", timeToArrive: "30 minutos", localReferences: "junto a la estación de tren y el inicio del Valle de la Fuenfría", neighborhoods: "Los Gavilanes, el centro del pueblo y la zona de la estación" },
-  { name: "Los Molinos", timeToArrive: "25 minutos", localReferences: "cerca de la parroquia de la Purísima Concepción", neighborhoods: "el tranquilo barrio de la estación y el centro del municipio" },
-  { name: "Miraflores de la Sierra", timeToArrive: "25 minutos", localReferences: "junto a la histórica Fuente Nueva y el puerto de la Morcuera", neighborhoods: "el centro urbano de calles estrechas y las urbanizaciones de la carretera de Soto" },
-  { name: "Soto del Real", timeToArrive: "15 minutos", localReferences: "cerca del anillo ciclista y el viaducto", neighborhoods: "el casco urbano, Peña Real y la zona de Sotosierra" }
+  { 
+    name: "Manzanares el Real", 
+    timeToArrive: "15 minutos", 
+    localReferences: "cerca del Castillo de los Mendoza y los accesos a La Pedriza", 
+    neighborhoods: "la zona centro, urbanización Peña El Gato y los principales accesos residenciales",
+    uniqueContent: "Como empresa local con sede en Manzanares el Real, conocemos cada rincón de este municipio a los pies de La Pedriza. Ya sea en las urbanizaciones más alejadas como El Mirador o Peña El Gato, o en el casco urbano antiguo cerca del Castillo, respondemos en menos de 15 minutos. Nuestro compromiso con los vecinos de Manzanares es total, ofreciendo precios ajustados al no tener gastos de desplazamiento y conociendo de primera mano las particularidades de las acometidas de agua y luz de las viviendas de la zona."
+  },
+  { 
+    name: "Colmenar Viejo", 
+    timeToArrive: "20 minutos", 
+    localReferences: "junto a la Basílica y el Parque de los Héroes", 
+    neighborhoods: "La Estación, El Mirador, Los Arcos y el centro histórico del pueblo",
+    uniqueContent: "Colmenar Viejo es uno de los núcleos urbanos más grandes a los que damos cobertura rápida desde la M-607. Nos desplazamos con frecuencia a atender avisos en las zonas de expansión del municipio, como la de La Estación o El Mirador, así como en las calles del centro histórico. Conocemos los problemas típicos de presión de agua en las zonas más elevadas y estamos listos para atender urgencias de electricidad o calderas tanto en pisos modernos como en chalets unifamiliares con rapidez garantizada."
+  },
+  { 
+    name: "Collado Villalba", 
+    timeToArrive: "15 minutos", 
+    localReferences: "por el eje de la A-6 y el polígono P-29", 
+    neighborhoods: "Los Belgas, Parque de la Coruña, Villalba Pueblo y El Gorronal",
+    uniqueContent: "Collado Villalba, considerada la capital de la sierra, es una zona de gran actividad comercial y residencial donde atendemos urgencias con técnicos en el área del P-29 y Los Belgas. La proximidad de las viviendas de Villalba Pueblo y las urbanizaciones como Parque de la Coruña exige un servicio rápido y eficiente. Nos encargamos de dar soluciones rápidas a desatascos en locales comerciales y cortes eléctricos en viviendas residenciales con tiempos de llegada mínimos."
+  },
+  { 
+    name: "Moralzarzal", 
+    timeToArrive: "15 minutos", 
+    localReferences: "junto a la Plaza de Toros cubierta y la carretera de Mataelpino", 
+    neighborhoods: "el centro urbano, Las Hachuelas y las urbanizaciones perimetrales",
+    uniqueContent: "En Moralzarzal ofrecemos un servicio ágil y cercano, desplazándonos por la carretera de Mataelpino para llegar en tiempo récord a las viviendas de Las Hachuelas y las urbanizaciones residenciales perimetrales. Al ser una localidad de gran crecimiento familiar, prestamos especial atención al mantenimiento de sistemas de calefacción y calderas que sufren mucho en los meses fríos de invierno, asegurando el bienestar de los hogares de Moralzarzal."
+  },
+  { 
+    name: "Alpedrete", 
+    timeToArrive: "20 minutos", 
+    localReferences: "cerca de las antiguas canteras de piedra y el Ayuntamiento", 
+    neighborhoods: "Mataespesa, Los Llanos, el centro y la zona de la estación",
+    uniqueContent: "Nuestros servicios en Alpedrete cubren desde el casco urbano tradicional hasta las urbanizaciones residenciales de Los Llanos y Mataespesa. Nos conocemos bien las tipologías de viviendas locales, muchas de ellas construidas con la característica piedra de las canteras de la zona, y las necesidades específicas que presentan en sus instalaciones de fontanería y calefacción. Estamos disponibles para resolver cualquier avería rápido y con plenas garantías."
+  },
+  { 
+    name: "Guadarrama", 
+    timeToArrive: "25 minutos", 
+    localReferences: "junto a la Plaza Mayor y la antigua carretera de Los Leones", 
+    neighborhoods: "Prado San Juan, La Serranilla y el casco antiguo",
+    uniqueContent: "Guadarrama es una localidad de montaña donde las inclemencias del tiempo en invierno ponen a prueba las tuberías y las calderas de los hogares. Damos asistencia rápida en urbanizaciones como La Serranilla y Prado San Juan, además de en el propio centro histórico del municipio. Estamos preparados para realizar intervenciones urgentes de desatascos por congelación o reparaciones de caldera a cualquier hora del día."
+  },
+  { 
+    name: "Cerceda", 
+    timeToArrive: "10 minutos", 
+    localReferences: "por la rotonda principal y el nudo de la M-607", 
+    neighborhoods: "Las Portilleras, el centro neurálgico y la carretera de Navacerrada",
+    uniqueContent: "Cerceda es un punto de conexión clave en la sierra donde atendemos averías domésticas en tiempo récord (normalmente menos de 10 minutos). Conocemos perfectamente las urbanizaciones de chalets de Las Portilleras y los accesos residenciales. Prestamos un servicio directo, sin intermediarios, muy valorado por los vecinos que buscan un electricista o fontanero local de confianza para pequeñas reparaciones o grandes urgencias del hogar."
+  },
+  { 
+    name: "El Boalo", 
+    timeToArrive: "10 minutos", 
+    localReferences: "cerca de la ermita de San Isidro y a las faldas de La Maliciosa", 
+    neighborhoods: "el núcleo urbano principal y las urbanizaciones dispersas",
+    uniqueContent: "En El Boalo, a las faldas de la sierra, atendemos con regularidad incidencias de fontanería, electricidad y cerrajería en el núcleo urbano y las urbanizaciones rurales. Nos adaptamos a la tranquilidad y las necesidades específicas de los chalets unifamiliares de la zona, ofreciendo siempre mantenimiento preventivo en sistemas de agua y climatización para evitar averías molestas que perturben el confort doméstico."
+  },
+  { 
+    name: "Mataelpino", 
+    timeToArrive: "15 minutos", 
+    localReferences: "junto a la plaza del pueblo y los inicios de las rutas de montaña", 
+    neighborhoods: "el centro histórico y las zonas de chalets de la parte alta",
+    uniqueContent: "Mataelpino, por su altitud y proximidad a las rutas de montaña, experimenta inviernos severos que a menudo afectan a las instalaciones exteriores de agua y calefacción. Nos desplazamos rápidamente desde la M-617 para asistir a los vecinos del centro y de las zonas residenciales altas. Resolvemos con presteza roturas de tuberías por heladas y bloqueos de calderas en el acto."
+  },
+  { 
+    name: "Becerril de la Sierra", 
+    timeToArrive: "20 minutos", 
+    localReferences: "a un paso del Paseo de San Sebastián y la Iglesia", 
+    neighborhoods: "el casco urbano y las grandes urbanizaciones de la zona",
+    uniqueContent: "Becerril de la Sierra destaca por sus amplias zonas residenciales de segunda residencia y viviendas familiares permanentes. Damos servicio rápido tanto en el casco antiguo como en las urbanizaciones consolidadas del extrarradio. Ofrecemos asistencia en reparaciones de fontanería e instalaciones de luz adaptadas a las normativas vigentes, asegurando que tu chalet o piso quede en perfectas condiciones de seguridad."
+  },
+  { 
+    name: "Navacerrada", 
+    timeToArrive: "25 minutos", 
+    localReferences: "cerca del acceso al embalse y la subida al puerto de montaña", 
+    neighborhoods: "el centro neurálgico, la zona turística y los chalets del área del embalse",
+    uniqueContent: "Navacerrada es uno de los pueblos más altos y fríos de Madrid, lo que exige contar con técnicos de confianza que puedan acudir en pleno temporal. Atendemos problemas de congelación de tuberías, purgado de circuitos de calefacción y puesta a punto de calderas en chalets y locales turísticos de restauración. Conocemos los retos de la zona y estamos disponibles las 24 horas."
+  },
+  { 
+    name: "Cercedilla", 
+    timeToArrive: "30 minutos", 
+    localReferences: "junto a la estación de tren y el inicio del Valle de la Fuenfría", 
+    neighborhoods: "Los Gavilanes, el centro del pueblo y la zona de la estación",
+    uniqueContent: "En Cercedilla, el Valle de la Fuenfría y las zonas residenciales como Los Gavilanes cuentan con nuestro servicio técnico rápido para cualquier problema en el hogar. La antigüedad de algunas edificaciones del municipio requiere técnicos experimentados que conozcan instalaciones eléctricas de época y sistemas de fontanería complejos, ofreciendo soluciones modernas que cumplan con la seguridad actual."
+  },
+  { 
+    name: "Los Molinos", 
+    timeToArrive: "25 minutos", 
+    localReferences: "cerca de la parroquia de la Purísima Concepción", 
+    neighborhoods: "el tranquilo barrio de la estación y el centro del municipio",
+    uniqueContent: "Los Molinos es un municipio de ambiente tranquilo donde ofrecemos asistencia técnica en el casco urbano y el barrio de la estación. Atendemos averías de todo tipo con tarifas justas, ayudando a los propietarios de viviendas de piedra tradicionales y chalets a mantener sus instalaciones en perfecto funcionamiento de cara a las exigencias térmicas de la sierra."
+  },
+  { 
+    name: "Miraflores de la Sierra", 
+    timeToArrive: "25 minutos", 
+    localReferences: "junto a la histórica Fuente Nueva y el puerto de la Morcuera", 
+    neighborhoods: "el centro urbano de calles estrechas y las urbanizaciones de la carretera de Soto",
+    uniqueContent: "En Miraflores de la Sierra, pueblo de montaña de gran belleza y segundas residencias, nos encargamos de dar cobertura de urgencias de cerrajería y reparaciones de calderas. Atendemos avisos tanto en las calles empinadas del centro histórico como en las urbanizaciones residenciales de la carretera de Soto, asegurando una intervención limpia y garantizada en todo momento."
+  },
+  { 
+    name: "Soto del Real", 
+    timeToArrive: "15 minutos", 
+    localReferences: "cerca del anillo ciclista y el viaducto", 
+    neighborhoods: "el casco urbano, Peña Real y la zona de Sotosierra",
+    uniqueContent: "Soto del Real es una de nuestras principales zonas de actuación diaria desde Manzanares. Nos desplazamos en pocos minutos a urbanizaciones residenciales como Sotosierra, Peña Real y todo el casco urbano principal. Al ser una localidad muy residencial, realizamos una gran cantidad de servicios de mantenimiento de cuadros eléctricos, instalación de bombines de seguridad y averías rápidas de fontanería."
+  }
 ];
 
 export const locations = locationsData.map(l => l.name);

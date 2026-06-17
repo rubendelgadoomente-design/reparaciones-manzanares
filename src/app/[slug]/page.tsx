@@ -168,12 +168,15 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
            
            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem', alignItems: 'start' }}>
               <div style={{ fontSize: '1.1rem', color: 'var(--color-text)', lineHeight: 1.8 }}>
-               <p style={{ marginBottom: '1.5rem' }}>
-                 Como especialistas en {service.name.toLowerCase()} en <strong>{location}</strong>, conocemos perfectamente 
-                 zonas como {locationData.neighborhoods}. Nuestro compromiso es llegar a tu domicilio 
-                 en un tiempo aproximado de <strong>{locationData.timeToArrive}</strong>.
-               </p>
-               {service.longDescription.map((p, i) => (
+                <p style={{ marginBottom: '1.5rem' }}>
+                  Como especialistas en {service.name.toLowerCase()} en <strong>{location}</strong>, conocemos perfectamente 
+                  zonas como {locationData.neighborhoods}. Nuestro compromiso es llegar a tu domicilio 
+                  en un tiempo aproximado de <strong>{locationData.timeToArrive}</strong>.
+                </p>
+                <p style={{ marginBottom: '1.5rem', fontStyle: 'italic', paddingLeft: '1rem', borderLeft: '3px solid var(--color-accent)', color: 'var(--color-text-muted)' }}>
+                  {locationData.uniqueContent}
+                </p>
+                {service.longDescription.map((p, i) => (
                  <p key={i} style={{ marginBottom: '1.5rem' }}>
                    {p.replace(/{location}/g, location)
                      .replace(/la Sierra de Madrid/g, location)
