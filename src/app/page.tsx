@@ -231,6 +231,29 @@ export default function Home() {
         </div>
       </section>
 
+      {/* SECCIÓN SEO LOCAL — TEXTO DESCRIPTIVO */}
+      <section style={{ padding: '5rem 0', backgroundColor: '#F8FAFC', borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>
+        <div className="container" style={{ maxWidth: '850px', margin: '0 auto', padding: '0 1.5rem' }}>
+          <h2 style={{ fontSize: '2.2rem', marginBottom: '1.5rem', color: 'var(--color-primary)', textAlign: 'center' }}>
+            Tus Técnicos de Confianza en Manzanares el Real y la Sierra de Madrid
+          </h2>
+          <div style={{ fontSize: '1.05rem', lineHeight: '1.8', color: 'var(--color-text-muted)', textAlign: 'justify' }}>
+            <p style={{ marginBottom: '1.5rem' }}>
+              En <strong>Reparaciones Manzanares</strong> nos dedicamos a ofrecer soluciones rápidas, profesionales y eficaces para cualquier tipo de mantenimiento o avería en tu hogar o negocio. Somos técnicos especialistas autorizados y ofrecemos asistencia técnica urgente las 24 horas del día para servicios de <strong>fontanería, averías eléctricas, reparación de calderas de todas las marcas y cerrajería de seguridad</strong> en toda la zona de la Sierra de Madrid.
+            </p>
+            <p style={{ marginBottom: '1.5rem' }}>
+              Nuestra base de operaciones física está en <strong>Manzanares el Real (28410)</strong>, lo que nos sitúa en una posición estratégica inmejorable para dar una respuesta inmediata, con tiempos de llegada de unos 15 a 30 minutos, en municipios colindantes de la zona norte. Atendemos con total rapidez en <strong>Soto del Real, El Boalo, Cerceda, Mataelpino, Moralzarzal, Becerril de la Sierra, Navacerrada, Alpedrete, Collado Villalba y Colmenar Viejo</strong>. Estar en la misma comarca nos permite desplazarnos de urgencia sin costes excesivos de transporte.
+            </p>
+            <p style={{ marginBottom: '1.5rem' }}>
+              Resolvemos incidencias críticas de forma inmediata: localización y sellado de fugas de agua y humedades, desatascos de tuberías con maquinaria especializada, solución a apagones y cortocircuitos eléctricos, instalación de iluminación LED y boletines de luz. También nos encargamos de la apertura de puertas sin roturas por llaves perdidas u olvidadas, cambios de cerraduras por modelos antibumping de seguridad y reparación de calderas de gas, gasoil o pellets que se han quedado sin presión o agua caliente.
+            </p>
+            <p style={{ marginBottom: 0 }}>
+              Trabajamos de forma directa, <strong>sin ningún tipo de intermediarios ni agencias externas</strong>, lo que nos permite ajustar al máximo los costes y garantizar precios económicos y honestos a nuestros vecinos de la sierra. Facilitamos siempre un presupuesto cerrado y detallado por escrito antes de ponernos manos a la obra para tu total tranquilidad, y todas nuestras reparaciones cuentan con una garantía por escrito de hasta 6 meses.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* CASO REAL — ANTES / DURANTE / DESPUÉS */}
       <section style={{ padding: '5rem 0', backgroundColor: '#F8FAFC' }}>
         <div className="container">

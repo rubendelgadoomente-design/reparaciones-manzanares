@@ -128,6 +128,12 @@ export default function RootLayout({
 
               // Global event delegation for clicks on elements with data-track-event
               document.addEventListener('click', function(e) {
+                // Close mobile menu when a link inside the drawer is clicked
+                if (e.target.closest('.mobile-drawer a')) {
+                  const checkbox = document.getElementById('mobile-menu-checkbox');
+                  if (checkbox) checkbox.checked = false;
+                }
+
                 const target = e.target.closest('[data-track-event]');
                 if (target) {
                   const eventType = target.getAttribute('data-track-event');
@@ -146,6 +152,8 @@ export default function RootLayout({
           top: 0,
           zIndex: 100
         }}>
+          <input type="checkbox" id="mobile-menu-checkbox" style={{ display: 'none' }} />
+          
           <div className="container" style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -172,11 +180,74 @@ export default function RootLayout({
                  className="btn btn-accent" style={{ padding: '0.6rem 1.2rem', fontSize: '1rem' }}>
                 📞 24h
               </a>
+              
+              <label htmlFor="mobile-menu-checkbox" className="hamburger-btn" aria-label="Abrir menú de navegación" style={{ display: 'none' }}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </label>
             </div>
           </div>
+
+          <div className="mobile-drawer" style={{ display: 'none' }}>
+            <a href="/nosotros" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Nosotros</a>
+            <a href="/fontanero-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Fontanería</a>
+            <a href="/electricista-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Electricidad</a>
+            <a href="/cerrajero-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Cerrajería</a>
+            <a href="/reparacion-calderas-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Calderas</a>
+            <a href="/contacto" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600, fontSize: '1.1rem', paddingBottom: '0.5rem' }}>Contacto</a>
+          </div>
+
           <style dangerouslySetInnerHTML={{ __html: `
             @media (min-width: 1024px) {
               .nav-links { display: flex !important; }
+              .hamburger-btn { display: none !important; }
+              .mobile-drawer { display: none !important; }
+            }
+            @media (max-width: 1023px) {
+              .hamburger-btn {
+                display: flex !important;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 24px;
+                height: 18px;
+                cursor: pointer;
+                z-index: 110;
+              }
+              .hamburger-btn span {
+                display: block;
+                height: 3px;
+                width: 100%;
+                background-color: var(--color-primary);
+                border-radius: 2px;
+                transition: all 0.3s ease;
+              }
+              .mobile-drawer {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background-color: var(--color-surface);
+                border-bottom: 1px solid #E2E8F0;
+                box-shadow: var(--shadow-md);
+                padding: 1.5rem;
+                gap: 1rem;
+                z-index: 99;
+              }
+              #mobile-menu-checkbox:checked ~ .mobile-drawer {
+                display: flex !important;
+              }
+              #mobile-menu-checkbox:checked ~ .container .hamburger-btn span:nth-child(1) {
+                transform: translateY(7.5px) rotate(45deg);
+              }
+              #mobile-menu-checkbox:checked ~ .container .hamburger-btn span:nth-child(2) {
+                opacity: 0;
+              }
+              #mobile-menu-checkbox:checked ~ .container .hamburger-btn span:nth-child(3) {
+                transform: translateY(-7.5px) rotate(-45deg);
+              }
             }
           `}} />
         </nav>
@@ -192,10 +263,15 @@ export default function RootLayout({
           <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '3rem', textAlign: 'left' }}>
             <div>
               <h3 style={{ color: 'white', marginBottom: '1.5rem' }}>Reparaciones Manzanares</h3>
-              <p style={{ color: '#A0AEC0', fontSize: '0.95rem', lineHeight: 1.6 }}>
+              <p style={{ color: '#A0AEC0', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1rem' }}>
                 Tu servicio técnico de confianza en la Sierra de Madrid (Zona Norte). Técnicos autorizados en reparaciones urgentes y mantenimiento del hogar.
               </p>
-              <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <address style={{ color: '#A0AEC0', fontSize: '0.85rem', fontStyle: 'normal', marginBottom: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.35rem', lineHeight: 1.4 }}>
+                <span>📍 Calle del Real, 28410 Manzanares el Real, Madrid</span>
+                <span>📞 Teléfono: <a href={`tel:${PHONE_RAW}`} style={{ color: 'white', textDecoration: 'none', fontWeight: 600 }}>{PHONE_NUMBER}</a></span>
+                <span>✉️ Email: <a href="mailto:info@reparacionesmanzanares.es" style={{ color: 'white', textDecoration: 'none' }}>info@reparacionesmanzanares.es</a></span>
+              </address>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 <a href="/nosotros" style={{ color: 'white', textDecoration: 'none', fontSize: '0.9rem' }}>Sobre nosotros →</a>
                 <a href="/contacto" style={{ color: 'white', textDecoration: 'none', fontSize: '0.9rem' }}>Página de contacto →</a>
               </div>
