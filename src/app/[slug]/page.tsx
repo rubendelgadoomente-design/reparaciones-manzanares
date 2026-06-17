@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import { locations, services, slugify, locationsData } from '@/data/seoData';
 // Generate all 45 URLs at build time dynamically (SSG)
 export function generateStaticParams() {
@@ -284,6 +285,41 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
               </div>
               <p style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.6 }}>"Saltaban los plomos en casa. El técnico detectó el cortocircuito en {location} rapidísimo y lo arregló cobrando un precio totalmente justo. Muy honestos."</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* LOCALIDADES CERCANAS / INTERLINKING */}
+      <section style={{ padding: '4rem 0', backgroundColor: '#F8FAFC', borderTop: '1px solid #E2E8F0' }}>
+        <div className="container" style={{ maxWidth: '900px', margin: '0 auto', padding: '0 1.5rem', textAlign: 'center' }}>
+          <h3 style={{ fontSize: '1.4rem', color: 'var(--color-primary)', marginBottom: '1.5rem' }}>
+            📍 Otras localidades con servicio de {service.name.toLowerCase()} cercano:
+          </h3>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem' }}>
+            {locationData.nearbyLocations.map((nearbyName) => {
+              const nearbySlug = `${service.slugBase}-${slugify(nearbyName)}`;
+              return (
+                <Link 
+                  key={nearbyName} 
+                  href={`/${nearbySlug}`}
+                  style={{
+                    backgroundColor: 'white',
+                    border: '1px solid #CBD5E1',
+                    borderRadius: '30px',
+                    padding: '0.6rem 1.2rem',
+                    fontSize: '0.95rem',
+                    color: 'var(--color-primary)',
+                    fontWeight: 500,
+                    textDecoration: 'none',
+                    transition: 'all 0.2s ease',
+                    boxShadow: 'var(--shadow-sm)'
+                  }}
+                  className="nearby-link"
+                >
+                  {service.title} en {nearbyName}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
