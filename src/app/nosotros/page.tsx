@@ -81,8 +81,8 @@ export default function NosotrosPage() {
             No esperes a que el problema empeore. Estamos disponibles las 24 horas del día para ayudarte.
           </p>
           <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="tel:+34669162085" className="btn btn-accent pulse-btn" style={{ fontSize: '1.2rem', padding: '1.2rem 2.5rem' }}>
-              📞 Llamar ahora: 669 162 085
+            <a href="tel:+34919930963" className="btn btn-accent pulse-btn" style={{ fontSize: '1.2rem', padding: '1.2rem 2.5rem' }}>
+              📞 Llamar ahora: 919 930 963
             </a>
             <a href="/contacto" className="btn" style={{ backgroundColor: 'var(--color-primary)', color: 'white' }}>
               Solicitar Presupuesto

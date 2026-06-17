@@ -4,8 +4,8 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { blogPosts } from '@/data/blogData';
 
-const PHONE_NUMBER = "669 162 085";
-const PHONE_RAW = "669162085";
+const PHONE_NUMBER = "919 930 963";
+const PHONE_RAW = "919930963";
 
 export function generateStaticParams() {
   return blogPosts.map(post => ({ slug: post.slug }));

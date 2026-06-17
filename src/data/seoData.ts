@@ -264,7 +264,7 @@ export const services: Service[] = [
       },
       {
         q: "Mi caldera muestra un código de error, ¿qué hago?",
-        a: "Lo primero es anotar el código exacto que aparece en la pantalla de la caldera. Puedes llamarnos al 669 162 085 y darnos ese código: en muchos casos podemos orientarte por teléfono sobre si es algo que puedes resetear tú mismo o si necesita visita técnica. Nunca intentes manipular la caldera por tu cuenta más allá de un simple reseteo."
+        a: "Lo primero es anotar el código exacto que aparece en la pantalla de la caldera. Puedes llamarnos al 919 930 963 y darnos ese código: en muchos casos podemos orientarte por teléfono sobre si es algo que puedes resetear tú mismo o si necesita visita técnica. Nunca intentes manipular la caldera por tu cuenta más allá de un simple reseteo."
       },
       {
         q: "¿Cuánto cuesta cambiar una caldera completa?",

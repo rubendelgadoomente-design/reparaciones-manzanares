@@ -78,7 +78,7 @@ export default function Home() {
               Solucionamos al instante problemas de <strong>fontanería, electricidad y calderas</strong> en toda la Sierra de Madrid. Trato directo, garantía por escrito y precios transparentes.
             </p>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <a href="tel:+34669162085" className="btn btn-accent animate-pulse" style={{ fontSize: '1.2rem' }}>
+              <a href="tel:+34919930963" className="btn btn-accent animate-pulse" style={{ fontSize: '1.2rem' }}>
                 Llamar Urgencia 24h
               </a>
               <a href="#servicios" className="btn" style={{ backgroundColor: 'transparent', border: '2px solid white', color: 'white' }}>

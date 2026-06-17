@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   return {
     title: `${service.title} en ${location} | Urgencias 24h`,
-    description: `¿Buscas experto en ${service.name.toLowerCase()} en ${location}? Llegamos en menos de 30 minutos. Servicio técnico garantizado, tarifas transparentes y sin intermediarios. Llama al 669 162 085.`,
+    description: `¿Buscas experto en ${service.name.toLowerCase()} en ${location}? Llegamos en menos de 30 minutos. Servicio técnico garantizado, tarifas transparentes y sin intermediarios. Llama al 919 930 963.`,
     alternates: {
       canonical: `https://www.reparacionesmanzanares.es/${resolvedParams.slug}`
     }
@@ -85,7 +85,7 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
     "provider": {
       "@type": "LocalBusiness",
       "name": "Reparaciones Manzanares",
-      "telephone": "+34669162085",
+      "telephone": "+34919930963",
       "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",
@@ -150,12 +150,12 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
             Servicio de averías y reparaciones urgentes las 24 horas. Atendemos en el municipio de <strong>{location}</strong> (con desplazamientos rápidos por {locationData.localReferences}) de forma inmediata, con técnicos autorizados y tiempos de respuesta de unos {locationData.timeToArrive}.
           </p>
           <div style={{ marginTop: '2.5rem' }}>
-             <a href="tel:+34669162085" 
+             <a href="tel:+34919930963" 
                 data-track-event="call"
                 data-track-service={service.id}
                 data-track-location={location}
                 className="btn btn-accent animate-pulse" style={{ fontSize: '1.25rem', padding: '1.2rem 2.5rem' }}>
-               Llamar Equipo {location}: 669 162 085
+               Llamar Equipo {location}: 919 930 963
              </a>
           </div>
         </div>
@@ -206,7 +206,7 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
                    </li>
                  ))}
                </ul>
-                 <a href="tel:+34669162085" 
+                 <a href="tel:+34919930963" 
                     data-track-event="budget"
                     data-track-service={service.id}
                     data-track-location={location}

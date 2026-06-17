@@ -3,8 +3,8 @@ import Script from 'next/script'
 import './globals.css'
 
 const baseUrl = 'https://www.reparacionesmanzanares.es';
-const PHONE_NUMBER = "669 162 085";
-const PHONE_RAW = "669162085";
+const PHONE_NUMBER = "919 930 963";
+const PHONE_RAW = "919930963";
 const WA_LINK = `https://wa.me/34${PHONE_RAW}?text=Hola%20Reparaciones%20Manzanares,%20tengo%20una%20aver%C3%ADa%20urgente%20en%20casa.%20%C2%BFMe%20pod%C3%A9is%20ayudar?`;
 
 export const metadata: Metadata = {

@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 };
 
 export default function ContactoPage() {
-  const PHONE_RAW = "669162085";
-  const PHONE_NUMBER = "669 162 085";
+  const PHONE_RAW = "919930963";
+  const PHONE_NUMBER = "919 930 963";
 
   return (
     <main>
