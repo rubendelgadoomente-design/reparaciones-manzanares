@@ -171,6 +171,7 @@ export default function RootLayout({
               <a href="/electricista-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Electricidad</a>
               <a href="/cerrajero-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Cerrajería</a>
               <a href="/reparacion-calderas-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Calderas</a>
+              <a href="/blog" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>Blog</a>
               <a href="/contacto" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600 }}>Contacto</a>
             </div>
             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
@@ -195,6 +196,7 @@ export default function RootLayout({
             <a href="/electricista-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Electricidad</a>
             <a href="/cerrajero-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Cerrajería</a>
             <a href="/reparacion-calderas-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Calderas</a>
+            <a href="/blog" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Blog</a>
             <a href="/contacto" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600, fontSize: '1.1rem', paddingBottom: '0.5rem' }}>Contacto</a>
           </div>
 
@@ -273,6 +275,7 @@ export default function RootLayout({
               </address>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 <a href="/nosotros" style={{ color: 'white', textDecoration: 'none', fontSize: '0.9rem' }}>Sobre nosotros →</a>
+                <a href="/blog" style={{ color: 'white', textDecoration: 'none', fontSize: '0.9rem' }}>Blog de consejos →</a>
                 <a href="/contacto" style={{ color: 'white', textDecoration: 'none', fontSize: '0.9rem' }}>Página de contacto →</a>
               </div>
             </div>

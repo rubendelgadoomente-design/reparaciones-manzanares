@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { locations, services, slugify } from '../data/seoData';
+import { blogPosts } from '../data/blogData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.reparacionesmanzanares.es';
@@ -23,8 +24,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
   ];
 
+  // Services + Locations dynamic routes
   services.forEach(service => {
     locations.forEach(location => {
       const slug = `${service.slugBase}-${slugify(location)}`;
@@ -34,6 +42,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: 'monthly',
         priority: 0.8,
       });
+    });
+  });
+
+  // Blog dynamic posts routes
+  blogPosts.forEach(post => {
+    routes.push({
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
     });
   });
 
