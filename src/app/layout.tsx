@@ -5,7 +5,7 @@ import './globals.css'
 const baseUrl = 'https://www.reparacionesmanzanares.es';
 const PHONE_NUMBER = "919 930 963";
 const PHONE_RAW = "919930963";
-const WA_LINK = `https://wa.me/34${PHONE_RAW}?text=Hola%20Reparaciones%20Manzanares,%20tengo%20una%20aver%C3%ADa%20urgente%20en%20casa.%20%C2%BFMe%20pod%C3%A9is%20ayudar?`;
+const WA_LINK = `https://wa.me/34${PHONE_RAW}?text=Hola,%20necesito%20informaci%C3%B3n%20sobre%20un%20servicio%20de%20reparaci%C3%B3n.`;
 
 export const metadata: Metadata = {
   title: {
@@ -80,8 +80,44 @@ export default function RootLayout({
       { "@type": "City", "name": "Moralzarzal" },
       { "@type": "City", "name": "Soto del Real" },
       { "@type": "City", "name": "Guadarrama" },
-      { "@type": "City", "name": "Alpedrete" }
-    ]
+      { "@type": "City", "name": "Alpedrete" },
+      { "@type": "AdministrativeArea", "name": "Sierra Norte de Madrid" }
+    ],
+    "knowsAbout": ["Fontanería", "Electricidad", "Cerrajería", "Reparaciones del hogar"],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Servicios de Reparaciones",
+      "itemListElement": [
+        {
+          "@type": "OfferCatalog",
+          "name": "Fontanería",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reparación de fugas y desatascos" } }
+          ]
+        },
+        {
+          "@type": "OfferCatalog",
+          "name": "Electricidad",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Averías y cuadros eléctricos" } }
+          ]
+        },
+        {
+          "@type": "OfferCatalog",
+          "name": "Cerrajería",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Apertura de puertas y cambio de cerraduras" } }
+          ]
+        },
+        {
+          "@type": "OfferCatalog",
+          "name": "Reparaciones del Hogar",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bricolaje, persianas y mantenimiento general" } }
+          ]
+        }
+      ]
+    }
   };
 
   return (
@@ -170,6 +206,7 @@ export default function RootLayout({
               <a href="/fontanero-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Fontanería</a>
               <a href="/electricista-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Electricidad</a>
               <a href="/cerrajero-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Cerrajería</a>
+              <a href="/reparaciones-hogar-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Reparaciones</a>
               <a href="/reparacion-calderas-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Calderas</a>
               <a href="/blog" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>Blog</a>
               <a href="/contacto" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600 }}>Contacto</a>
@@ -195,6 +232,7 @@ export default function RootLayout({
             <a href="/fontanero-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Fontanería</a>
             <a href="/electricista-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Electricidad</a>
             <a href="/cerrajero-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Cerrajería</a>
+            <a href="/reparaciones-hogar-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Reparaciones</a>
             <a href="/reparacion-calderas-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Calderas</a>
             <a href="/blog" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600, fontSize: '1.1rem', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>Blog</a>
             <a href="/contacto" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600, fontSize: '1.1rem', paddingBottom: '0.5rem' }}>Contacto</a>
@@ -286,6 +324,7 @@ export default function RootLayout({
                 <li><a href="/fontanero-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Fontanería Urgente</a></li>
                 <li><a href="/electricista-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Electricista 24 Horas</a></li>
                 <li><a href="/cerrajero-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Cerrajero de Urgencia</a></li>
+                <li><a href="/reparaciones-hogar-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Reparaciones del Hogar</a></li>
                 <li><a href="/reparacion-calderas-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Reparación de Calderas</a></li>
                 <li><a href="/aire-acondicionado-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Aire Acondicionado</a></li>
               </ul>

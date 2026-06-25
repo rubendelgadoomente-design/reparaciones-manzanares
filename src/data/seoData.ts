@@ -443,6 +443,37 @@ export const services: Service[] = [
         a: "Sí, realizamos pequeños retoques: tapar agujeros de cuadros antiguos, pintar un techo de baño tras una humedad, o una sola pared. No realizamos pintura de viviendas completas, nos enfocamos en el mantenimiento y las pequeñas reparaciones que hacen que tu casa luzca perfecta."
       }
     ]
+  },
+  {
+    id: "reparaciones-hogar",
+    name: "Reparaciones del Hogar",
+    title: "Reparaciones del Hogar",
+    slugBase: "reparaciones-hogar",
+    emoji: "🏠",
+    description: "Servicio de reparaciones generales y mantenimiento del hogar en la Sierra de Madrid.",
+    longDescription: [
+      "Las pequeñas averías y el mantenimiento del hogar pueden acumularse rápidamente si no se atienden a tiempo. Desde colgar accesorios hasta reparar persianas, arreglar desperfectos o realizar trabajos de bricolaje, nuestro equipo de manitas y reparadores a domicilio ofrece soluciones fiables.",
+      "Atendemos de forma rápida y directa en todos los municipios de la zona norte, garantizando presupuestos cerrados y sin sorpresas antes de comenzar cualquier trabajo.",
+      "Trabajamos con herramientas profesionales y materiales de calidad para asegurar resultados duraderos en cada pequeña reforma o reparación."
+    ],
+    tasks: [
+      "Pequeñas reparaciones de carpintería y bricolaje",
+      "Reparación e instalación de persianas domésticas",
+      "Montaje de muebles y estanterías",
+      "Sellado de juntas de silicona en cocinas y baños",
+      "Instalación de accesorios del hogar (cuadros, cortinas, lámparas)",
+      "Mantenimiento básico general de la vivienda"
+    ],
+    faqs: [
+      {
+        q: "¿Qué tipo de reparaciones realizáis con este servicio?",
+        a: "Realizamos todo tipo de pequeños trabajos y tareas de mantenimiento que no requieren un instalador de gran obra: arreglos de bricolaje, colgar cuadros o cortinas, sellar sanitarios, reparaciones de persianas, y ajuste de puertas."
+      },
+      {
+        q: "¿Ofrecéis presupuesto antes de acudir a la vivienda?",
+        a: "Sí. Para la mayoría de tareas nos puedes describir lo que necesitas o enviarnos fotos por WhatsApp y te daremos un presupuesto cerrado que incluye la mano de obra y el material básico."
+      }
+    ]
   }
 ];
 

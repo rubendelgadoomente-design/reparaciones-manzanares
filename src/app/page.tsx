@@ -1,5 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Reparaciones del Hogar en Manzanares el Real | Fontanería, Electricidad y Cerrajería',
+  description: 'Servicio de reparaciones del hogar en Manzanares el Real y Sierra Norte. Fontanería, electricidad, cerrajería y mantenimiento. Atención rápida por teléfono y WhatsApp.',
+  alternates: {
+    canonical: 'https://www.reparacionesmanzanares.es'
+  }
+};
 
 export default function Home() {
   const faqs = [
@@ -72,22 +81,31 @@ export default function Home() {
               🚨 Asistencia Técnica Urgente en la Zona
             </div>
             <h1 style={{ color: 'white', fontSize: '3.5rem', marginBottom: '1.5rem', lineHeight: 1.1 }}>
-              Fontanero y Electricista <span style={{ color: 'var(--color-accent)' }}>Urgente 24h</span> en Manzanares el Real.
+              Reparaciones urgentes y <span style={{ color: 'var(--color-accent)' }}>mantenimiento del hogar</span> en Manzanares el Real.
             </h1>
-            <p style={{ fontSize: '1.25rem', color: '#CBD5E1', marginBottom: '2.5rem', maxWidth: '600px' }}>
-              Solucionamos al instante problemas de <strong>fontanería, electricidad y calderas</strong> en toda la Sierra de Madrid. Trato directo, garantía por escrito y precios transparentes.
+            <p style={{ fontSize: '1.25rem', color: '#CBD5E1', marginBottom: '1.5rem', maxWidth: '600px' }}>
+              Tu servicio técnico de confianza en toda la Sierra Norte. Trato directo, garantía por escrito y precios sin sorpresas.
             </p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 2.5rem 0', display: 'flex', flexDirection: 'column', gap: '0.6rem', fontSize: '1.1rem', color: '#CBD5E1', textAlign: 'left' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><span style={{ color: 'var(--color-accent)', fontWeight: 'bold' }}>✓</span> Atención inmediata y urgente 24h</li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><span style={{ color: 'var(--color-accent)', fontWeight: 'bold' }}>✓</span> Presupuesto sin compromiso y sin intermediarios</li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><span style={{ color: 'var(--color-accent)', fontWeight: 'bold' }}>✓</span> Contacto directo por teléfono y WhatsApp</li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><span style={{ color: 'var(--color-accent)', fontWeight: 'bold' }}>✓</span> Cobertura completa en toda la Sierra Norte</li>
+            </ul>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               <a href="tel:+34919930963" className="btn btn-accent animate-pulse" style={{ fontSize: '1.2rem' }}>
-                Llamar Urgencia 24h
+                📞 Llamar Ahora
               </a>
-              <a href="#servicios" className="btn" style={{ backgroundColor: 'transparent', border: '2px solid white', color: 'white' }}>
-                Ver Nuestros Servicios
+              <a href="https://wa.me/34919930963?text=Hola,%20necesito%20informaci%C3%B3n%20sobre%20un%20servicio%20de%20reparaci%C3%B3n." target="_blank" rel="noopener noreferrer" className="btn" style={{ backgroundColor: '#25D366', color: 'white', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                💬 WhatsApp
+              </a>
+              <a href="#contacto-rapido" className="btn" style={{ backgroundColor: 'transparent', border: '2px solid white', color: 'white' }}>
+                Pedir Presupuesto
               </a>
             </div>
           </div>
 
-          <div style={{ flex: '1 1 400px', display: 'flex', justifyContent: 'center' }}>
+          <div id="contacto-rapido" style={{ flex: '1 1 400px', display: 'flex', justifyContent: 'center' }}>
             {/* Quick Contact Form */}
             <div style={{
               background: 'rgba(255, 255, 255, 0.05)', backdropFilter: 'blur(10px)',
@@ -254,190 +272,270 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CASO REAL — ANTES / DURANTE / DESPUÉS */}
-      <section style={{ padding: '5rem 0', backgroundColor: '#F8FAFC' }}>
+      {/* SECCIÓN GEOGRÁFICA DE COBERTURA */}
+      <section style={{ padding: '5rem 0', backgroundColor: 'white', borderBottom: '1px solid #E2E8F0' }}>
+        <div className="container" style={{ textAlign: 'center' }}>
+          <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem', color: 'var(--color-primary)' }}>
+            Zonas donde prestamos servicio
+          </h2>
+          <p style={{ fontSize: '1.1rem', color: 'var(--color-text-muted)', maxWidth: '650px', margin: '0 auto 3rem auto', lineHeight: 1.6 }}>
+            Prestamos servicio de asistencia rápida de reparaciones del hogar en las siguientes localidades de la Sierra de Madrid (Zona Norte), con técnicos de zona listos para intervenir.
+          </p>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+            gap: '1.25rem',
+            maxWidth: '1000px',
+            margin: '0 auto'
+          }}>
+            {[
+              { name: 'Manzanares el Real', slug: 'manzanares-el-real' },
+              { name: 'Soto del Real', slug: 'soto-del-real' },
+              { name: 'El Boalo', slug: 'el-boalo' },
+              { name: 'Cerceda', slug: 'cerceda' },
+              { name: 'Mataelpino', slug: 'mataelpino' },
+              { name: 'Colmenar Viejo', slug: 'colmenar-viejo' },
+              { name: 'Miraflores de la Sierra', slug: 'miraflores-de-la-sierra' },
+              { name: 'Becerril de la Sierra', slug: 'becerril-de-la-sierra' },
+              { name: 'Moralzarzal', slug: 'moralzarzal' },
+              { name: 'Navacerrada', slug: 'navacerrada' },
+              { name: 'Collado Villalba', slug: 'collado-villalba' },
+              { name: 'Alpedrete', slug: 'alpedrete' },
+              { name: 'Guadarrama', slug: 'guadarrama' },
+              { name: 'Cercedilla', slug: 'cercedilla' },
+              { name: 'Los Molinos', slug: 'los-molinos' }
+            ].map(loc => (
+              <div key={loc.slug} style={{
+                backgroundColor: '#F8FAFC',
+                border: '1px solid #E2E8F0',
+                borderRadius: '12px',
+                padding: '1.25rem 1rem',
+                textAlign: 'center',
+                boxShadow: 'var(--shadow-sm)',
+                transition: 'transform 0.2s ease, border-color 0.2s ease'
+              }}>
+                <div style={{ fontWeight: 700, color: 'var(--color-primary)', marginBottom: '0.75rem', fontSize: '1rem' }}>
+                  {loc.name}
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', justifyContent: 'center' }}>
+                  <Link href={`/fontanero-${loc.slug}`} style={{ fontSize: '0.8rem', color: 'var(--color-accent)', textDecoration: 'none', fontWeight: 600 }}>Fontanería</Link>
+                  <span style={{ color: '#CBD5E1', fontSize: '0.8rem' }}>•</span>
+                  <Link href={`/electricista-${loc.slug}`} style={{ fontSize: '0.8rem', color: 'var(--color-accent)', textDecoration: 'none', fontWeight: 600 }}>Electricidad</Link>
+                  <span style={{ color: '#CBD5E1', fontSize: '0.8rem' }}>•</span>
+                  <Link href={`/cerrajero-${loc.slug}`} style={{ fontSize: '0.8rem', color: 'var(--color-accent)', textDecoration: 'none', fontWeight: 600 }}>Cerrajería</Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECCIÓN PORTAFOLIO DE PROYECTOS REALIZADOS */}
+      <section style={{ padding: '6rem 0', backgroundColor: '#F8FAFC', borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <div style={{
               display: 'inline-block', backgroundColor: 'rgba(255,109,0,0.08)', color: 'var(--color-accent)',
               padding: '0.4rem 1rem', borderRadius: '20px', fontWeight: 600, fontSize: '0.85rem',
               marginBottom: '1rem', border: '1px solid rgba(255,109,0,0.2)'
             }}>
-              📸 Trabajo Real
+              📸 Trabajos Reales
             </div>
-            <h2 style={{ fontSize: '2.2rem', marginBottom: '0.75rem', color: 'var(--color-primary)' }}>
-              Reforma exterior en Manzanares el Real
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', color: 'var(--color-primary)' }}>
+              Proyectos y Reformas Completadas
             </h2>
-            <p style={{ fontSize: '1.05rem', color: 'var(--color-text-muted)', maxWidth: '580px', margin: '0 auto' }}>
-              Jardinería, pavimento exterior con gres y jardineras de hormigón con piedra natural. Así quedó el resultado final.
+            <p style={{ fontSize: '1.15rem', color: 'var(--color-text-muted)', maxWidth: '650px', margin: '0 auto', lineHeight: 1.6 }}>
+              Conoce una muestra de las obras y reformas del hogar que hemos realizado recientemente para vecinos de la Sierra de Madrid.
             </p>
           </div>
 
-          {/* Galería antes / durante / después */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
-
-            {/* ANTES */}
-            <div style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: 'var(--shadow-md)', position: 'relative' }}>
-              <img
-                src="/trabajos/antes.jpg"
-                alt="Reforma exterior en Manzanares el Real — estado inicial antes de la reforma"
-                style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }}
-              />
-              <div style={{
-                position: 'absolute', top: '12px', left: '12px',
-                backgroundColor: '#EF4444', color: 'white',
-                padding: '0.3rem 0.8rem', borderRadius: '20px',
-                fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px'
-              }}>
-                Antes
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '2rem',
+            marginBottom: '4rem'
+          }}>
+            {[
+              {
+                title: "Reforma de Cocina Moderna",
+                desc: "Reforma integral con armarios blancos suspendidos, encimeras con acabado de madera noble y azulejos tipo metro.",
+                loc: "Colmenar Viejo",
+                img: "/trabajos/reforma-cocina-moderna-blanca.jpg",
+                alt: "Reforma de cocina moderna con muebles blancos y encimera de madera en Colmenar Viejo"
+              },
+              {
+                title: "Reforma de Piscina y Jardín",
+                desc: "Instalación de piscina exterior climatizada de obra con solado de gres antideslizante y zócalos de piedra natural rústica.",
+                loc: "Manzanares el Real",
+                img: "/trabajos/reforma-piscina-manzanares-el-real.jpg",
+                alt: "Construcción y reforma de piscina con solado exterior cerámico en Manzanares el Real"
+              },
+              {
+                title: "Solado de Exterior Porcelánico",
+                desc: "Colocación de suelo porcelánico imitación madera en patio exterior alrededor de piscina, garantizando durabilidad ante heladas.",
+                loc: "Soto del Real",
+                img: "/trabajos/solado-porcelanico-jardin-piscina.jpg",
+                alt: "Solado porcelánico exterior de jardín alrededor de piscina de obra en Soto del Real"
+              },
+              {
+                title: "Cerramiento de Porche en Madera",
+                desc: "Construcción de porche cerrado con estructura de vigas de madera vista de pino silvestre, tejado cerámico y ventanas de PVC oscilobatientes.",
+                loc: "Becerril de la Sierra",
+                img: "/trabajos/cerramiento-porche-madera-interior.jpg",
+                alt: "Vista interior del cerramiento de porche con vigas de madera y ventanas de PVC en Becerril"
+              },
+              {
+                title: "Estructura Exterior de Porche",
+                desc: "Vista exterior de la ampliación de vivienda mediante estructura de porche y cubierta de tejas integradas con el tejado original.",
+                loc: "Becerril de la Sierra",
+                img: "/trabajos/cerramiento-porche-madera-exterior.jpg",
+                alt: "Vista exterior del cerramiento de porche con vigas de madera y tejado en Becerril de la Sierra"
+              },
+              {
+                title: "Construcción de Muro de Piedra",
+                desc: "Levantamiento de muro perimetral de parcela utilizando piedra granítica local colocada de forma artesanal y coronamiento de piedra caliza.",
+                loc: "Manzanares el Real",
+                img: "/trabajos/construccion-muro-piedra-rustica.jpg",
+                alt: "Muro perimetral de piedra natural granítica rústica construido a mano en Manzanares el Real"
+              },
+              {
+                title: "Reforma de Patio y Piscina",
+                desc: "Preparación de terreno, solado exterior de piedra clara antideslizante y terminación de vaso de piscina de obra lista para llenado.",
+                loc: "Miraflores de la Sierra",
+                img: "/trabajos/reforma-piscina-solado-exterior.jpg",
+                alt: "Reforma de patio con vaso de piscina de obra y pavimento exterior en Miraflores de la Sierra"
+              },
+              {
+                title: "Muro de Bloques Split",
+                desc: "Cerramiento perimetral exterior combinando zócalo de piedra rústica y muro elevado de bloques de hormigón split color crema.",
+                loc: "Moralzarzal",
+                img: "/trabajos/construccion-muro-bloques-jardin.jpg",
+                alt: "Muro exterior de bloques de hormigón split sobre zócalo de piedra natural en Moralzarzal"
+              }
+            ].map((proj, i) => (
+              <div key={i} style={{
+                backgroundColor: 'white',
+                borderRadius: 'var(--radius-lg)',
+                overflow: 'hidden',
+                boxShadow: 'var(--shadow-sm)',
+                border: '1px solid #E2E8F0',
+                display: 'flex',
+                flexDirection: 'column',
+                transition: 'transform 0.25s ease, box-shadow 0.25s ease'
+              }} className="project-card">
+                <div style={{ position: 'relative', overflow: 'hidden', height: '240px' }}>
+                  <img
+                    src={proj.img}
+                    alt={proj.alt}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.3s ease' }}
+                    className="project-img"
+                  />
+                  <div style={{
+                    position: 'absolute', top: '16px', left: '16px',
+                    backgroundColor: 'var(--color-primary)', color: 'white',
+                    padding: '0.35rem 0.85rem', borderRadius: '20px',
+                    fontSize: '0.8rem', fontWeight: 700, boxShadow: 'var(--shadow-sm)'
+                  }}>
+                    📍 {proj.loc}
+                  </div>
+                </div>
+                <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                  <h3 style={{ fontSize: '1.3rem', marginBottom: '0.75rem', color: 'var(--color-primary)' }}>
+                    {proj.title}
+                  </h3>
+                  <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)', lineHeight: 1.6, marginBottom: 0 }}>
+                    {proj.desc}
+                  </p>
+                </div>
               </div>
-            </div>
-
-            {/* DURANTE */}
-            <div style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: 'var(--shadow-md)', position: 'relative' }}>
-              <img
-                src="/trabajos/durante.jpg"
-                alt="Reforma exterior en Manzanares el Real — proceso de obra, pavimento instalado"
-                style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }}
-              />
-              <div style={{
-                position: 'absolute', top: '12px', left: '12px',
-                backgroundColor: '#F59E0B', color: 'white',
-                padding: '0.3rem 0.8rem', borderRadius: '20px',
-                fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px'
-              }}>
-                Durante
-              </div>
-            </div>
-
-            {/* DESPUÉS */}
-            <div style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: 'var(--shadow-md)', position: 'relative' }}>
-              <img
-                src="/trabajos/despues.jpg"
-                alt="Reforma exterior terminada en Manzanares el Real — jardinera con piedra natural y árbol ornamental"
-                style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }}
-              />
-              <div style={{
-                position: 'absolute', top: '12px', left: '12px',
-                backgroundColor: '#10B981', color: 'white',
-                padding: '0.3rem 0.8rem', borderRadius: '20px',
-                fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px'
-              }}>
-                Resultado
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* Detalle del trabajo */}
+          {/* CTA de contacto al final de portafolio */}
           <div style={{
-            backgroundColor: 'white', borderRadius: 'var(--radius-lg)', padding: '2.5rem',
-            border: '1px solid #E2E8F0', boxShadow: 'var(--shadow-sm)',
-            display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', alignItems: 'center'
+            backgroundColor: 'var(--color-primary)', color: 'white', borderRadius: 'var(--radius-lg)', padding: '3rem',
+            textAlign: 'center', boxShadow: 'var(--shadow-md)', position: 'relative', overflow: 'hidden'
           }}>
-            <div>
-              <h3 style={{ fontSize: '1.3rem', marginBottom: '1rem', color: 'var(--color-primary)' }}>
-                🏡 ¿Qué se hizo en esta reforma?
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <h3 style={{ fontSize: '1.8rem', color: 'white', marginBottom: '1rem' }}>
+                ¿Tienes un proyecto de reforma o reparación en mente?
               </h3>
-              <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                {[
-                  'Demolición y retirada de escombros',
-                  'Pavimento exterior con gres antideslizante',
-                  'Jardineras de hormigón con bordillo de piedra caliza',
-                  'Plantación de árbol ornamental y jardinería',
-                  'Sistema de riego empotrado',
-                  'Instalación de césped artificial'
-                ].map((item, i) => (
-                  <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.95rem', color: '#475569' }}>
-                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#10B981" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <p style={{ color: 'var(--color-text-muted)', marginBottom: '1.5rem', fontSize: '0.95rem' }}>
-                ¿Tienes un proyecto similar en casa? Te damos presupuesto sin compromiso.
+              <p style={{ color: '#CBD5E1', fontSize: '1.1rem', maxWidth: '650px', margin: '0 auto 2rem auto', lineHeight: 1.6 }}>
+                Te damos asesoramiento profesional y presupuesto cerrado por escrito sin ningún tipo de compromiso. Trato directo, sin intermediarios.
               </p>
-              <Link
-                href="/manitas-manzanares-el-real"
-                className="btn btn-accent"
-                style={{ display: 'inline-block', padding: '0.9rem 2rem' }}
-              >
-                Ver servicio Manitas →
-              </Link>
+              <div style={{ display: 'flex', gap: '1.25rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                <a href="tel:+34919930963" className="btn btn-accent" style={{ fontSize: '1.1rem', padding: '1rem 2rem' }}>
+                  📞 Llamar Técnico (919 930 963)
+                </a>
+                <a href="https://wa.me/34919930963?text=Hola,%20necesito%20informaci%C3%B3n%20sobre%20un%20servicio%20de%20reparaci%C3%B3n." target="_blank" rel="noopener noreferrer" className="btn" style={{ backgroundColor: '#25D366', color: 'white', fontSize: '1.1rem', padding: '1rem 2rem' }}>
+                  💬 Enviar WhatsApp
+                </a>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Estilos adicionales hover para las tarjetas del portafolio */}
+        <style dangerouslySetInnerHTML={{ __html: `
+          .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--color-accent) !important;
+          }
+          .project-card:hover .project-img {
+            transform: scale(1.05);
+          }
+        `}} />
       </section>
 
       {/* 5. TESTIMONIALS SECTION */}
       <section style={{ padding: '6rem 0', backgroundColor: 'var(--color-primary)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', color: 'white' }}>Lo que opinan nuestros clientes</h2>
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', color: 'white' }}>Lo que opinan nuestros clientes reales</h2>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ color: 'white', fontSize: '1.2rem', fontWeight: 600 }}>5/5</span>
               <div style={{ display: 'flex', gap: '2px' }}>
                 {[1,2,3,4,5].map(i => <svg key={i} width="20" height="20" viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}
               </div>
-              <span style={{ color: '#CBD5E1', fontSize: '1rem' }}>(testimonios de clientes)</span>
+              <span style={{ color: '#CBD5E1', fontSize: '1rem' }}>(reseñas verificadas de Google Maps)</span>
             </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', maxWidth: '800px', margin: '0 auto' }}>
             {/* Review 1 */}
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-md)', color: 'var(--color-text)', position: 'relative' }}>
               <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: '20px', padding: '0.25rem 0.6rem', fontSize: '0.75rem', fontWeight: 600, color: '#16A34A' }}>
-                ✓ Cliente verificado
+                ✓ Reseña Real
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-                <div style={{ width: '45px', height: '45px', borderRadius: '50%', backgroundColor: '#4285F4', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '1.2rem' }}>C</div>
+                <div style={{ width: '45px', height: '45px', borderRadius: '50%', backgroundColor: '#4285F4', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '1.2rem' }}>S</div>
                 <div>
-                  <div style={{ fontWeight: 700, fontSize: '1.05rem' }}>Carlos G.</div>
-                  <div style={{ fontSize: '0.85rem', color: '#64748B' }}>hace 2 días en Collado Villalba</div>
+                  <div style={{ fontWeight: 700, fontSize: '1.05rem' }}>Sergio Alderpass</div>
+                  <div style={{ fontSize: '0.85rem', color: '#64748B' }}>Local Guide • en Miraflores de la Sierra</div>
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '2px', marginBottom: '1rem' }}>
                 {[1,2,3,4,5].map(i => <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}
               </div>
-              <p style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.6 }}>"Llamé a las 3 de la mañana por una tubería rota que me estaba inundando el salón. El fontanero llegó en 20 minutos y fue súper rápido. Me salvó la vida."</p>
+              <p style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.6 }}>"Les llamé porque se me fue la luz en casa en Miraflores y no conseguía encontrar el problema. Vinieron bastante rápido, dieron con la avería enseguida y lo dejaron todo funcionando. Recomendables 100%!"</p>
             </div>
 
             {/* Review 2 */}
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-md)', color: 'var(--color-text)', position: 'relative' }}>
               <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: '20px', padding: '0.25rem 0.6rem', fontSize: '0.75rem', fontWeight: 600, color: '#16A34A' }}>
-                ✓ Cliente verificado
+                ✓ Reseña Real
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-                <div style={{ width: '45px', height: '45px', borderRadius: '50%', backgroundColor: '#EA4335', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '1.2rem' }}>M</div>
+                <div style={{ width: '45px', height: '45px', borderRadius: '50%', backgroundColor: '#EA4335', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '1.2rem' }}>V</div>
                 <div>
-                  <div style={{ fontWeight: 700, fontSize: '1.05rem' }}>María S.</div>
-                  <div style={{ fontSize: '0.85rem', color: '#64748B' }}>hace 1 semana en Manzanares</div>
+                  <div style={{ fontWeight: 700, fontSize: '1.05rem' }}>Velofer merca</div>
+                  <div style={{ fontSize: '0.85rem', color: '#64748B' }}>Cliente • en Manzanares el Real</div>
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '2px', marginBottom: '1rem' }}>
                 {[1,2,3,4,5].map(i => <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}
               </div>
-              <p style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.6 }}>"Saltaban los plomos en casa. El técnico detectó el cortocircuito en un enchufe exterior y lo arregló cobrando un precio totalmente justo antes de dar el presupuesto. Muy honestos."</p>
-            </div>
-
-            {/* Review 3 */}
-            <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-md)', color: 'var(--color-text)', position: 'relative' }}>
-              <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: '20px', padding: '0.25rem 0.6rem', fontSize: '0.75rem', fontWeight: 600, color: '#16A34A' }}>
-                ✓ Cliente verificado
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-                <div style={{ width: '45px', height: '45px', borderRadius: '50%', backgroundColor: '#F59E0B', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '1.2rem' }}>J</div>
-                <div>
-                  <div style={{ fontWeight: 700, fontSize: '1.05rem' }}>Javier M.</div>
-                  <div style={{ fontSize: '0.85rem', color: '#64748B' }}>hace 1 mes en Colmenar</div>
-                </div>
-              </div>
-              <div style={{ display: 'flex', gap: '2px', marginBottom: '1rem' }}>
-                {[1,2,3,4,5].map(i => <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}
-              </div>
-              <p style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.6 }}>"Cambio de caldera antigua por una nueva Saunier Duval. Me explicaron el funcionamiento genial y tramitaron la garantía sin yo pedirlo. Muy satisfecho con el trabajo."</p>
+              <p style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.6 }}>"Tuve una fuga de agua en casa y, como vivo en Manzanares el Real, buscaba a alguien que pudiera venir rápido. Contacté con ellos por WhatsApp, respondieron enseguida y solucionaron el problema sin complicaciones. Muy contento con el servicio y con el trato recibido"</p>
             </div>
           </div>
         </div>

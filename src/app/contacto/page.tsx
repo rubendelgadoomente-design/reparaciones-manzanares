@@ -45,7 +45,7 @@ export default function ContactoPage() {
                 <span style={{ fontSize: '2.5rem' }}>💬</span>
                 <div>
                   <div style={{ fontWeight: 600, color: '#2F855A', fontSize: '0.9rem', marginBottom: '0.2rem' }}>WhatsApp Urgente</div>
-                  <a href={`https://wa.me/34${PHONE_RAW}`} style={{ fontSize: '1.5rem', fontWeight: 800, color: '#2F855A', textDecoration: 'none' }}>Enviar Mensaje</a>
+                  <a href={`https://wa.me/34${PHONE_RAW}?text=Hola,%20necesito%20informaci%C3%B3n%20sobre%20un%20servicio%20de%20reparaci%C3%B3n.`} style={{ fontSize: '1.5rem', fontWeight: 800, color: '#2F855A', textDecoration: 'none' }}>Enviar Mensaje</a>
                 </div>
               </div>
 

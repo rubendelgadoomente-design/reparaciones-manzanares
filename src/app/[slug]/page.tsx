@@ -198,7 +198,7 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="var(--color-accent)" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                  ¿Qué solucionamos hoy?
                </h3>
-               <ul style={{ listStyle: 'none', padding: 0 }}>
+               <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2rem' }}>
                  {service.tasks.map((task, i) => (
                    <li key={i} style={{ marginBottom: '1rem', display: 'flex', alignItems: 'flex-start', gap: '0.75rem', fontSize: '1rem' }}>
                      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#10B981" strokeWidth={2.5} style={{ flexShrink: 0, marginTop: '3px' }}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
@@ -206,11 +206,24 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
                    </li>
                  ))}
                </ul>
+               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                  <a href="tel:+34919930963" 
                     data-track-event="budget"
                     data-track-service={service.id}
                     data-track-location={location}
-                    className="btn btn-accent" style={{ width: '100%', marginTop: '2rem', padding: '1rem' }}>Pedir Presupuesto Cerrado</a>
+                    className="btn btn-accent" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', padding: '1rem', fontSize: '1.1rem' }}>
+                   📞 Llamar Técnico ahora
+                 </a>
+                 <a href="https://wa.me/34919930963?text=Hola,%20necesito%20informaci%C3%B3n%20sobre%20un%20servicio%20de%20reparaci%C3%B3n." 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-track-event="whatsapp"
+                    data-track-service={service.id}
+                    data-track-location={location}
+                    className="btn" style={{ backgroundColor: '#25D366', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', padding: '1rem', fontSize: '1.1rem' }}>
+                   💬 Enviar WhatsApp
+                 </a>
+               </div>
              </div>
            </div>
          </div>
@@ -241,49 +254,50 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
       <section style={{ padding: '6rem 0', backgroundColor: 'var(--color-primary)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', color: 'white' }}>Opiniones reales en {location}</h2>
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', color: 'white' }}>Opiniones reales de clientes de la Sierra</h2>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ color: 'white', fontSize: '1.2rem', fontWeight: 600 }}>5/5</span>
               <div style={{ display: 'flex', gap: '2px' }}>
                 {[1,2,3,4,5].map(i => <svg key={i} width="20" height="20" viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}
               </div>
-              <span style={{ color: '#CBD5E1', fontSize: '1rem' }}>(testimonios de clientes)</span>
+              <span style={{ color: '#CBD5E1', fontSize: '1rem' }}>(reseñas verificadas de Google Maps)</span>
             </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
-            
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', maxWidth: '800px', margin: '0 auto' }}>
+            {/* Review 1 */}
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-md)', color: 'var(--color-text)', position: 'relative' }}>
               <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: '20px', padding: '0.25rem 0.6rem', fontSize: '0.75rem', fontWeight: 600, color: '#16A34A' }}>
-                ✓ Cliente verificado
+                ✓ Reseña Real
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-                <div style={{ width: '45px', height: '45px', borderRadius: '50%', backgroundColor: '#4285F4', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '1.2rem' }}>C</div>
+                <div style={{ width: '45px', height: '45px', borderRadius: '50%', backgroundColor: '#4285F4', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '1.2rem' }}>S</div>
                 <div>
-                  <div style={{ fontWeight: 700, fontSize: '1.05rem' }}>Carlos G.</div>
-                  <div style={{ fontSize: '0.85rem', color: '#64748B' }}>hace 2 días en {locationData.neighborhoods.split(',')[0]}</div>
+                  <div style={{ fontWeight: 700, fontSize: '1.05rem' }}>Sergio Alderpass</div>
+                  <div style={{ fontSize: '0.85rem', color: '#64748B' }}>Local Guide • en Miraflores de la Sierra</div>
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '2px', marginBottom: '1rem' }}>
                 {[1,2,3,4,5].map(i => <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}
               </div>
-              <p style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.6 }}>"Llamé a las 3 de la mañana por una urgencia que me estaba inundando el salón en {location}. El operario llegó en unos {locationData.timeToArrive} y fue súper rápido. Me salvó la vida."</p>
+              <p style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.6 }}>"Les llamé porque se me fue la luz en casa en Miraflores y no conseguía encontrar el problema. Vinieron bastante rápido, dieron con la avería enseguida y lo dejaron todo funcionando. Recomendables 100%!"</p>
             </div>
 
+            {/* Review 2 */}
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-md)', color: 'var(--color-text)', position: 'relative' }}>
               <div style={{ position: 'absolute', top: '24px', right: '24px', backgroundColor: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: '20px', padding: '0.25rem 0.6rem', fontSize: '0.75rem', fontWeight: 600, color: '#16A34A' }}>
-                ✓ Cliente verificado
+                ✓ Reseña Real
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-                <div style={{ width: '45px', height: '45px', borderRadius: '50%', backgroundColor: '#EA4335', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '1.2rem' }}>M</div>
+                <div style={{ width: '45px', height: '45px', borderRadius: '50%', backgroundColor: '#EA4335', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '1.2rem' }}>V</div>
                 <div>
-                  <div style={{ fontWeight: 700, fontSize: '1.05rem' }}>María S.</div>
-                  <div style={{ fontSize: '0.85rem', color: '#64748B' }}>hace 1 semana por {locationData.localReferences}</div>
+                  <div style={{ fontWeight: 700, fontSize: '1.05rem' }}>Velofer merca</div>
+                  <div style={{ fontSize: '0.85rem', color: '#64748B' }}>Cliente • en Manzanares el Real</div>
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '2px', marginBottom: '1rem' }}>
                 {[1,2,3,4,5].map(i => <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}
               </div>
-              <p style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.6 }}>"Saltaban los plomos en casa. El técnico detectó el cortocircuito en {location} rapidísimo y lo arregló cobrando un precio totalmente justo. Muy honestos."</p>
+              <p style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.6 }}>"Tuve una fuga de agua en casa y, como vivo en Manzanares el Real, buscaba a alguien que pudiera venir rápido. Contacté con ellos por WhatsApp, respondieron enseguida y solucionaron el problema sin complicaciones. Muy contento con el servicio y con el trato recibido"</p>
             </div>
           </div>
         </div>
