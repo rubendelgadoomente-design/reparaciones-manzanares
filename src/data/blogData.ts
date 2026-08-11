@@ -210,8 +210,95 @@ export const blogPosts: BlogPost[] = [
       </ol>
 
       <h2>4. Precios de la revisión y cómo contratar</h2>
-      <p>La tarifa promedio para una revisión estándar RITE en la Sierra de Madrid oscila entre **85€ y 130€** según el tipo de caldera (el gasoil suele ser ligeramente más costoso por las limpiezas de boquillas y filtros). Desconfía de ofertas sospechosas de "revisión a 40€", ya que a menudo se utilizan como gancho para diagnosticar fallos falsos en la caldera con el fin de cobrar por piezas de repuesto caras.</p>
+      <p>La tarifa promedio para una revisión estándar RITE en la Sierra de Madrid oscila entre <strong>85€ y 130€</strong> según el tipo de caldera (el gasoil suele ser ligeramente más costoso por las limpiezas de boquillas y filtros). Desconfía de ofertas sospechosas de "revisión a 40€", ya que a menudo se utilizan como gancho para diagnosticar fallos falsos en la caldera con el fin de cobrar por piezas de repuesto caras.</p>
       <p>En <strong>Reparaciones Manzanares</strong> somos servicio técnico multimarca autorizado RITE para instalaciones de climatización y calefacción. Realizamos revisiones meticulosas, entregamos certificaciones legales oficiales en el acto y limpiamos en profundidad tu caldera para que ahorres hasta un 15% en tu factura de gas mensual.</p>
+    `
+  },
+  {
+    slug: "el-gas-radon-en-la-sierra-de-madrid",
+    title: "Guía del Gas Radón en la Sierra de Madrid: Zonas de Riesgo y Salud",
+    excerpt: "Conoce qué es el gas radón, por qué la Sierra de Guadarrama es la zona con mayor riesgo en España y qué municipios están declarados de actuación prioritaria.",
+    publishDate: "11 de Agosto, 2026",
+    readTime: "7 min de lectura",
+    category: "Mantenimiento",
+    imageUrl: "/blog/radon-sierra.svg",
+    relatedServiceSlug: "reformas-integrales-manzanares-el-real",
+    content: `
+      <p>El gas radón es un gran desconocido para una gran parte de la población, pero representa una de las mayores preocupaciones de salud pública relacionadas con la vivienda en España. De origen completamente natural, invisible e inodoro, este gas radiactivo es la <strong>segunda causa de cáncer de pulmón</strong> en nuestro país después del tabaco, y la primera en personas no fumadoras, según la Organización Mundial de la Salud (OMS).</p>
+      <p>Debido a la geología particular del suelo de la Sierra de Madrid, los municipios de esta comarca son los que presentan mayores índices de acumulación de este gas en el interior de edificaciones de toda España. En esta guía te explicamos qué es el radón, por qué se acumula y cuáles son las zonas de riesgo en la sierra.</p>
+
+      <h2>1. ¿Qué es el Gas Radón y de dónde procede?</h2>
+      <p>El radón (Rn-222) es un gas noble radiactivo que se produce de forma natural por la desintegración del uranio presente en rocas y suelos. Al ser un gas, se filtra con facilidad a través de la tierra y sale a la atmósfera, donde se diluye rápidamente y no representa ningún peligro.</p>
+      <p>El problema surge cuando el radón encuentra una vivienda encima. El gas se filtra a través de las microfisuras de la solera de hormigón, los pasos de tuberías, juntas de dilatación o cámaras de aire de sótanos y plantas bajas. Al entrar en un espacio cerrado y sin ventilación, el radón <strong>se acumula progresivamente</strong>, alcanzando concentraciones muy perjudiciales para la salud.</p>
+
+      <h2>2. ¿Por qué la Sierra de Madrid es la zona de mayor riesgo?</h2>
+      <p>La acumulación de radón depende directamente del tipo de roca sobre la que esté construida la vivienda. España se divide geológicamente en varias zonas, y la Sierra de Guadarrama pertenece al denominado <strong>área granítica</strong>.</p>
+      <p>El granito es una roca ígnea muy rica en minerales que contienen trazas de uranio y radio. Al desintegrarse estos elementos, liberan radón de forma continua hacia la superficie. Municipios como <strong>Manzanares el Real, Soto del Real, Colmenar Viejo, Moralzarzal, Becerril de la Sierra o Navacerrada</strong> están situados sobre grandes macizos graníticos. Por este motivo, el Consejo de Seguridad Nuclear (CSN) y el Código Técnico de la Edificación clasifican a toda la Sierra Norte de Madrid en la <strong>Zona 2</strong>, que es la categoría de máximo riesgo nacional.</p>
+
+      <h2>3. Municipios clasificados como de Actuación Prioritaria (Zona 2)</h2>
+      <p>La normativa clasifica los municipios según su nivel de exposición. Los declarados en Zona 2 (donde se estima que más del 10% de las viviendas pueden superar el límite de seguridad de 300 Bq/m³) en la sierra incluyen:</p>
+      <ul>
+        <li><strong>Manzanares el Real</strong></li>
+        <li><strong>Soto del Real</strong></li>
+        <li><strong>Colmenar Viejo</strong></li>
+        <li><strong>Moralzarzal</strong></li>
+        <li><strong>Alpedrete</strong></li>
+        <li><strong>Guadarrama</strong></li>
+        <li><strong>El Boalo, Cerceda y Mataelpino</strong></li>
+        <li><strong>Becerril de la Sierra y Navacerrada</strong></li>
+        <li><strong>Cercedilla y Los Molinos</strong></li>
+        <li><strong>Miraflores de la Sierra y Bustarviejo</strong></li>
+      </ul>
+      <p>En todos estos municipios, la normativa estatal obliga a que cualquier nueva edificación, ampliación o reforma integral incorpore sistemas activos o pasivos de protección contra el radón.</p>
+
+      <h2>4. ¿Cómo afecta a nuestra salud?</h2>
+      <p>Al respirar aire cargado de radón, las partículas radiactivas en suspensión entran en contacto con las células del tejido pulmonar, donde se desintegran emitiendo partículas alfa. Esto daña el ADN celular y, tras exposiciones prolongadas durante años, incrementa notablemente el riesgo de desarrollar neoplasias pulmonares.</p>
+      <p>El riesgo es directamente proporcional a la concentración del gas en el interior y al tiempo de exposición. Es importante recalcar que el radón <strong>no produce ningún síntoma inmediato</strong> (no genera dolor de cabeza, tos, ni picores), por lo que un inquilino puede estar respirando niveles extremadamente peligrosos en su salón o dormitorio sin sospechar absolutamente nada. La única forma de detectarlo es realizando una medición técnica.</p>
+
+      <h2>5. ¿Qué niveles se consideran aceptables y qué podemos hacer?</h2>
+      <p>El Código Técnico de la Edificación (CTE DB-HS 6) establece en España el límite máximo de referencia para viviendas en <strong>300 Bq/m³</strong> (Bequerelios por metro cúbico) en promedio anual. Sin embargo, la Organización Mundial de la Salud (OMS) sitúa el umbral recomendado en <strong>100 Bq/m³</strong>, aconsejando actuar si se supera este valor en zonas habitables.</p>
+      <p>Si resides en un chalet o planta baja en la Sierra de Madrid, la recomendación de salud pública es realizar una medición. En el próximo artículo del blog te explicamos en detalle qué tipos de medidores existen y cómo funcionan las obras de mitigación (despresurización del terreno y sistemas de ventilación) para respirar un aire 100% limpio en tu hogar.</p>
+    `
+  },
+  {
+    slug: "como-medir-y-eliminar-el-radon-en-casa",
+    title: "Cómo medir y eliminar el Radón en viviendas y chalets",
+    excerpt: "Guía práctica sobre los métodos de medición homologados para detectar radón en casa y las principales soluciones físicas para mitigar sus niveles.",
+    publishDate: "11 de Agosto, 2026",
+    readTime: "6 min de lectura",
+    category: "Mantenimiento",
+    imageUrl: "/blog/eliminar-radon.svg",
+    relatedServiceSlug: "reformas-integrales-manzanares-el-real",
+    content: `
+      <p>Si vives en un chalet unifamiliar, un adosado o una planta baja en la Sierra de Madrid (zona de alta concentración de subsuelo granítico), es muy probable que te preguntes si tu vivienda está libre de gas radón. Al ser un gas invisible, inodoro y silencioso, no hay forma de percibirlo con los sentidos humanos.</p>
+      <p>Afortunadamente, la tecnología actual permite medir la concentración de radón con absoluta precisión y, en caso de detectar valores peligrosos, existen <strong>soluciones constructivas físicas muy eficaces</strong> para eliminarlo o reconducirlo al exterior de forma definitiva. En esta guía te explicamos cómo medir y cómo solucionar este problema en tu vivienda.</p>
+
+      <h2>1. Cómo medir el Gas Radón en el hogar</h2>
+      <p>Para conocer la concentración real de radón en tu vivienda (medida en Bq/m³ o Bequerelios por metro cúbico), existen dos métodos principales:</p>
+      
+      <h3>A. Detectores de Trazas Nucleares (Laboratorio Externo)</h3>
+      <p>Es el método oficial y el más recomendado para tener validez legal. Consiste en colocar unos pequeños botes de plástico que contienen una lámina sensible en las zonas más habitables de la planta baja o sótano. Se dejan colocados durante <strong>3 meses</strong> (para obtener un promedio anual fiable que no dependa de un día concreto) y luego se envían por correo a un laboratorio acreditado independiente (como el de la Universidad de Cantabria), que lee las trazas del impacto alfa en la lámina y emite el informe oficial.</p>
+      
+      <h3>B. Monitores Electrónicos Digitales (Lectura en Tiempo Real)</h3>
+      <p>Son dispositivos electrónicos (como los medidores de la marca Airthings) que se colocan en una estantería y miden continuamente los niveles, mostrando promedios diarios, semanales y anuales en una pantalla o aplicación móvil. Son excelentes para comprobar la variación diaria del gas según la presión meteorológica, el viento o la ventilación, y para comprobar el éxito inmediato de una obra de mitigación sin esperar 3 meses de laboratorio.</p>
+
+      <h2>2. Métodos físicos para eliminar y mitigar el radón en casa</h2>
+      <p>Si tras realizar la medición el informe muestra valores superiores a los 300 Bq/m³ recomendados, es necesario intervenir. El objetivo de las obras de mitigación es evitar que el gas penetre en la vivienda o diluirlo si ya ha entrado. Las tres soluciones más profesionales son:</p>
+      
+      <h3>A. Despresurización del Terreno bajo la Losa (Sub-slab Depressurization)</h3>
+      <p>Es la técnica más efectiva y recomendada para chalets y viviendas sobre solera. Consiste en perforar el suelo de la planta baja en un punto discreto para crear un pozo de succión (arqueta) bajo el hormigón. Se conecta un tubo de PVC que va directo al exterior y se remata en el tejado con un extractor silencioso de bajas revoluciones. Este sistema succiona el gas del terreno antes de que entre a la casa, expulsándolo por el tejado. <strong>Es 100% insonoro para el interior de la casa y no genera pérdidas térmicas de calefacción.</strong></p>
+      
+      <h3>B. Barreras de Protección y Sellado de Fisuras</h3>
+      <p>Ideal si se va a realizar una reforma del suelo. Consiste en levantar el pavimento, sellar herméticamente todas las grietas de la solera de hormigón y el paso de tuberías con masillas epoxi impermeables y, a continuación, extender una <strong>membrana elástica certificada anti-radón</strong> (una lámina plástica gruesa de alta densidad homologada contra la difusión de gas) sobre todo el suelo antes de verter la nueva solera y alicatar. Es pasivo y no consume electricidad.</p>
+      
+      <h3>C. Ventilación por Sobrepresión o Sistemas PIV</h3>
+      <p>Adecuado para viviendas con sótanos o buhardillas. El gas entra a la casa porque la vivienda tiene una presión ligeramente negativa respecto al suelo (el efecto chimenea). Al instalar una unidad de ventilación forzada que introduce aire filtrado y precalentado del exterior, se crea una ligera <strong>presión positiva</strong> en la planta baja. Esta sobrepresión empuja el aire hacia el suelo, impidiendo físicamente que el radón emerja del subsuelo. Estos sistemas (PIV) calientan el aire entrante mediante resistencias térmicas en invierno para no enfriar la casa.</p>
+      
+      <h3>D. Ventilación Mecánica Controlada (VMC) de Doble Flujo</h3>
+      <p>La solución integral para viviendas eficientes. Una máquina extrae de forma continua el aire viciado de baños e inyecta aire limpio en salones y dormitorios, haciendo pasar ambos flujos por un recuperador de calor. Esto garantiza una renovación continua del aire de la casa, diluyendo el radón a niveles mínimos mientras conserva hasta el 95% del calor de la calefacción.</p>
+
+      <h2>3. Asesoramiento y Diagnóstico</h2>
+      <p>Si sospechas que puedes tener problemas de gas radón en tu chalet de la Sierra de Madrid o estás planificando una reforma en tu planta baja, contacta con nosotros. Te ayudamos a gestionar la compra de kits de medición independientes con laboratorios oficiales y te ponemos en contacto con especialistas locales para diseñar la mejor solución física para tu vivienda con plenas garantías de salud.</p>
     `
   }
 ];

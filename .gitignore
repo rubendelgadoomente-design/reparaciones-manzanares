@@ -28,3 +28,9 @@ pnpm-debug.log*
 
 # vercel
 .vercel
+
+# private tracking
+/seguimiento_seo.md
+/data/stats.json
+/tsconfig.tsbuildinfo
+

@@ -3,7 +3,7 @@ import Script from 'next/script'
 import './globals.css'
 
 const baseUrl = 'https://www.reparacionesmanzanares.es';
-const PHONE_NUMBER = "919 930 963";
+const PHONE_NUMBER = "919 93 09 63";
 const PHONE_RAW = "919930963";
 const WA_LINK = `https://wa.me/34${PHONE_RAW}?text=Hola,%20necesito%20informaci%C3%B3n%20sobre%20un%20servicio%20de%20reparaci%C3%B3n.`;
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     default: 'Reparaciones Manzanares | Fontaneros, Electricistas y Cerrajeros 24h Sierra de Madrid',
     template: '%s | Reparaciones Manzanares'
   },
-  description: 'Servicio técnico urgente 24h: fontanería, electricidad, cerrajería y calderas en la Sierra de Madrid. Técnicos autorizados 24h.',
+  description: 'Servicio técnico urgente 24h: fontanería, electricidad, cerrajería y calderas en la Sierra de Madrid. Técnicos autorizados 24h sin intermediarios.',
   keywords: ['fontanero urgente Manzanares', 'electricista 24h Sierra Madrid', 'cerrajero urgente Manzanares el Real', 'reparación calderas', 'manitas a domicilio'],
   authors: [{ name: 'Reparaciones Manzanares' }],
   metadataBase: new URL(baseUrl),
@@ -43,12 +43,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const jsonLd = {
+  // Global LocalBusiness schema
+  const localBusinessJsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Reparaciones Manzanares",
     "image": `${baseUrl}/logo.png`, 
-    "@id": `${baseUrl}/#organization`,
+    "@id": `${baseUrl}/#localbusiness`,
     "url": baseUrl,
     "telephone": `+34${PHONE_RAW}`,
     "priceRange": "$$",
@@ -81,9 +82,17 @@ export default function RootLayout({
       { "@type": "City", "name": "Soto del Real" },
       { "@type": "City", "name": "Guadarrama" },
       { "@type": "City", "name": "Alpedrete" },
-      { "@type": "AdministrativeArea", "name": "Sierra Norte de Madrid" }
+      { "@type": "City", "name": "Cerceda" },
+      { "@type": "City", "name": "El Boalo" },
+      { "@type": "City", "name": "Mataelpino" },
+      { "@type": "City", "name": "Becerril de la Sierra" },
+      { "@type": "City", "name": "Navacerrada" },
+      { "@type": "City", "name": "Cercedilla" },
+      { "@type": "City", "name": "Los Molinos" },
+      { "@type": "City", "name": "Miraflores de la Sierra" },
+      { "@type": "AdministrativeArea", "name": "Sierra de Madrid" }
     ],
-    "knowsAbout": ["Fontanería", "Electricidad", "Cerrajería", "Reparaciones del hogar"],
+    "knowsAbout": ["Fontanería", "Electricidad", "Cerrajería", "Reparaciones del hogar", "Reparación de calderas", "Climatización"],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
       "name": "Servicios de Reparaciones",
@@ -92,31 +101,65 @@ export default function RootLayout({
           "@type": "OfferCatalog",
           "name": "Fontanería",
           "itemListElement": [
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reparación de fugas y desatascos" } }
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reparación de fugas, grifería y desatascos" } }
           ]
         },
         {
           "@type": "OfferCatalog",
           "name": "Electricidad",
           "itemListElement": [
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Averías y cuadros eléctricos" } }
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Averías eléctricas, diferenciales y cuadros" } }
           ]
         },
         {
           "@type": "OfferCatalog",
           "name": "Cerrajería",
           "itemListElement": [
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Apertura de puertas y cambio de cerraduras" } }
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Apertura de puertas y bombines anti-bumping" } }
           ]
         },
         {
           "@type": "OfferCatalog",
-          "name": "Reparaciones del Hogar",
+          "name": "Reparación de Calderas",
           "itemListElement": [
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bricolaje, persianas y mantenimiento general" } }
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Servicio técnico de calderas y calefacción" } }
           ]
         }
       ]
+    }
+  };
+
+  // Global Organization schema for EEAT
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${baseUrl}/#organization`,
+    "name": "Reparaciones Manzanares",
+    "url": baseUrl,
+    "logo": `${baseUrl}/logo.png`,
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": `+34${PHONE_RAW}`,
+      "contactType": "customer service",
+      "areaServed": "ES",
+      "availableLanguage": "Spanish"
+    }
+  };
+
+  // Global WebSite schema with SearchAction
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${baseUrl}/#website`,
+    "name": "Reparaciones Manzanares",
+    "url": baseUrl,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${baseUrl}/?s={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
     }
   };
 
@@ -126,7 +169,15 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body>
@@ -178,9 +229,18 @@ export default function RootLayout({
                   window.trackEvent(eventType, service, location);
                 }
               });
+
+              // Hide mobile sticky bar on reform pages
+              if (window.location.pathname.indexOf('/reformas-') === 0 || window.location.pathname.indexOf('reformas-') !== -1) {
+                const style = document.createElement('style');
+                style.innerHTML = '.mobile-sticky-bar { display: none !important; } body { padding-bottom: 0 !important; }';
+                document.head.appendChild(style);
+              }
             `,
           }}
         />
+        
+        {/* HEADER NAVIGATION */}
         <nav style={{
           backgroundColor: 'var(--color-surface)',
           boxShadow: 'var(--shadow-sm)',
@@ -201,6 +261,7 @@ export default function RootLayout({
                 Reparaciones<span style={{ color: 'var(--color-accent)' }}>Manzanares</span>
               </div>
             </a>
+            
             <div className="nav-links" style={{ display: 'none', gap: '1.25rem', alignItems: 'center' }}>
               <a href="/nosotros" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600 }}>Nosotros</a>
               <a href="/fontanero-manzanares-el-real" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>Fontanería</a>
@@ -211,12 +272,13 @@ export default function RootLayout({
               <a href="/blog" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>Blog</a>
               <a href="/contacto" style={{ color: 'var(--color-text)', textDecoration: 'none', fontWeight: 600 }}>Contacto</a>
             </div>
+            
             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
               <a href={`tel:${PHONE_RAW}`} 
                  data-track-event="call"
                  data-track-service="navbar"
                  className="btn btn-accent" style={{ padding: '0.6rem 1.2rem', fontSize: '1rem' }}>
-                📞 24h
+                📞 Llamar 24h
               </a>
               
               <label htmlFor="mobile-menu-checkbox" className="hamburger-btn" aria-label="Abrir menú de navegación" style={{ display: 'none' }}>
@@ -294,6 +356,7 @@ export default function RootLayout({
         
         {children}
         
+        {/* FOOTER */}
         <footer style={{
           backgroundColor: 'var(--color-primary)',
           color: 'white',
@@ -379,24 +442,56 @@ export default function RootLayout({
           </svg>
         </a>
 
-        {/* MOBILE STICKY BOTTOM CALL BAR */}
-        <div className="mobile-only-cta" style={{
+        {/* MOBILE STICKY BOTTOM CALL & WHATSAPP BAR */}
+        <div className="mobile-sticky-bar" style={{
           position: 'fixed',
           bottom: 0,
           left: 0,
           right: 0,
-          backgroundColor: 'var(--color-primary)',
-          padding: '0.8rem 1rem',
+          backgroundColor: 'white',
+          padding: '0.75rem 1rem',
           display: 'flex',
-          justifyContent: 'center',
-          boxShadow: '0 -4px 10px rgba(0,0,0,0.1)',
-          zIndex: 9998,
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          boxShadow: '0 -4px 15px rgba(0,0,0,0.08)',
+          zIndex: 9999,
+          borderTop: '1px solid #E2E8F0'
         }}>
           <a href={`tel:${PHONE_RAW}`} 
              data-track-event="call"
              data-track-service="sticky-mobile"
-             className="btn btn-accent pulse-btn" style={{ width: '100%', fontSize: '1.2rem', padding: '0.8rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ fontSize: '1.4rem' }}>📞</span> ¡Llamar Técnico Ahora!
+             className="btn btn-accent" 
+             style={{ 
+               flex: '1 1 50%', 
+               fontSize: '0.95rem', 
+               padding: '0.75rem 0.5rem', 
+               display: 'flex', 
+               justifyContent: 'center', 
+               alignItems: 'center', 
+               gap: '0.4rem',
+               borderRadius: '8px'
+             }}>
+            <span>📞</span> Llamar 24h
+          </a>
+          <a href={WA_LINK} 
+             target="_blank"
+             rel="noopener noreferrer"
+             data-track-event="whatsapp"
+             data-track-service="sticky-mobile"
+             className="btn" 
+             style={{ 
+               flex: '1 1 50%', 
+               backgroundColor: '#25D366', 
+               color: 'white', 
+               fontSize: '0.95rem', 
+               padding: '0.75rem 0.5rem', 
+               display: 'flex', 
+               justifyContent: 'center', 
+               alignItems: 'center', 
+               gap: '0.4rem',
+               borderRadius: '8px'
+             }}>
+            <span>💬</span> WhatsApp
           </a>
         </div>
       </body>
