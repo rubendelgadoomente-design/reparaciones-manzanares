@@ -98,5 +98,39 @@ export const portfolioItems: PortfolioItem[] = [
     titleAttr: "Reforma de jardín y coronación de piscina en El Boalo",
     width: 800,
     height: 600
+  },
+  {
+    id: "bano-suite-lujo",
+    img: "/Reforma baño/WhatsApp Image 2026-08-12 at 16.48.36.jpeg",
+    title: "Reforma de Baño Suite Premium",
+    place: "Collado Villalba",
+    desc: "Alicatado porcelánico imitación mármol Calacatta, grifería dorada empotrada, mueble suspendido doble lavabo y espejo LED circular.",
+    alt: "Reforma de baño suite premium con mármol Calacatta y grifería dorada en Collado Villalba",
+    titleAttr: "Diseño y reforma de baño suite de lujo en Collado Villalba",
+    width: 800,
+    height: 1067
+  },
+  {
+    id: "loft-integral-colmenar",
+    img: "/Reforma loft/4121cd8b-b4fb-444f-b33e-8d576bbb7d7c.jpg",
+    title: "Reforma Integral de Loft de 2 Plantas",
+    place: "Colmenar Viejo",
+    desc: "Rehabilitación de espacio diáfano con estructura metálica de escalera, falsos techos fonoabsorbentes y nueva red eléctrica y de fontanería.",
+    alt: "Reforma integral de loft de dos plantas con estructura metálica en Colmenar Viejo",
+    titleAttr: "Obra de reforma integral de loft en Colmenar Viejo",
+    width: 800,
+    height: 1067
+  },
+  {
+    id: "bano-crema-loft",
+    img: "/Reforma loft/20125d07-f8cb-4576-aca6-9c71f003da3e.jpg",
+    title: "Reforma de Baño con Plato a Ras de Suelo",
+    place: "Manzanares el Real",
+    desc: "Plato de ducha extraplano de resina, Mampara de cristal fijo de seguridad, mueble suspendido de madera y radiador toallero negro.",
+    alt: "Reforma de baño con ducha a ras de suelo y toallero negro en Manzanares el Real",
+    titleAttr: "Reforma de baño moderno con plato a ras de suelo en Manzanares el Real",
+    width: 800,
+    height: 1067
   }
 ];
+
