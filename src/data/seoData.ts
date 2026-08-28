@@ -200,6 +200,19 @@ export const locationsData: LocationData[] = [
       "Colmenar Viejo",
       "El Boalo"
     ]
+  },
+  {
+    "name": "Navacerrada",
+    "timeToArrive": "30 minutos",
+    "localReferences": "junto al puerto de Navacerrada y la estación de esquí",
+    "neighborhoods": "casco urbano, Navacerrada Pueblo, La Barranca, urbanización La Dehesa, El Ventorrillo, y la zona del puerto",
+    "uniqueContent": "Navacerrada, enclave de montaña junto al famoso puerto y la estación de esquí, concentra una alta demanda de servicios de mantenimiento en viviendas de sierra sometidas a condiciones climatológicas extremas. Las heladas del invierno provocan con frecuencia la rotura de tuberías de agua en las zonas exteriores de chalets y casas rurales, así como el bloqueo de persianas por la contracción del material. Atendemos en menos de 30 minutos las zonas del casco urbano, La Barranca y La Dehesa. Somos especialistas en reparaciones urgentes de fontanería por congelación, revisiones y puesta a punto de calderas de gasoil y gas antes de la temporada de invierno, y en reformas de baños y cocinas para las viviendas de segunda residencia que sus propietarios desean actualizar.",
+    "nearbyLocations": [
+      "Cercedilla",
+      "Los Molinos",
+      "Guadarrama",
+      "Alpedrete"
+    ]
   }
 ];
 
