@@ -12,6 +12,49 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "precio-reforma-bano-collado-villalba-guia",
+    title: "¿Cuánto cuesta y qué implica una reforma de baño en Collado Villalba?",
+    excerpt: "Todo lo que necesitas saber antes de reformar tu baño en la sierra: presupuestos medios, tiempos de ejecución, licencias necesarias y consejos para ahorrar.",
+    publishDate: "30 de Agosto, 2026",
+    readTime: "7 min de lectura",
+    category: "Reformas",
+    imageUrl: "/blog/reforma-bano.svg",
+    relatedServiceSlug: "reformas-banos-collado-villalba",
+    content: `
+      <p>Decidirse a acometer una reforma integral de baño es uno de los pasos más importantes (y rentables) para revalorizar una vivienda. Si resides en la zona de la sierra, concretamente en Collado Villalba, es posible que te asalten muchas dudas antes de dar el paso: <em>¿Cuánto me va a costar? ¿Estaré semanas con escombros en casa? ¿Tengo que pedir permiso al Ayuntamiento?</em></p>
+      
+      <p>En este artículo vamos a despejar todas las incógnitas con datos reales y transparentes sobre el mercado actual de las <a href="/reformas-banos-collado-villalba">reformas de baños en Collado Villalba</a>, para que puedas planificar tu proyecto sin sorpresas.</p>
+
+      <h2>1. El precio medio: ¿Cuánto cuesta realmente?</h2>
+      <p>El presupuesto de una reforma de baño depende directamente de tres factores: los metros cuadrados de la estancia, la calidad de los materiales elegidos (azulejos, sanitarios, grifería) y el estado de las instalaciones antiguas de fontanería y electricidad.</p>
+      <p>Para un baño estándar de unos <strong>4 a 5 metros cuadrados</strong>, el coste en 2026 se desglosa aproximadamente así:</p>
+      <ul>
+        <li><strong>Demolición y desescombro:</strong> Retirada de azulejos antiguos, sanitarios y traslado al punto limpio. (Aprox. 400€ - 600€)</li>
+        <li><strong>Fontanería y electricidad:</strong> Este es el punto crítico. Si la vivienda tiene más de 15 años, es obligatorio renovar tuberías (pasando de plomo/hierro a cobre o multicapa) y actualizar el cableado para zonas húmedas. (Aprox. 800€ - 1.200€)</li>
+        <li><strong>Albañilería y alicatado:</strong> Nivelación de paredes y suelos, y colocación de los nuevos revestimientos. (Aprox. 900€ - 1.400€)</li>
+        <li><strong>Sanitarios, grifería y mampara:</strong> Depende de la gama. Un inodoro compacto, un mueble de lavabo moderno, plato de ducha de resina y grifería termostática. (Aprox. 1.000€ - 1.800€)</li>
+      </ul>
+      <p><strong>En total, una reforma integral de un baño de tamaño medio oscila entre los 3.200€ y los 5.000€</strong>, siempre hablando de calidades medias-altas y trabajos con garantía profesional.</p>
+
+      <h2>2. ¿Cuánto tiempo se tarda en hacer la reforma?</h2>
+      <p>Una de las mayores preocupaciones es el tiempo que la vivienda va a estar "patas arriba". Una reforma de baño bien coordinada por un único interlocutor técnico <strong>tarda entre 5 y 8 días laborables</strong>.</p>
+      <p>El cronograma típico suele ser: demolición (Día 1), rozas y nuevas instalaciones (Días 2-3), alicatado y solado (Días 4-5), secado de juntas (Día 6) y montaje de sanitarios y remates finales (Días 7-8). Si una empresa te promete hacerlo en 2 días, desconfía: los materiales de agarre y nivelación necesitan sus tiempos de curado para evitar problemas de humedades en el futuro.</p>
+
+      <h2>3. Cambio de bañera por plato de ducha: La reforma "Express"</h2>
+      <p>Si tu presupuesto es ajustado o no quieres meterte en una reforma integral, el servicio estrella actualmente es la sustitución de la vieja bañera por un plato de ducha antideslizante. Esta intervención mejora drásticamente la accesibilidad, amplía visualmente el espacio y reduce el consumo de agua.</p>
+      <p>Esta "reforma parcial" suele durar apenas <strong>24 a 48 horas</strong>, con un coste que ronda los <strong>1.200€ - 1.800€</strong> (incluyendo el plato de resina, la válvula de gran caudal, el alicatado de la zona descubierta y la instalación de la mampara de cristal de seguridad).</p>
+
+      <h2>4. Permisos y licencias en el Ayuntamiento de Collado Villalba</h2>
+      <p>Un error común es pensar que por ser una obra interior no hay que dar cuentas a nadie. En el Ayuntamiento de Collado Villalba, para reformas de acabados interiores (cambio de azulejos, sustitución de sanitarios) que no modifiquen la estructura de la vivienda ni afecten a las bajantes comunitarias del edificio, se necesita tramitar una <strong>Declaración Responsable de Obra Menor</strong>.</p>
+      <p>Se trata de un trámite sencillo que requiere presentar un presupuesto descriptivo de los trabajos y abonar la tasa municipal (el ICIO, que suele ser el 4% de la base imponible del presupuesto). En Reparaciones Manzanares nos encargamos de tramitar este documento por ti para que no tengas que perder una mañana entera en la oficina de urbanismo.</p>
+
+      <h2>5. El problema de la cal en la sierra: Un detalle crucial</h2>
+      <p>Al reformar un baño en localidades como Collado Villalba, Guadarrama o Alpedrete, no podemos olvidar la dureza del agua de algunas zonas. Es el momento perfecto para valorar la instalación de griferías con sistemas antical internos o incluso dejar prevista la instalación de un pequeño descalcificador en la red de entrada, lo que prolongará la vida de tu nueva ducha y de tu termo eléctrico durante años.</p>
+
+      <p>Si estás pensando en actualizar tu vivienda, no te la juegues con "chapuzas" sin garantía. En Reparaciones Manzanares ofrecemos proyectos llave en mano, coordinando a albañiles, fontaneros y electricistas. Solicita tu presupuesto gratuito para <a href="/reformas-banos-collado-villalba">reformas de baños en Collado Villalba</a> o alrededores y descubre lo fácil que es estrenar baño en menos de una semana.</p>
+    `
+  },
+  {
     slug: "que-hacer-fuga-agua-casa",
     title: "Guía de Emergencia: ¿Qué hacer si tienes una fuga de agua en casa?",
     excerpt: "Descubre los pasos vitales que debes tomar inmediatamente si detectas una fuga de agua en tu vivienda para evitar daños mayores e inundaciones.",
