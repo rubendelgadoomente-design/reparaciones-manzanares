@@ -26,16 +26,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!service || !locationData) return { title: 'Página no encontrada' };
 
   const location = locationData.name;
+  const arrivalTime = locationData.timeToArrive;
   
   // Custom high-CTR title
   const isReforma = service.id.startsWith('reformas');
   const title = isReforma 
-    ? `${service.title} en ${location} | Presupuesto Cerrado`
-    : `${service.title} en ${location} | Urgencias 24h`;
+    ? `${service.title} en ${location} | Presupuesto Gratis 2026`
+    : `${service.title} en ${location} | En ${arrivalTime} · ${PHONE_NUMBER}`;
   
   const description = isReforma
-    ? `¿Planeas una reforma de ${service.name.toLowerCase()} en ${location}? Creamos proyectos a medida con presupuestos cerrados y dirección técnica. Llama al ${PHONE_NUMBER}.`
-    : `¿Buscas experto en ${service.name.toLowerCase()} en ${location}? Llegamos en menos de 30 minutos. Servicio técnico garantizado, tarifas transparentes y sin intermediarios. Llama al ${PHONE_NUMBER}.`;
+    ? `¿Planeas una ${service.name.toLowerCase()} en ${location}? Presupuesto cerrado y gratuito, sin sorpresas. Coordinamos todos los gremios con un único interlocutor. Llama al ${PHONE_NUMBER}.`
+    : `¿Avería en ${location}? Llegamos en ${arrivalTime}. Tarifas transparentes, sin intermediarios ni costes ocultos. Llama ahora: ${PHONE_NUMBER}.`;
 
   return {
     title,
