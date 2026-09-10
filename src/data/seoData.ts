@@ -1213,6 +1213,109 @@ export const services: Service[] = [
       }
     ]
   }
+  ,
+  {
+    "id": "pintura",
+    "name": "Pintura",
+    "title": "Pintor a Domicilio",
+    "slugBase": "pintor",
+    "emoji": "🖌️",
+    "description": "Servicio de pintura interior y exterior: habitaciones, fachadas, garajes y locales comerciales. Presupuesto gratis.",
+    "longDescription": [
+      "La pintura es uno de los trabajos del hogar con mayor impacto visual y uno de los más demandados en la Sierra de Madrid. Tanto en viviendas unifamiliares, chalets y apartamentos como en locales comerciales y comunidades de vecinos, una buena mano de pintura renueva completamente el aspecto del inmueble y lo protege frente a la humedad y las condiciones climatológicas de la sierra.",
+      "En Reparaciones Manzanares contamos con pintores profesionales con amplia experiencia en trabajos de interior y exterior. Utilizamos pinturas plásticas, al temple, acrílicas y esmaltes de primeras marcas como Bruguer, Jotun, Valentine y Titanlux, adaptando el producto a cada superficie: paredes de yeso, ladrillo visto, hierro, madera o fachadas de mortero.",
+      "Para trabajos en fachadas de chalets y edificios, realizamos una preparación exhaustiva: eliminamos el revestimiento deteriorado, saneamos las grietas con masilla de poliuretano y aplicamos imprimación fijadora antes de las manos de acabado. De esta forma garantizamos una adherencia óptima y una durabilidad superior a 8 años en condiciones normales de exposición.",
+      "En interiores, nuestra especialidad incluye el pintado de techos y paredes con pintura plástica mate o satinada, la aplicación de pinturas ecológicas de bajas emisiones para habitaciones infantiles, y el barnizado y lacado de puertas, ventanas y rodapiés. También realizamos efectos decorativos como estuco veneciano y técnicas de esponjado.",
+      "Ofrecemos presupuesto gratuito y sin compromiso en el mismo día. Nuestro equipo protege todos los muebles y suelos con plásticos y lonas antes de comenzar, dejando el espacio completamente limpio al finalizar el trabajo."
+    ],
+    "tasks": [
+      "Pintura de habitaciones, salones y zonas comunes",
+      "Pintura de fachadas y exteriores de chalets",
+      "Pintura de garajes y sótanos con esmalte epoxi",
+      "Pintura de locales comerciales y oficinas",
+      "Barnizado y lacado de puertas y ventanas",
+      "Eliminación de humedades y manchas antes de pintar",
+      "Aplicación de gotelé o texturizados",
+      "Pintura de comunidades de vecinos"
+    ],
+    "faqs": [
+      {
+        "q": "¿Cuánto tiempo se tarda en pintar un piso completo de 80 m²?",
+        "a": "Un piso de 80 m² con 3 habitaciones, salón, cocina y 2 baños suele tardar entre 2 y 3 días laborales con un equipo de 2 pintores. Esto incluye la preparación de superficies, imprimación y dos manos de acabado. Los tiempos pueden variar si hay trabajos previos de saneamiento o técnicas decorativas especiales."
+      },
+      {
+        "q": "¿Qué diferencia hay entre pintura mate, satinada y brillante?",
+        "a": "La pintura mate absorbe la luz y disimula mejor las imperfecciones, ideal para techos y dormitorios. La satinada tiene un ligero brillo, es más lavable y resistente a la humedad, perfecta para salones y pasillos. La brillante o esmalte es muy resistente al lavado, recomendada para puertas, ventanas y rodapiés."
+      },
+      {
+        "q": "¿Es necesario preparar la pared antes de pintar?",
+        "a": "Sí, la preparación es fundamental. Antes de pintar sellamos grietas con masilla, lijamos las zonas irregulares, aplicamos imprimación en superficies porosas o manchadas y protegemos bordes con cinta de carrocero. Sin esta preparación la pintura no adhiere bien y el acabado es deficiente."
+      },
+      {
+        "q": "¿Podéis pintar la fachada de mi chalet en la sierra?",
+        "a": "Sí, realizamos trabajos de pintura de fachadas en toda la Sierra de Madrid. Usamos pinturas transpirables y antihumedad especialmente formuladas para soportar las bajas temperaturas y la humedad de la montaña. Antes de pintar saneamos grietas y aplicamos hidrofugante si es necesario."
+      },
+      {
+        "q": "¿Cuántas manos de pintura son necesarias para un buen acabado?",
+        "a": "Como mínimo son necesarias 2 manos de pintura de acabado, precedidas de una imprimación. En paredes con manchas de humedad o cambios de color oscuro a claro, puede ser necesaria una mano adicional de sellador para garantizar una cobertura total y uniforme."
+      },
+      {
+        "q": "¿Hacéis presupuestos gratuitos para comunidades de vecinos?",
+        "a": "Sí, ofrecemos presupuesto gratuito y sin compromiso para comunidades de propietarios. Visitamos las instalaciones, medimos las superficies a pintar (escaleras, rellanos, garajes y fachadas) y entregamos un presupuesto detallado que puede presentarse en la junta de propietarios para su aprobación."
+      }
+    ]
+  },
+  {
+    "id": "cerramientos",
+    "name": "Cerramientos",
+    "title": "Cerramientos de PVC y Aluminio",
+    "slugBase": "cerramientos-pvc",
+    "emoji": "🪟",
+    "description": "Instalación y sustitución de cerramientos de PVC, aluminio y ventanas de alta eficiencia energética. Presupuesto gratis.",
+    "longDescription": [
+      "Los cerramientos de PVC y aluminio son una de las reformas con mayor retorno de inversión en viviendas de la Sierra de Madrid. La diferencia de temperatura entre el interior calefactado y el exterior puede superar los 20ºC en localidades como Navacerrada, Guadarrama o Cercedilla, lo que hace que unas ventanas antiguas sean responsables directas de pérdidas de calor de hasta el 30% y facturas de calefacción desorbitadas.",
+      "En Reparaciones Manzanares trabajamos con fabricantes líderes del sector para ofrecer soluciones de alto rendimiento energético: ventanas y puertas de PVC con perfiles de 5 y 6 cámaras, sistemas de aluminio con rotura de puente térmico (RPT) y acristalamiento doble o triple con gas argón y vidrios bajo emisivos (Low-E). Todos nuestros productos cuentan con certificación CE.",
+      "El proceso de instalación incluye la retirada y gestión del cerramiento antiguo, el replanteo y nivelación del nuevo marco, el sellado perimetral con espuma de poliuretano y silicona neutra, y la colocación de herrajes y accesorios. Nuestros instaladores certificados garantizan la estanqueidad al agua y al aire y el cumplimiento del Código Técnico de la Edificación (CTE DB-HE).",
+      "También realizamos la instalación de persianas enrollables de aluminio con cajón térmico, contraventanas de lamas, rejas de seguridad, mosquiteras plisadas y enrollables, y sistemas de cierre de terrazas y galerías con cortinas de cristal o techos acristalados correderos.",
+      "Ofrecemos visita de medición gratuita y presupuesto detallado en 24 horas. La instalación de ventanas de alta eficiencia energética puede acogerse a deducciones en el IRPF de hasta el 20% y a subvenciones del programa de rehabilitación energética."
+    ],
+    "tasks": [
+      "Sustitución de ventanas antiguas por PVC o aluminio con RPT",
+      "Instalación de vidrios dobles y triples con gas argón",
+      "Cierre de terrazas y galerías con cortinas de cristal",
+      "Instalación de persianas enrollables y contraventanas",
+      "Mosquiteras plisadas, enrollables y de aluminio",
+      "Rejas de seguridad forjadas y de acero inoxidable",
+      "Puertas de entrada y balconeras de alta seguridad",
+      "Techos acristalados y pérgolas bioclimáticas"
+    ],
+    "faqs": [
+      {
+        "q": "¿Qué diferencia hay entre una ventana de PVC y una de aluminio con rotura de puente térmico?",
+        "a": "El PVC tiene de forma inherente una muy baja conductividad térmica gracias a sus múltiples cámaras de aire interiores, lo que lo convierte en un excelente aislante sin tratamientos adicionales. El aluminio con RPT incorpora una barrera de poliamida que interrumpe el puente térmico del metal, ofreciendo un aislamiento comparable al PVC con mayor resistencia mecánica y más opciones estéticas. En la sierra, ambos son excelentes."
+      },
+      {
+        "q": "¿Cuánto se puede ahorrar en la factura de calefacción cambiando las ventanas antiguas?",
+        "a": "En viviendas de la Sierra de Madrid con ventanas de aluminio antiguas sin rotura de puente térmico o con vidrio simple, el cambio a ventanas de PVC o aluminio con RPT y vidrio doble bajo emisivo puede suponer un ahorro de entre el 25% y el 40% en la factura anual de calefacción."
+      },
+      {
+        "q": "¿Se necesita licencia de obra para cambiar las ventanas?",
+        "a": "En la mayoría de los municipios de la Sierra de Madrid, la sustitución de ventanas por otras del mismo tamaño requiere únicamente una comunicación de obra menor al ayuntamiento, con coste mínimo. Si se modifica el tamaño del hueco o afecta a fachadas protegidas puede necesitarse licencia. Nosotros gestionamos todos los trámites necesarios."
+      },
+      {
+        "q": "¿Es posible cerrar la terraza de mi chalet para ganar espacio habitable en invierno?",
+        "a": "Sí, el cierre de terrazas con cortinas de cristal templado o con sistemas de carpintería de aluminio es una de las soluciones más demandadas en la sierra. Permite ampliar los m² útiles de la vivienda durante todo el año. En función del tamaño y el sistema elegido, el precio oscila entre 1.500 y 6.000 €. Ofrecemos visita y presupuesto gratuito."
+      },
+      {
+        "q": "¿Con qué plazo de entrega e instalación trabajan?",
+        "a": "El plazo habitual desde la firma del presupuesto hasta la instalación es de 3 a 5 semanas, tiempo necesario para la fabricación a medida de los perfiles y vidrios. La instalación en sí de una vivienda con 8-12 ventanas se realiza en 1 o 2 días laborales."
+      },
+      {
+        "q": "¿Qué garantía tienen los cerramientos instalados?",
+        "a": "Todos nuestros cerramientos tienen garantía de 10 años en perfiles y herrajes principales, 5 años en sellados y juntas de estanqueidad, y 2 años en la mano de obra de instalación. Los vidrios están cubiertos por la garantía del fabricante de 5 años."
+      }
+    ]
+  }
 ];
 
 // Helper to slugify names (e.g. "Colmenar Viejo" -> "colmenar-viejo")
