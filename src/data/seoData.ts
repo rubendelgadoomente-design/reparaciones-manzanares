@@ -213,6 +213,19 @@ export const locationsData: LocationData[] = [
       "Guadarrama",
       "Alpedrete"
     ]
+  },
+  {
+    "name": "Becerril de la Sierra",
+    "timeToArrive": "25 minutos",
+    "localReferences": "junto a la Sierra de Guadarrama y la reserva de la biosfera",
+    "neighborhoods": "casco urbano, urbanización La Herrería, El Cuartel, Las Praderas, Los Jarales, y la zona del mirador de La Pedriza",
+    "uniqueContent": "Becerril de la Sierra, municipio de montaña integrado en la Reserva de la Biosfera de la Sierra de Guadarrama, concentra una importante población de segunda residencia con chalets y casas de campo que requieren mantenimiento especializado. Atendemos en menos de 25 minutos las urbanizaciones de La Herrería, El Cuartel y Las Praderas, así como el núcleo urbano histórico. Las viviendas de Becerril presentan con frecuencia averías derivadas de las bajas temperaturas invernales: tuberías rotas por congelación, calderas de gasoil bloqueadas tras el verano y persianas dañadas por el viento del puerto. Somos el equipo de referencia para fontanería urgente, electricidad, cerrajería de emergencia y reformas integrales de baño y cocina en Becerril de la Sierra y su entorno.",
+    "nearbyLocations": [
+      "Manzanares el Real",
+      "Miraflores de la Sierra",
+      "Cercedilla",
+      "Navacerrada"
+    ]
   }
 ];
 
