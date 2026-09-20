@@ -2,6 +2,14 @@
 import React, { useState } from 'react';
 
 export default function PresupuestosPage() {
+  const [emisor, setEmisor] = useState({
+    nombre: 'Reparaciones Manzanares',
+    subtitulo: 'Mantenimiento y Reformas Integrales',
+    nif: '',
+    telefono: '919 93 09 63',
+    web: 'www.reparacionesmanzanares.es'
+  });
+
   const [cliente, setCliente] = useState({
     nombre: '',
     localidad: '',
@@ -34,6 +42,14 @@ export default function PresupuestosPage() {
   const subtotal = partidas.reduce((acc, part) => acc + (Number(part.precio) || 0), 0);
   const iva = subtotal * 0.21;
   const total = subtotal + iva;
+
+  // Renderizador especial para el título si es la marca propia
+  const renderLogo = (nombre: string) => {
+    if (nombre.toUpperCase() === 'REPARACIONES MANZANARES') {
+      return <><span style={{color: '#0f172a'}}>REPARACIONES</span> <span style={{color:'#f97316'}}>MANZANARES</span></>;
+    }
+    return <span style={{color: '#0f172a'}}>{nombre.toUpperCase()}</span>;
+  };
 
   return (
     <>
@@ -192,7 +208,29 @@ export default function PresupuestosPage() {
         <div className="control-panel">
           <div className="control-scroll">
             <h1 className="header-title">Generador PDF</h1>
-            <p className="header-subtitle">Reparaciones Manzanares (Uso Interno)</p>
+            <p className="header-subtitle">Herramienta de Presupuestos</p>
+
+            <div className="section-box" style={{backgroundColor: '#eff6ff', borderColor: '#bfdbfe'}}>
+              <div className="section-title" style={{color: '#3b82f6'}}>Datos del Emisor (Quién factura)</div>
+              <div className="form-group">
+                <label className="form-label">Nombre de la Empresa / Autónomo</label>
+                <input type="text" className="form-input" value={emisor.nombre} onChange={e => setEmisor({...emisor, nombre: e.target.value})} />
+              </div>
+              <div className="grid-2">
+                <div className="form-group">
+                  <label className="form-label">NIF / CIF</label>
+                  <input type="text" className="form-input" placeholder="Ej. B12345678" value={emisor.nif} onChange={e => setEmisor({...emisor, nif: e.target.value})} />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Teléfono</label>
+                  <input type="text" className="form-input" value={emisor.telefono} onChange={e => setEmisor({...emisor, telefono: e.target.value})} />
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="form-label">Subtítulo (Opcional)</label>
+                <input type="text" className="form-input" value={emisor.subtitulo} onChange={e => setEmisor({...emisor, subtitulo: e.target.value})} />
+              </div>
+            </div>
 
             <div className="section-box">
               <div className="section-title">Datos del Cliente</div>
@@ -242,22 +280,21 @@ export default function PresupuestosPage() {
           </div>
           
           <div className="print-btn-container">
-            <button className="btn-print" onClick={handlePrint}>Generar Presupuesto PDF</button>
+            <button className="btn-print" onClick={handlePrint}>🖨️ Generar Presupuesto PDF</button>
           </div>
         </div>
 
         {/* PANEL DERECHO (PREVIEW) */}
         <div className="preview-panel">
-          <div className="a4-page" style={{ position: 'relative' }}>
+          <div className="a4-page">
             <div className="doc-header">
               <div>
-                <h1 className="doc-title">Reparaciones <span style={{color:'#f97316'}}>Manzanares</span></h1>
-                <p className="doc-subtitle">Mantenimiento y Reformas Integrales</p>
+                <h1 className="doc-title">{renderLogo(emisor.nombre)}</h1>
+                <p className="doc-subtitle">{emisor.subtitulo}</p>
                 <div className="doc-info">
-                  <p><strong>NIF:</strong> Y0000000X</p>
-                  <p>Manzanares el Real (Madrid)</p>
-                  <p><strong>Tel:</strong> 919 93 09 63</p>
-                  <p style={{color:'#2563eb'}}>www.reparacionesmanzanares.es</p>
+                  {emisor.nif && <p><strong>NIF/CIF:</strong> {emisor.nif}</p>}
+                  <p><strong>Tel:</strong> {emisor.telefono}</p>
+                  {emisor.web && <p style={{color:'#2563eb'}}>{emisor.web}</p>}
                 </div>
               </div>
               <div style={{textAlign:'right'}}>
@@ -300,24 +337,23 @@ export default function PresupuestosPage() {
             <div className="doc-notes">{notas}</div>
             
             <div style={{position:'absolute', bottom:'15mm', left:'15mm', right:'15mm', textAlign:'center', fontSize:'10px', color:'#94a3b8', borderTop:'1px solid #e2e8f0', paddingTop:'16px'}}>
-              Documento generado por Reparaciones Manzanares. Aceptación del presupuesto sujeta a las condiciones especificadas.
+              Documento generado por {emisor.nombre}. Aceptación del presupuesto sujeta a las condiciones especificadas.
             </div>
           </div>
         </div>
       </div>
 
-      {/* VISTA PARA IMPRESIÓN REAL (Oculta en pantalla, visible al imprimir) */}
+      {/* VISTA PARA IMPRESIÓN REAL */}
       <div className="print-area" style={{display: 'none'}}>
-          <div className="a4-page" style={{boxShadow:'none', margin:0, padding:0, width:'100%', minHeight:'auto', position: 'relative'}}>
+          <div className="a4-page" style={{boxShadow:'none', margin:0, padding:0, width:'100%', minHeight:'auto'}}>
             <div className="doc-header">
               <div>
-                <h1 className="doc-title">Reparaciones <span style={{color:'#f97316'}}>Manzanares</span></h1>
-                <p className="doc-subtitle">Mantenimiento y Reformas Integrales</p>
+                <h1 className="doc-title">{renderLogo(emisor.nombre)}</h1>
+                <p className="doc-subtitle">{emisor.subtitulo}</p>
                 <div className="doc-info">
-                  <p><strong>NIF:</strong> Y0000000X</p>
-                  <p>Manzanares el Real (Madrid)</p>
-                  <p><strong>Tel:</strong> 919 93 09 63</p>
-                  <p style={{color:'#2563eb'}}>www.reparacionesmanzanares.es</p>
+                  {emisor.nif && <p><strong>NIF/CIF:</strong> {emisor.nif}</p>}
+                  <p><strong>Tel:</strong> {emisor.telefono}</p>
+                  {emisor.web && <p style={{color:'#2563eb'}}>{emisor.web}</p>}
                 </div>
               </div>
               <div style={{textAlign:'right'}}>
@@ -358,6 +394,10 @@ export default function PresupuestosPage() {
             </div>
 
             <div className="doc-notes">{notas}</div>
+            
+            <div style={{position:'absolute', bottom:'0', left:'0', right:'0', textAlign:'center', fontSize:'10px', color:'#94a3b8', borderTop:'1px solid #e2e8f0', paddingTop:'16px'}}>
+              Documento generado por {emisor.nombre}.
+            </div>
           </div>
       </div>
     </>
