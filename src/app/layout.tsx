@@ -241,7 +241,7 @@ export default function RootLayout({
         />
         
         {/* HEADER NAVIGATION */}
-        <nav style={{
+        <nav className="print:hidden" style={{
           backgroundColor: 'var(--color-surface)',
           boxShadow: 'var(--shadow-sm)',
           position: 'sticky',
@@ -354,10 +354,12 @@ export default function RootLayout({
           `}} />
         </nav>
         
-        {children}
+        <main className="print:m-0 print:p-0 print:bg-white print:w-full">
+          {children}
+        </main>
         
         {/* FOOTER */}
-        <footer style={{
+        <footer className="print:hidden" style={{
           backgroundColor: 'var(--color-primary)',
           color: 'white',
           padding: '4rem 0',
@@ -443,7 +445,7 @@ export default function RootLayout({
         </a>
 
         {/* MOBILE STICKY BOTTOM CALL & WHATSAPP BAR */}
-        <div className="mobile-sticky-bar" style={{
+        <div className="mobile-sticky-bar print:hidden" style={{
           position: 'fixed',
           bottom: 0,
           left: 0,

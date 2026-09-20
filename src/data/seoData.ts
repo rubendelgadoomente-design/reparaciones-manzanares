@@ -1,4 +1,4 @@
-export interface LocationData {
+﻿export interface LocationData {
   name: string;
   timeToArrive: string;
   localReferences: string;
@@ -1328,9 +1328,67 @@ export const services: Service[] = [
         "a": "Todos nuestros cerramientos tienen garantía de 10 años en perfiles y herrajes principales, 5 años en sellados y juntas de estanqueidad, y 2 años en la mano de obra de instalación. Los vidrios están cubiertos por la garantía del fabricante de 5 años."
       }
     ]
+  },
+  {
+    "id": "puertas-garaje",
+    "name": "Puertas de Garaje",
+    "title": "Puertas de Garaje Automáticas",
+    "slugBase": "puertas-garaje",
+    "emoji": "🚗",
+    "description": "Instalación y reparación de puertas de garaje automáticas, seccionales, basculantes y peatonales. Mandos y motores.",
+    "longDescription": [
+      "Las puertas de garaje automáticas son uno de los elementos con mayor uso diario en una vivienda unifamiliar o chalet de la Sierra de Madrid. Una puerta que no abre o no cierra correctamente supone un problema de seguridad inmediato para el propietario. Nuestro equipo técnico se desplaza a domicilio para diagnosticar y reparar todo tipo de averías en puertas de garaje, desde un motor bloqueado hasta un muelle de torsión roto.",
+      "Las puertas seccionales, formadas por paneles articulados que se elevan en posición horizontal bajo el techo del garaje, son las más demandadas en los chalets modernos de la sierra por su excelente aislamiento térmico y acústico. Las puertas basculantes de una sola hoja son más económicas y habituales en garajes de menor tamaño.",
+      "El motor es el corazón del sistema de automatización. Los motores de techo y los motores de brazo deben revisarse periódicamente para garantizar que el freno electromagnético funciona correctamente y que los finales de carrera están bien ajustados.",
+      "Instalamos y revisamos fotocélulas de seguridad que detienen y revierten el movimiento de la puerta al detectar la presencia de una persona bajo el dintel. Configuramos la fuerza máxima de cierre del motor para que se detenga al encontrar resistencia.",
+      "Programamos mandos nuevos compatibles con las principales marcas del mercado (Came, Nice, Faac, Somfy, Ditec) sin necesidad de sustituir el motor. También instalamos puertas peatonales motorizadas en los accesos secundarios de parcelas y jardines de chalets."
+    ],
+    "tasks": [
+      "Reparación de puertas de garaje seccionales y basculantes",
+      "Sustitución y ajuste de muelles de torsión y cables",
+      "Instalación de motores automáticos para puertas nuevas",
+      "Programación de mandos a distancia y receptores",
+      "Revisión y ajuste de fotocélulas de seguridad",
+      "Instalación de puertas peatonales motorizadas",
+      "Mantenimiento preventivo de automatismos",
+      "Sustitución de paneles y guías dañadas"
+    ],
+    "faqs": [
+      {
+        "q": "¿Por qué mi puerta de garaje seccional no sube del todo o se queda a medio camino?",
+        "a": "Generalmente se debe a un muelle de torsión roto o destensado, a un final de carrera superior mal ajustado en el motor, o a un tramo de guía doblado por un golpe. Acudimos a diagnosticar y reparar la causa exacta del bloqueo."
+      },
+      {
+        "q": "¿Puedo programar el mando de mi puerta de garaje sin llamar a un técnico?",
+        "a": "Depende del modelo. Muchos motores permiten la autoprogramación presionando el botón de aprendizaje del receptor durante unos segundos. En sistemas más antiguos o con receptores averiados, la programación requiere acceder al cuadro electrónico."
+      },
+      {
+        "q": "¿Es peligroso cambiar un muelle de torsión de una puerta de garaje uno mismo?",
+        "a": "Sí, es muy peligroso. Los muelles de torsión almacenan una enorme cantidad de energía mecánica cuando están tensados y pueden liberarse de forma violenta causando lesiones graves. Es imprescindible que lo realice un técnico especializado."
+      },
+      {
+        "q": "¿Qué mantenimiento preventivo básico debo hacerle a mi puerta de garaje automática?",
+        "a": "Lubricar cada 6 meses los carriles de guía, las bisagras y los rodamientos con spray de silicona, revisar el tensado de los cables de acero y comprobar que las fotocélulas funcionan correctamente."
+      },
+      {
+        "q": "¿Cuánto tarda la instalación de una puerta de garaje seccional nueva completa?",
+        "a": "La instalación de una puerta seccional completa en un garaje estándar de 2,5 x 2 metros se completa en 4 a 6 horas con nuestro equipo de 2 técnicos. Retiramos la puerta antigua y gestionamos su reciclaje."
+      },
+      {
+        "q": "¿Qué diferencia hay entre una puerta de garaje seccional y una basculante?",
+        "a": "La seccional se compone de paneles articulados que se elevan al techo sin ocupar espacio exterior. La basculante es un panel rígido de una pieza que gira hacia afuera al abrir, necesitando un espacio libre delante de al menos 1,5 metros."
+      },
+      {
+        "q": "¿Podéis instalar una puerta de garaje en una apertura de medidas no estándar?",
+        "a": "Sí. Trabajamos con fabricantes que producen puertas a medida. Solo necesitamos las medidas exactas del hueco y el espacio disponible para las guías, el muelle y el motor."
+      },
+      {
+        "q": "¿Instaláis también puertas peatonales automáticas para jardines y parcelas?",
+        "a": "Sí. Instalamos puertas peatonales de aluminio o PVC con automatismos de brazo articulado para accesos secundarios de jardines y chalets, alargando la vida del motor principal del garaje."
+      }
+    ]
   }
 ];
-
 // Helper to slugify names (e.g. "Colmenar Viejo" -> "colmenar-viejo")
 export function slugify(text: string) {
   return text

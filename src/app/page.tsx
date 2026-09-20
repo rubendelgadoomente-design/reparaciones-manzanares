@@ -163,6 +163,10 @@ export default function Home() {
                   <option value="fontaneria">Reparación Fontanería</option>
                   <option value="electricidad">Avería Eléctrica</option>
                   <option value="calderas">Revisión/Avería Caldera</option>
+                  <option value="persianas">Reparación de Persianas</option>
+                  <option value="puertas-garaje">Puerta de Garaje</option>
+                  <option value="cerrajeria">Cerrajería</option>
+                  <option value="reformas">Reforma / Presupuesto</option>
                 </select>
                 
                 <button type="submit" 
@@ -240,12 +244,25 @@ export default function Home() {
                 icon: '❄️'
               },
               {
+                title: 'Reparación de Persianas',
+                desc: 'Cambio de cintas, lamas rotas, motores y motorización de persianas domésticas y cierres de comercios.',
+                slug: 'persianista-manzanares-el-real',
+                icon: '🪟'
+              },
+              {
+                title: 'Puertas de Garaje',
+                desc: 'Instalación y reparación de puertas de garaje automáticas, seccionales y puertas peatonales de seguridad.',
+                slug: 'puertas-garaje-manzanares-el-real',
+                icon: '🚗'
+              },
+              {
                 title: 'Reparaciones del Hogar',
                 desc: 'Montaje de muebles, estores, sellado de juntas de silicona y mantenimiento general doméstico.',
                 slug: 'reparaciones-hogar-manzanares-el-real',
                 icon: '🏠'
               }
             ].map(srv => (
+
               <div key={srv.slug} style={{
                 backgroundColor: '#F8FAFC',
                 border: '1px solid #E2E8F0',
