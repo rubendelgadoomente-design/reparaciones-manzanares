@@ -1,4 +1,4 @@
-﻿export interface LocationData {
+export interface LocationData {
   name: string;
   timeToArrive: string;
   localReferences: string;
@@ -1387,6 +1387,56 @@ export const services: Service[] = [
         "a": "Sí. Instalamos puertas peatonales de aluminio o PVC con automatismos de brazo articulado para accesos secundarios de jardines y chalets, alargando la vida del motor principal del garaje."
       }
     ]
+  },
+  {
+    "id": "toldos",
+    "name": "Toldos y Pérgolas",
+    "title": "Instalación y Reparación de Toldos",
+    "slugBase": "toldos",
+    "emoji": "☀️",
+    "description": "Instalación, reparación y motorización de toldos, capotas y pérgolas en la Sierra de Madrid. Presupuesto sin compromiso.",
+    "longDescription": [
+      "Aunque la Sierra de Madrid es conocida por sus inviernos fríos, la radiación solar directa durante la primavera y el verano hace imprescindible contar con sistemas de protección solar efectivos. Un toldo bien dimensionado no solo proporciona sombra en terrazas y porches, sino que reduce la temperatura interior de la vivienda hasta en 5 grados, suponiendo un ahorro energético considerable en aire acondicionado.",
+      "Trabajamos con los principales fabricantes para ofrecer soluciones a medida: toldos de brazo invisible (extensibles) ideales para terrazas sin obstáculos, toldos con cofre que protegen la lona y el mecanismo durante los duros meses de invierno, capotas para ventanas, y toldos verticales o cortavientos, muy demandados en la sierra para cerrar porches y protegerlos de las rachas de viento.",
+      "El viento es precisamente el mayor enemigo de los toldos en localidades como Navacerrada, Becerril o Guadarrama. Por ello, recomendamos la instalación de toldos motorizados equipados con sensores climáticos (anemómetros). Estos sistemas detectan automáticamente cuando la velocidad del viento supera el umbral de seguridad y recogen el toldo de forma autónoma, incluso si no hay nadie en casa, evitando roturas en los brazos articulados o desgarros en la tela.",
+      "No siempre es necesario instalar un toldo nuevo. Si el mecanismo de su toldo actual (brazos y soportes) está en buenas condiciones pero la tela está descolorida, rota o pasada por el sol y la lluvia, ofrecemos un servicio rápido y económico de cambio de lona. Trabajamos con lonas acrílicas de primera calidad, impermeables y con tratamiento antimoho y protección UV.",
+      "Para quienes buscan crear espacios habitables en el exterior durante todo el año, somos especialistas en el diseño e instalación de pérgolas bioclimáticas de aluminio. Sus lamas orientables permiten regular la luz y la ventilación en verano, y se cierran herméticamente en caso de lluvia, convirtiéndose en una extensión perfecta del salón hacia el jardín."
+    ],
+    "tasks": [
+      "Instalación de toldos extensibles, punto recto y cofre",
+      "Sustitución y cambio de lonas a medida (acrílicas/PVC)",
+      "Motorización de toldos manuales antiguos",
+      "Instalación de sensores de viento (anemómetros) y sol",
+      "Reparación de brazos articulados y mecanismos atascados",
+      "Diseño e instalación de pérgolas bioclimáticas",
+      "Toldos verticales y cortavientos para cerramiento de porches"
+    ],
+    "faqs": [
+      {
+        "q": "¿Se puede cambiar solo la tela del toldo sin cambiar toda la estructura?",
+        "a": "Sí, absolutamente. Si el herraje (brazos y tubo) funciona bien, realizar un cambio de lona es la opción más económica e inteligente. Retiramos la lona vieja, medimos, y colocamos la nueva lona acrílica en el mismo día, dejando el toldo como nuevo."
+      },
+      {
+        "q": "¿Es posible ponerle motor a un toldo de manivela que ya tengo instalado?",
+        "a": "Sí. La mayoría de los toldos manuales se pueden motorizar. Introducimos un motor tubular dentro del eje de enrollamiento existente, lo conectamos a la corriente y le entregamos un mando a distancia. Es una reforma rápida que mejora enormemente el confort."
+      },
+      {
+        "q": "¿Qué pasa si me dejo el toldo abierto y hay tormenta o mucho viento en la sierra?",
+        "a": "Si el toldo es manual o no tiene sensores, el viento fuerte puede partir los brazos o arrancar los anclajes de la pared. Para evitarlo, instalamos sensores de viento (anemómetros) en los toldos motorizados, que envían una señal de recogida automática en cuanto detectan rachas peligrosas."
+      },
+      {
+        "q": "¿Qué diferencia hay entre un toldo normal y un toldo con cofre?",
+        "a": "El toldo con cofre incluye un cajón de aluminio hermético. Cuando el toldo se recoge por completo, tanto la lona como los brazos articulados quedan guardados dentro del cajón. En zonas de montaña, esto es vital para proteger el toldo de la nieve, el hielo y la lluvia durante todo el invierno, duplicando su vida útil."
+      },
+      {
+        "q": "¿Cuánto se tarda en instalar un toldo a medida?",
+        "a": "Desde que aceptamos el presupuesto y tomamos medidas exactas, el plazo de fabricación de la estructura y la lona a medida suele ser de 2 a 3 semanas. La instalación en su domicilio se realiza en apenas un par de horas."
+      },
+      {
+        "q": "¿Qué mantenimiento requiere un toldo o pérgola?",
+        "a": "Muy poco. Recomendamos no recoger el toldo si la lona está mojada por la lluvia (dejarlo secar primero para evitar moho), lavar la lona una vez al año con agua y jabón neutro (sin máquinas a presión), y revisar anualmente la tornillería de los anclajes a la fachada."
+      }
+    ]
   }
 ];
 // Helper to slugify names (e.g. "Colmenar Viejo" -> "colmenar-viejo")
@@ -1402,3 +1452,4 @@ export function slugify(text: string) {
     .replace(/^-+/, '') // trim start
     .replace(/-+$/, ''); // trim end
 }
+
