@@ -12,6 +12,106 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "reparacion-persianas-mosquiteras-sierra-madrid-guia-precios",
+    title: "Reparación de persianas en la Sierra de Madrid: Averías comunes, precios y cuándo cambiar la mosquitera",
+    excerpt: "Guía completa sobre reparación de persianas y mosquiteras en chalets y viviendas de la Sierra Norte de Madrid. Averías más frecuentes, precios orientativos 2026 y consejos para el mantenimiento preventivo antes del invierno.",
+    publishDate: "25 de Septiembre, 2026",
+    readTime: "8 min de lectura",
+    category: "Persianas",
+    imageUrl: "/blog/reforma-bano.svg",
+    relatedServiceSlug: "persianista-manzanares-el-real",
+    content: `
+      <p>Si vives en la Sierra de Madrid, sabes de primera mano lo que el clima de montaña le hace a las persianas: cintas que se deshilachan por el sol del verano, lamas que se parten con las heladas de enero y cajones por los que se cuela un frío glacial que dispara la factura de la calefacción. Y cuando llega la primavera, las mosquiteras rotas o deformadas dejan pasar todo tipo de insectos al interior de la vivienda.</p>
+
+      <p>En esta guía te explicamos las <strong>averías más frecuentes en persianas y mosquiteras</strong> en viviendas de la sierra, cuánto cuesta cada reparación y cuándo merece la pena reparar frente a sustituir por completo.</p>
+
+      <h2>1. Las 5 averías de persianas más frecuentes en la sierra</h2>
+
+      <p>Tras años atendiendo avisos en <a href="/persianista-manzanares-el-real">Manzanares el Real</a>, <a href="/persianista-cercedilla">Cercedilla</a>, <a href="/persianista-mataelpino">Mataelpino</a> y <a href="/persianista-miraflores-de-la-sierra">Miraflores de la Sierra</a>, estas son las cinco averías que reparamos con mayor frecuencia:</p>
+
+      <h3>1.1 Cinta de persiana rota o deshilachada</h3>
+      <p>Es la avería reina. La cinta textil de la persiana se degrada por la exposición continua al sol a través de la ranura del recogedor. En la sierra, los contrastes térmicos entre el día (35 °C en verano) y la noche (5 °C) aceleran este desgaste. Cuando la cinta se rompe, la persiana queda bloqueada en la posición en la que estaba.</p>
+      <p><strong>Precio orientativo:</strong> Entre 25 € y 45 € (material + mano de obra). Es una reparación rápida que se completa en 15-20 minutos.</p>
+
+      <h3>1.2 Lamas de PVC rotas o deformadas</h3>
+      <p>Las lamas de PVC son económicas pero no soportan bien las temperaturas bajo cero habituales en <a href="/persianista-cercedilla">Cercedilla</a> o <a href="/persianista-navacerrada">Navacerrada</a>. Con las heladas, el plástico se vuelve quebradizo y basta un golpe de viento fuerte para que se partan. Si solo están rotas 2 o 3 lamas, se pueden sustituir individualmente sin cambiar toda la persiana.</p>
+      <p><strong>Precio orientativo:</strong> Entre 8 € y 15 € por lama individual. Si hay que cambiar el paño completo, entre 80 € y 180 € según el ancho de la ventana.</p>
+
+      <h3>1.3 Persiana atascada o descolgada del eje</h3>
+      <p>Cuando los flejes metálicos que sujetan el paño de lamas al eje del tambor se rompen o se sueltan, la persiana se descuelga por un lado y queda torcida, sin poder subir ni bajar. Forzarla manualmente empeora la situación porque deforma las guías laterales. Es imprescindible abrir el cajón y reconectar los tirantes al eje.</p>
+      <p><strong>Precio orientativo:</strong> Entre 40 € y 70 €, dependiendo de si hay que sustituir también las poleas del tambor.</p>
+
+      <h3>1.4 Motor de persiana averiado</h3>
+      <p>Las persianas motorizadas son cada vez más comunes en los chalets de la sierra. El motor tubular puede fallar por sobrecalentamiento (uso intensivo en verano), por un condensador agotado o por entrada de humedad en los conectores eléctricos. Si el motor no responde al mando ni al pulsador, hay que comprobar primero la alimentación eléctrica antes de sustituir el motor.</p>
+      <p><strong>Precio orientativo:</strong> La sustitución del condensador cuesta unos 30-50 €. Si hay que cambiar el motor completo, entre 120 € y 250 € (motor Somfy o equivalente instalado).</p>
+
+      <h3>1.5 Cajón de persiana sin aislamiento (puente térmico)</h3>
+      <p>Este es un problema invisible pero muy costoso. El cajón de la persiana es una caja hueca que conecta directamente el interior de la vivienda con el exterior. En invierno, ese hueco actúa como una chimenea por la que se escapa el calor de la calefacción. En viviendas de <a href="/persianista-manzanares-el-real">Manzanares el Real</a> o <a href="/persianista-el-boalo">El Boalo</a>, donde las noches bajan de 0 °C durante meses, aislar los cajones puede reducir hasta un 10% el gasto en calefacción.</p>
+      <p><strong>Precio orientativo:</strong> Entre 35 € y 60 € por cajón (material aislante XPS + instalación).</p>
+
+      <h2>2. Mosquiteras: tipos, averías y cuándo sustituirlas</h2>
+
+      <p>La Sierra de Madrid tiene un ecosistema natural extraordinario, pero eso incluye mosquitos, moscas y avispas durante los meses cálidos (mayo a octubre). En zonas cercanas a embalses como el de Santillana (<a href="/persianista-manzanares-el-real">Manzanares el Real</a>, <a href="/persianista-soto-del-real">Soto del Real</a>) o arroyos de montaña (<a href="/persianista-cercedilla">Cercedilla</a>, <a href="/persianista-los-molinos">Los Molinos</a>), las mosquiteras son imprescindibles.</p>
+
+      <h3>2.1 Tipos de mosquiteras y cuál elegir</h3>
+      <ul>
+        <li><strong>Mosquitera enrollable:</strong> La más popular. Se recoge en un cabezal superior y se baja solo cuando se necesita. Ideal para ventanas con persiana. Precio: 45-80 € instalada.</li>
+        <li><strong>Mosquitera corredera:</strong> Se desplaza lateralmente sobre un carril. Perfecta para puertas de terraza y balcones. Precio: 60-120 € instalada.</li>
+        <li><strong>Mosquitera plisada:</strong> Se pliega en acordeón, ideal para grandes huecos y puertas dobles. Precio: 90-180 € instalada.</li>
+        <li><strong>Mosquitera fija con marco:</strong> La más económica y la más fácil de instalar. Se encaja a presión en el marco de la ventana. Precio: 20-40 € instalada.</li>
+      </ul>
+
+      <h3>2.2 Cuándo reparar y cuándo sustituir</h3>
+      <p>Si la malla de fibra de vidrio tiene un desgarro pequeño (menos de 5 cm), se puede parchear con un kit adhesivo por menos de 5 €. Pero si la malla está deformada por el calor, el marco está oxidado o los muelles de la enrollable han perdido tensión, es más rentable sustituir la mosquitera completa que invertir en reparaciones parciales.</p>
+
+      <h2>3. Mantenimiento preventivo antes del invierno</h2>
+
+      <p>En la Sierra de Madrid, el otoño es el momento perfecto para preparar las persianas para los meses más duros. Te recomendamos hacer esta revisión antes de noviembre:</p>
+
+      <ul>
+        <li><strong>Limpieza de guías laterales:</strong> Aspira el polvo y la suciedad acumulados en los carriles. Aplica spray de silicona seca (nunca aceite) para que las lamas deslicen sin fricción.</li>
+        <li><strong>Inspección de cintas:</strong> Si la cinta está deshilachada o tiene hilos sueltos, cámbiala antes de que se rompa con la persiana subida en plena noche de helada.</li>
+        <li><strong>Revisión de cajones:</strong> Abre la tapa del cajón y comprueba si hay aislamiento. Si ves el hueco directamente al exterior, estás perdiendo calefacción cada día.</li>
+        <li><strong>Test de mosquiteras:</strong> Revisa la malla antes de guardarla. Si tiene agujeros, sustitúyela ahora — en primavera los precios suelen subir por la alta demanda.</li>
+      </ul>
+
+      <h2>4. ¿Cuánto cuesta un persianista en la Sierra de Madrid en 2026?</h2>
+
+      <p>Los precios varían según el tipo de intervención y el desplazamiento. Estos son los rangos habituales:</p>
+
+      <table>
+        <thead>
+          <tr><th>Servicio</th><th>Precio orientativo</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cambio de cinta de persiana</td><td>25 € - 45 €</td></tr>
+          <tr><td>Sustitución de 2-3 lamas rotas</td><td>30 € - 50 €</td></tr>
+          <tr><td>Cambio de paño completo (PVC)</td><td>80 € - 180 €</td></tr>
+          <tr><td>Cambio de paño completo (aluminio térmico)</td><td>120 € - 280 €</td></tr>
+          <tr><td>Reparación de persiana atascada</td><td>40 € - 70 €</td></tr>
+          <tr><td>Motorización de persiana existente</td><td>180 € - 350 €</td></tr>
+          <tr><td>Aislamiento de cajón de persiana</td><td>35 € - 60 € por cajón</td></tr>
+          <tr><td>Mosquitera enrollable instalada</td><td>45 € - 80 €</td></tr>
+          <tr><td>Mosquitera corredera instalada</td><td>60 € - 120 €</td></tr>
+        </tbody>
+      </table>
+
+      <p><em>Nota: Precios orientativos IVA incluido para la zona de la Sierra Norte de Madrid (septiembre 2026). El precio final depende del tamaño de la ventana y la accesibilidad.</em></p>
+
+      <h2>5. ¿Por qué no deberías reparar la persiana tú mismo?</h2>
+
+      <p>Lo decimos por experiencia directa: cada semana atendemos avisos en <a href="/persianista-cerceda">Cerceda</a>, <a href="/persianista-mataelpino">Mataelpino</a> y <a href="/persianista-el-boalo">El Boalo</a> de persianas que alguien intentó reparar por su cuenta y acabó empeorando la situación. Los problemas más habituales son:</p>
+
+      <ul>
+        <li>Forzar una persiana atascada y romper las guías laterales (lo que triplica el coste de la reparación).</li>
+        <li>Montar una cinta del ancho incorrecto que se sale del recogedor a los pocos días.</li>
+        <li>Manipular el muelle del tambor sin herramientas adecuadas — el muelle puede soltarse con mucha fuerza y causar lesiones graves.</li>
+      </ul>
+
+      <p>Un persianista profesional resuelve el 90% de las averías en menos de 30 minutos y con garantía sobre la reparación. Si necesitas un <a href="/persianista-manzanares-el-real">persianista en Manzanares el Real</a>, <a href="/persianista-collado-villalba">Collado Villalba</a>, <a href="/persianista-cercedilla">Cercedilla</a>, <a href="/persianista-miraflores-de-la-sierra">Miraflores de la Sierra</a> o cualquier pueblo de la sierra, llámanos para un presupuesto sin compromiso.</p>
+    `
+  },
+  {
     slug: "precio-reforma-bano-collado-villalba-guia",
     title: "¿Cuánto cuesta y qué implica una reforma de baño en Collado Villalba?",
     excerpt: "Todo lo que necesitas saber antes de reformar tu baño en la sierra: presupuestos medios, tiempos de ejecución, licencias necesarias y consejos para ahorrar.",
