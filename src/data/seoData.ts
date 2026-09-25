@@ -1437,6 +1437,67 @@ export const services: Service[] = [
         "a": "Muy poco. Recomendamos no recoger el toldo si la lona está mojada por la lluvia (dejarlo secar primero para evitar moho), lavar la lona una vez al año con agua y jabón neutro (sin máquinas a presión), y revisar anualmente la tornillería de los anclajes a la fachada."
       }
     ]
+  },
+  {
+    "id": "radon",
+    "name": "Gas Radón",
+    "title": "Medición y Mitigación de Gas Radón",
+    "slugBase": "gas-radon",
+    "emoji": "☢️",
+    "description": "Medición profesional de niveles de gas radón y sistemas de mitigación en viviendas y chalets de la Sierra de Madrid.",
+    "longDescription": [
+      "El gas radón es un gas radiactivo de origen natural, incoloro e inodoro, que se genera por la desintegración del uranio presente en las rocas graníticas del subsuelo. La Sierra de Madrid está clasificada como zona de riesgo medio-alto de radón según el mapa del Consejo de Seguridad Nuclear (CSN), precisamente porque toda la cadena montañosa del Guadarrama se asienta sobre un sustrato de granito y gneis que libera radón de forma continua a la atmósfera.",
+      "El radón penetra en el interior de las viviendas a través de grietas en la solera, juntas entre el suelo y la pared, huecos alrededor de tuberías y cables que atraviesan la cimentación, y sumideros o arquetas sin sifón. Al ser más denso que el aire, tiende a acumularse en las estancias más bajas de la vivienda: sótanos, plantas bajas, garajes y bodegas. En chalets unifamiliares con solera directa sobre el terreno, las concentraciones pueden superar ampliamente el nivel de referencia de 300 Bq/m³ establecido por la normativa española.",
+      "La exposición prolongada al gas radón es la segunda causa de cáncer de pulmón después del tabaquismo, según la Organización Mundial de la Salud (OMS). No produce síntomas inmediatos ni se detecta sin instrumentación específica, lo que lo convierte en un riesgo silencioso especialmente peligroso en viviendas donde se pasan muchas horas (dormitorios, salones y despachos de teletrabajo). Es un problema de salud pública que afecta a miles de viviendas en la Sierra de Madrid sin que sus propietarios lo sepan.",
+      "El primer paso imprescindible es realizar una medición profesional de la concentración de radón en el interior de la vivienda. Utilizamos detectores pasivos de trazas nucleares (CR-39) homologados y calibrados por laboratorios acreditados, que se colocan durante un período mínimo de tres meses en las estancias habitables de la planta baja. También disponemos de monitores electrónicos continuos de radón que proporcionan lecturas en tiempo real para diagnósticos rápidos y comprobaciones post-intervención.",
+      "Si la medición confirma niveles superiores a 300 Bq/m³, diseñamos e instalamos el sistema de mitigación más adecuado para cada vivienda. Las soluciones técnicas incluyen: la despresurización del terreno bajo la solera mediante la instalación de un punto de extracción (sumidero activo conectado a un ventilador centrífugo que expulsa el radón al exterior por encima de la cubierta), el sellado de grietas y juntas en la cimentación con resinas epoxi flexibles, la instalación de membranas anti-radón en reformas de solera, y la mejora de la ventilación natural o forzada de las estancias afectadas.",
+      "El Código Técnico de la Edificación (CTE), en su Documento Básico de Salubridad (DB-HS6), establece desde 2019 la obligatoriedad de protección frente al radón en edificios de nueva construcción y en rehabilitaciones integrales situados en municipios de zona I y zona II del mapa de radón de España. Numerosos municipios de la Sierra de Madrid están clasificados en estas zonas, incluyendo Manzanares el Real, Cercedilla, Navacerrada, Becerril de la Sierra, Miraflores de la Sierra, El Boalo, Moralzarzal y Guadarrama.",
+      "Ofrecemos un servicio integral de diagnóstico, proyecto y ejecución llave en mano. Desde la medición inicial hasta la verificación post-intervención con informe técnico acreditativo. Nuestro objetivo es reducir la concentración de radón por debajo de 300 Bq/m³ (nivel de referencia español) y preferiblemente por debajo de 100 Bq/m³ (recomendación de la OMS). Emitimos certificado de medición que puede ser requerido en operaciones de compraventa de vivienda o por la normativa municipal."
+    ],
+    "tasks": [
+      "Medición profesional de gas radón con detectores homologados",
+      "Diagnóstico del nivel de riesgo y vías de entrada del radón",
+      "Instalación de sistemas de despresurización del terreno (sumidero activo)",
+      "Sellado de grietas, juntas y penetraciones en solera y cimentación",
+      "Instalación de membranas anti-radón en reformas de solera",
+      "Mejora de ventilación en sótanos y plantas bajas",
+      "Verificación post-intervención y emisión de certificado",
+      "Asesoramiento sobre normativa CTE DB-HS6"
+    ],
+    "faqs": [
+      {
+        "q": "¿Cómo sé si mi casa tiene un problema de gas radón?",
+        "a": "Es imposible saberlo sin medir. El radón es invisible, inodoro e insípido. La única forma de conocer la concentración real en tu vivienda es instalar un detector de radón durante un mínimo de 3 meses. Si tu casa está en la Sierra de Madrid, sobre terreno granítico, y especialmente si tiene sótano o planta baja con solera directamente sobre el terreno, la probabilidad de tener niveles elevados es alta."
+      },
+      {
+        "q": "¿A partir de qué nivel de radón debo preocuparme y actuar?",
+        "a": "La normativa española (CTE DB-HS6) establece el nivel de referencia en 300 Bq/m³. La OMS recomienda actuar a partir de 100 Bq/m³. Si tu medición supera los 300 Bq/m³ es obligatorio mitigar en edificios sujetos al CTE. Entre 100 y 300 Bq/m³ es muy recomendable actuar, especialmente si hay niños o personas con problemas respiratorios en la vivienda."
+      },
+      {
+        "q": "¿Por qué la Sierra de Madrid tiene más radón que otras zonas?",
+        "a": "Porque toda la Sierra de Guadarrama se asienta sobre un macizo de granito y gneis. Estas rocas contienen uranio de forma natural, cuya desintegración radiactiva produce gas radón. El radón se filtra por las fisuras de la roca hacia la superficie y se acumula en el interior de los edificios. Cuanto más granito hay bajo tu casa, mayor es la emisión potencial de radón."
+      },
+      {
+        "q": "¿En qué consiste el sistema de despresurización del terreno para eliminar el radón?",
+        "a": "Se practica un orificio a través de la solera de la vivienda hasta alcanzar la capa de grava bajo la cimentación. Se instala un tubo de PVC conectado a un ventilador de bajo consumo que extrae el aire cargado de radón del subsuelo y lo expulsa por encima de la cubierta del edificio, impidiendo que entre en las estancias habitables. Es el sistema más eficaz y puede reducir los niveles de radón entre un 80% y un 99%."
+      },
+      {
+        "q": "¿Cuánto cuesta medir el radón en una vivienda de la Sierra de Madrid?",
+        "a": "Una medición profesional con detectores pasivos CR-39 colocados durante 3 meses cuesta entre 80 € y 150 € (incluyendo el análisis del laboratorio acreditado y el informe). Una medición rápida con monitor electrónico continuo durante 48-72 horas tiene un coste de entre 100 € y 200 €. La medición de larga duración es más fiable porque el radón fluctúa con la presión atmosférica y las estaciones."
+      },
+      {
+        "q": "¿Cuánto cuesta instalar un sistema de mitigación de radón?",
+        "a": "El coste depende del tipo de vivienda y el sistema elegido. Un sistema de despresurización activa del terreno (sumidero + ventilador + conducto de evacuación) en un chalet unifamiliar cuesta entre 1.500 € y 3.500 €. El sellado de grietas y juntas como medida complementaria añade entre 300 € y 800 €. El consumo eléctrico del ventilador es mínimo, unos 30-50 € al año."
+      },
+      {
+        "q": "¿Necesito un certificado de radón para vender mi casa?",
+        "a": "Actualmente en España no es obligatorio presentar un certificado de medición de radón en la compraventa de viviendas, pero la tendencia regulatoria apunta a que lo será en los próximos años, como ya ocurre con el certificado energético. En cualquier caso, cada vez más compradores informados solicitan este dato, especialmente en zonas graníticas como la Sierra de Madrid."
+      },
+      {
+        "q": "¿Puedo ventilar simplemente abriendo ventanas para reducir el radón?",
+        "a": "Abrir ventanas reduce temporalmente la concentración de radón, pero no es una solución viable a largo plazo porque en invierno las temperaturas de la sierra hacen imposible mantener las ventanas abiertas. Además, al cerrarlas, los niveles vuelven a subir en pocas horas. Los sistemas de mitigación activa funcionan de forma continua y automática sin necesidad de ventilar manualmente ni perder calefacción."
+      }
+    ]
   }
 ];
 // Helper to slugify names (e.g. "Colmenar Viejo" -> "colmenar-viejo")
