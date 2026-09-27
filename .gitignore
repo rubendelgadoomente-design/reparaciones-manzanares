@@ -34,3 +34,6 @@ pnpm-debug.log*
 /data/stats.json
 /tsconfig.tsbuildinfo
 
+
+.vercel
+.env*

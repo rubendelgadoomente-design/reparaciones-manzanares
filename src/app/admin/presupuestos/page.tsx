@@ -4,11 +4,11 @@ import * as mammoth from 'mammoth';
 
 export default function PresupuestosPage() {
   const [emisor, setEmisor] = useState({
-    nombre: 'CBM PROYECTOS INTEGRALES',
+    nombre: 'CRM PROYECTOS INTEGRALES',
     subtitulo: 'MANZANARES EL REAL - 28410',
     nif: '',
     telefono: '91 853 07 53 / 629 07 06 80',
-    web: 'www.cbm-reformas.es.tl | pyt_miguel@yahoo.es'
+    web: 'www.crm-reformas.es.tl | pyt_miguel@yahoo.es'
   });
 
   const [cliente, setCliente] = useState({
@@ -73,7 +73,7 @@ export default function PresupuestosPage() {
           bufferDescripcion = ''; // Reset
         } else {
           // Filtrar basura como "Página 1 de 2" o encabezados
-          if (linea.match(/Página \d de/i) || linea.match(/PRESUPUESTO/i) || linea.match(/CBM PROYECTOS/i) || linea.match(/MANZANARES EL REAL/i)) {
+          if (linea.match(/Página \d de/i) || linea.match(/PRESUPUESTO/i) || linea.match(/CRM PROYECTOS/i) || linea.match(/MANZANARES EL REAL/i)) {
             continue;
           }
           
@@ -130,7 +130,7 @@ export default function PresupuestosPage() {
     if (nombre.toUpperCase().includes('REPARACIONES MANZANARES')) {
       return <><span style={{color: '#0f172a'}}>REPARACIONES</span> <span style={{color:'#f97316'}}>MANZANARES</span></>;
     }
-    if (nombre.toUpperCase().includes('CBM')) {
+    if (nombre.toUpperCase().includes('CRM')) {
       return <span style={{color: '#0f172a', letterSpacing: '2px'}}>{nombre.toUpperCase()}</span>;
     }
     return <span style={{color: '#0f172a'}}>{nombre.toUpperCase()}</span>;
