@@ -121,7 +121,7 @@ export const blogPosts: BlogPost[] = [
     imageUrl: "/blog/reforma-bano.svg",
     relatedServiceSlug: "reformas-banos-collado-villalba",
     content: `
-      <p>Decidirse a acometer una reforma integral de baño es uno de los pasos más importantes (y rentables) para revalorizar una vivienda. Si resides en la zona de la sierra, concretamente en Collado Villalba, es posible que te asalten muchas dudas antes de dar el paso: <em>¿Cuánto me va a costar? ¿Estaré semanas con escombros en casa? ¿Tengo que pedir permiso al Ayuntamiento?</em></p>
+      <p>Decidirse a acometer una reforma integral de baño es uno de los pasos más importantes (y rentables) para revalorizar una vivienda. Si resides en la zona de la sierra, concretamente en Collado Villalba, o si buscas una <a href="/reformas-banos-colmenar-viejo">reforma de ba&ntilde;os en Colmenar Viejo</a>, es posible que te asalten muchas dudas antes de dar el paso: <em>¿Cuánto me va a costar? ¿Estaré semanas con escombros en casa? ¿Tengo que pedir permiso al Ayuntamiento?</em></p>
       
       <p>En este artículo vamos a despejar todas las incógnitas con datos reales y transparentes sobre el mercado actual de las <a href="/reformas-banos-collado-villalba">reformas de baños en Collado Villalba</a>, para que puedas planificar tu proyecto sin sorpresas.</p>
 
@@ -164,6 +164,7 @@ export const blogPosts: BlogPost[] = [
     imageUrl: "/blog/fuga-agua.svg",
     relatedServiceSlug: "fontanero-manzanares-el-real",
     content: `
+      <p>Si necesitas asistencia r&aacute;pida, puedes contactar con nuestro <a href="/fontanero-colmenar-viejo">fontanero en Colmenar Viejo</a> o cualquiera de nuestras delegaciones de la sierra.</p>
       <p>Una fuga de agua en el hogar es una de las emergencias más estresantes y potencialmente destructivas que un propietario puede enfrentar. Ya sea una tubería rota bajo el fregadero, un goteo constante en el techo o, peor aún, una inundación repentina debido a la rotura de una bajante principal, actuar con rapidez y decisión es fundamental. La diferencia entre una reparación sencilla de fontanería y una reforma integral por daños estructurales y humedades suele ser cuestión de minutos.</p>
       
       <h2>1. El primer paso crucial: Cierra la llave de paso general</h2>
@@ -278,6 +279,7 @@ export const blogPosts: BlogPost[] = [
     imageUrl: "/blog/diferencial-salta.svg",
     relatedServiceSlug: "electricista-manzanares-el-real",
     content: `
+      <p>Ante bloqueos graves, contar con un <a href="/electricista-colmenar-viejo">electricista en Colmenar Viejo</a> o tu municipio local te ahorrar&aacute; muchos dolores de cabeza.</p>
       <p>Estás tranquilamente en casa y de repente... oscuridad total. Vas al cuadro eléctrico general y ves que una de las palancas, concretamente el **diferencial**, se ha bajado. Intentas subirla pero vuelve a saltar inmediatamente con un chasquido. ¿Te suena esta situación?</p>
       <p>Que salte el diferencial es uno de los problemas eléctricos domésticos más comunes, pero también de los más molestos. En esta guía te explicamos de forma sencilla qué es este elemento, por qué salta y cómo puedes localizar el origen de la avería tú mismo en cinco minutos.</p>
 
