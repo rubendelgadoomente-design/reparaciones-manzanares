@@ -1,13 +1,14 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import * as mammoth from 'mammoth';
 
 export default function PresupuestosPage() {
   const [emisor, setEmisor] = useState({
-    nombre: 'Reparaciones Manzanares',
-    subtitulo: 'Mantenimiento y Reformas Integrales',
+    nombre: 'CBM PROYECTOS INTEGRALES',
+    subtitulo: 'MANZANARES EL REAL - 28410',
     nif: '',
-    telefono: '919 93 09 63',
-    web: 'www.reparacionesmanzanares.es'
+    telefono: '91 853 07 53 / 629 07 06 80',
+    web: 'www.cbm-reformas.es.tl | pyt_miguel@yahoo.es'
   });
 
   const [cliente, setCliente] = useState({
@@ -22,10 +23,90 @@ export default function PresupuestosPage() {
 
   const [notas, setNotas] = useState(
 `CONDICIONES DEL PRESUPUESTO:
-- No está incluido ningún material para la ejecución de la obra salvo lo especificado en las partidas.
-- Forma de pago: 50% a la aceptación del presupuesto (para provisión de materiales), 50% a la finalización de los trabajos.
+- Forma de pago: 50% comienzo de la obra, 50% fin de obra.
 - Validez de este presupuesto: 30 días.`
   );
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const procesarWord = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const result = await mammoth.extractRawText({ arrayBuffer });
+      const text = result.value;
+
+      // Lógica de parseo
+      const lineas = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+      
+      const nuevasPartidas: { descripcion: string; precio: number }[] = [];
+      let bufferDescripcion = '';
+      let nuevasNotas = '';
+
+      for (let i = 0; i < lineas.length; i++) {
+        const linea = lineas[i];
+        
+        // Detección de notas (líneas con asteriscos que no sean de 'total')
+        if ((linea.startsWith('***') || linea.startsWith('**') || linea.startsWith('*')) && !linea.match(/total/i)) {
+          nuevasNotas += linea + '\n';
+          continue;
+        }
+
+        // Buscar precio: ej "PRECIO -> 320" o "TOTAL IMPORTE PARTIDA SOLADO: 1560,00€"
+        // También puede venir como "TOTAL IMPORTE PARTIDA: 700€"
+        const regexPrecio = /(?:PRECIO\s*[→>-]|TOTAL IMPORTE PARTIDA.*?[:]?)\s*([\d.,]+)/i;
+        const match = linea.match(regexPrecio);
+
+        if (match) {
+          // Extraer número: quitamos puntos de miles y cambiamos coma por punto decimal
+          let numStr = match[1].replace(/\./g, '').replace(',', '.');
+          const precio = parseFloat(numStr) || 0;
+          
+          if (bufferDescripcion.trim().length > 0) {
+             nuevasPartidas.push({
+               descripcion: bufferDescripcion.trim(),
+               precio: precio
+             });
+          }
+          bufferDescripcion = ''; // Reset
+        } else {
+          // Filtrar basura como "Página 1 de 2" o encabezados
+          if (linea.match(/Página \d de/i) || linea.match(/PRESUPUESTO/i) || linea.match(/CBM PROYECTOS/i) || linea.match(/MANZANARES EL REAL/i)) {
+            continue;
+          }
+          
+          // Guardar el cliente potencial de las primeras líneas
+          if (i < 10 && linea.match(/^[A-Z\s]+$/) && linea.length > 3 && !linea.match(/PARTIDA/i)) {
+             // Es posible que sea el nombre del cliente o ubicación
+             // No lo añadimos a la descripción de partida, lo ponemos en cliente si está vacío
+             setCliente(prev => ({ ...prev, nombre: prev.nombre ? prev.nombre + ' - ' + linea : linea }));
+             continue;
+          }
+
+          bufferDescripcion += linea + '\n';
+        }
+      }
+
+      if (nuevasPartidas.length > 0) {
+        setPartidas(nuevasPartidas);
+        if (nuevasNotas) {
+           setNotas(prev => prev + '\n\nNOTAS IMPORTADAS:\n' + nuevasNotas);
+        }
+        alert('Word importado correctamente. Revisa que las partidas estén bien.');
+      } else {
+        alert('No se encontraron precios. Asegúrate de que el Word tenga "PRECIO → X" o "TOTAL IMPORTE PARTIDA: X".');
+      }
+
+    } catch (err) {
+      console.error(err);
+      alert('Error al leer el archivo Word.');
+    }
+    
+    // Reset file input
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
 
   const agregarPartida = () => setPartidas([...partidas, { descripcion: '', precio: 0 }]);
   const actualizarPartida = (index: number, campo: string, valor: string | number) => {
@@ -37,16 +118,20 @@ export default function PresupuestosPage() {
     setPartidas(partidas.filter((_, i) => i !== index));
   };
 
-  const handlePrint = () => window.print();
+  const handlePrint = () => {
+    window.print();
+  };
 
   const subtotal = partidas.reduce((acc, part) => acc + (Number(part.precio) || 0), 0);
   const iva = subtotal * 0.21;
   const total = subtotal + iva;
 
-  // Renderizador especial para el título si es la marca propia
   const renderLogo = (nombre: string) => {
-    if (nombre.toUpperCase() === 'REPARACIONES MANZANARES') {
+    if (nombre.toUpperCase().includes('REPARACIONES MANZANARES')) {
       return <><span style={{color: '#0f172a'}}>REPARACIONES</span> <span style={{color:'#f97316'}}>MANZANARES</span></>;
+    }
+    if (nombre.toUpperCase().includes('CBM')) {
+      return <span style={{color: '#0f172a', letterSpacing: '2px'}}>{nombre.toUpperCase()}</span>;
     }
     return <span style={{color: '#0f172a'}}>{nombre.toUpperCase()}</span>;
   };
@@ -142,6 +227,13 @@ export default function PresupuestosPage() {
         }
         .btn-print:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(37,99,235,0.3); }
         .btn-print:active { transform: translateY(1px); }
+        
+        .btn-import {
+          background: #8b5cf6; color: white; font-weight: bold; border: none;
+          padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px;
+          display: inline-flex; align-items: center; gap: 6px; transition: 0.2s;
+        }
+        .btn-import:hover { background: #7c3aed; }
 
         .preview-panel {
           flex: 1;
@@ -207,11 +299,32 @@ export default function PresupuestosPage() {
         {/* PANEL IZQUIERDO */}
         <div className="control-panel">
           <div className="control-scroll">
-            <h1 className="header-title">Generador PDF</h1>
-            <p className="header-subtitle">Herramienta de Presupuestos</p>
+            
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px'}}>
+              <div>
+                <h1 className="header-title">Presupuestos</h1>
+                <p className="header-subtitle" style={{margin: 0}}>Generador PDF Automatizado</p>
+              </div>
+              <div>
+                <input 
+                  type="file" 
+                  accept=".docx" 
+                  ref={fileInputRef} 
+                  style={{display: 'none'}} 
+                  onChange={procesarWord}
+                />
+                <button 
+                  className="btn-import" 
+                  onClick={() => fileInputRef.current?.click()}
+                  title="Selecciona un archivo Word (.docx) enviado por José"
+                >
+                  📄 Importar Word
+                </button>
+              </div>
+            </div>
 
             <div className="section-box" style={{backgroundColor: '#eff6ff', borderColor: '#bfdbfe'}}>
-              <div className="section-title" style={{color: '#3b82f6'}}>Datos del Emisor (Quién factura)</div>
+              <div className="section-title" style={{color: '#3b82f6'}}>Datos del Emisor</div>
               <div className="form-group">
                 <label className="form-label">Nombre de la Empresa / Autónomo</label>
                 <input type="text" className="form-input" value={emisor.nombre} onChange={e => setEmisor({...emisor, nombre: e.target.value})} />
@@ -229,6 +342,10 @@ export default function PresupuestosPage() {
               <div className="form-group">
                 <label className="form-label">Subtítulo (Opcional)</label>
                 <input type="text" className="form-input" value={emisor.subtitulo} onChange={e => setEmisor({...emisor, subtitulo: e.target.value})} />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Web / Email</label>
+                <input type="text" className="form-input" value={emisor.web} onChange={e => setEmisor({...emisor, web: e.target.value})} />
               </div>
             </div>
 
@@ -255,13 +372,13 @@ export default function PresupuestosPage() {
               {partidas.map((partida, index) => (
                 <div key={index} className="partida-item">
                   <textarea 
-                    className="partida-desc" rows={2} placeholder="Descripción del trabajo..." 
+                    className="partida-desc" rows={3} placeholder="Descripción del trabajo..." 
                     value={partida.descripcion} onChange={e => actualizarPartida(index, 'descripcion', e.target.value)} 
                   />
                   <div>
                     <input 
                       type="number" className="partida-price" placeholder="0" 
-                      value={partida.precio || ''} onChange={e => actualizarPartida(index, 'precio', parseFloat(e.target.value) || 0)} 
+                      value={partida.precio || ''} onChange={e => actualizarPartida(index, 'precio', parseFloat(e.target.value.toString()) || 0)} 
                     />
                   </div>
                   <div className="btn-delete" onClick={() => eliminarPartida(index)}>×</div>
@@ -273,14 +390,14 @@ export default function PresupuestosPage() {
             <div className="section-box">
               <div className="section-title">Condiciones y Notas</div>
               <textarea 
-                className="form-input" rows={5} style={{resize: 'vertical'}}
+                className="form-input" rows={8} style={{resize: 'vertical'}}
                 value={notas} onChange={e => setNotas(e.target.value)} 
               />
             </div>
           </div>
           
           <div className="print-btn-container">
-            <button className="btn-print" onClick={handlePrint}>🖨️ Generar Presupuesto PDF</button>
+            <button className="btn-print" onClick={handlePrint}>🖨️ Generar PDF</button>
           </div>
         </div>
 
