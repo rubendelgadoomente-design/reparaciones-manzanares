@@ -12,6 +12,51 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "electricista-colmenar-viejo-averias-precios",
+    title: "Electricista en Colmenar Viejo: Averías más frecuentes y precios 2026",
+    excerpt: "Guía completa sobre averías eléctricas en Colmenar Viejo. Conoce los motivos por los que salta la luz, tarifas actualizadas para 2026 y cómo encontrar un instalador autorizado de confianza.",
+    relatedServiceSlug: "electricista-colmenar-viejo",
+    content: `
+      <p>Cuando la luz se va en medio del invierno o un enchufe empieza a oler a quemado, necesitas a alguien rápido. Buscar un <strong>electricista en Colmenar Viejo</strong> que sea de confianza, rápido y, sobre todo, transparente con los precios, puede convertirse en una odisea si no sabes por dónde empezar.</p>
+      
+      <p>En este artículo, desde nuestra experiencia atendiendo avisos a diario en barrios como La Estación, El Mirador, Santa Teresa y el casco histórico, te contamos cuáles son las averías más comunes que nos encontramos y qué tarifas se están manejando realmente en 2026.</p>
+
+      <h2>Las averías eléctricas más comunes en Colmenar Viejo</h2>
+      <p>El parque de viviendas en Colmenar Viejo es muy variado, mezclando obra nueva con chalets y pisos que ya tienen varias décadas. Esto genera tres tipos de problemas recurrentes:</p>
+      <ul>
+        <li><strong>Saltos del diferencial por derivaciones:</strong> Muy común en chalets y plantas bajas en invierno debido a filtraciones de humedad en faroles exteriores, bombas de piscina o enchufes de jardín mal aislados.</li>
+        <li><strong>Sobrecarga por electrodomésticos:</strong> En viviendas antiguas del centro que no han actualizado su cuadro eléctrico, encender el horno, la lavadora y un radiador eléctrico a la vez hace que salte el ICP (ahora integrado en los contadores inteligentes) o los magnetotérmicos.</li>
+        <li><strong>Cuadros eléctricos obsoletos:</strong> Sustitución de viejos fusibles por cuadros normativos modernos para garantizar la seguridad frente a cortocircuitos e incendios.</li>
+      </ul>
+
+      <h2>Precios de un electricista en Colmenar Viejo (Tarifas 2026)</h2>
+      <p>La falta de transparencia es el mayor miedo del cliente. Aunque el precio final siempre dependerá del diagnóstico, estas son las tarifas medias que debes esperar de un profesional homologado en la zona norte de Madrid este 2026:</p>
+      
+      <ul>
+        <li><strong>Tarifa base de intervención (Horario laboral):</strong> Entre 40€ y 60€ (desplazamiento y primera hora de mano de obra).</li>
+        <li><strong>Servicio de urgencia (Noches, festivos o fin de semana):</strong> El coste suele partir de los 90€ - 120€, justificando la inmediatez y el horario especial.</li>
+        <li><strong>Cambio de un enchufe o interruptor fundido:</strong> Rondando los 50€ - 70€, incluyendo el material estándar.</li>
+        <li><strong>Emisión de un Boletín Eléctrico (CIE):</strong> Si necesitas dar de alta la luz o subir la potencia, un boletín emitido por un Instalador Autorizado ronda entre 120€ y 180€.</li>
+      </ul>
+
+      <div class="bg-blue-50 p-6 rounded-lg my-8 border-l-4 border-blue-600">
+        <h3 class="text-xl font-bold mb-2 text-blue-800">⚠️ ¡Cuidado con las pegatinas del cerrajero/electricista!</h3>
+        <p class="text-blue-900">Evita llamar a los números de teléfono que aparecen en las famosas pegatinas de las farolas y buzones. Suelen ser empresas intermediarias que inflan los precios hasta un 300% bajo la excusa de la urgencia. Busca siempre profesionales locales con reseñas contrastables.</p>
+      </div>
+
+      <h2>¿Cómo evitar sustos en tu factura de la luz?</h2>
+      <p>Además de las averías urgentes, uno de los servicios más demandados actualmente es la optimización energética. Si la factura de la luz te da un susto cada mes, un electricista cualificado puede revisar tu instalación para:</p>
+      <ol>
+        <li><strong>Sustituir la iluminación tradicional por LED:</strong> Parece un gasto inicial, pero la amortización se nota en menos de un año.</li>
+        <li><strong>Instalar temporizadores o programadores:</strong> Ideales para termos eléctricos, asegurando que solo calientan el agua en las horas valle de tu tarifa contratada.</li>
+        <li><strong>Comprobar derivaciones fantasma:</strong> Electrodomésticos antiguos que "roban" energía incluso estando apagados porque su aislamiento interno está dañado.</li>
+      </ol>
+
+      <p>Si te has quedado sin luz, tu cuadro huele a quemado, o necesitas emitir un boletín oficial para tu nueva vivienda, no te la juegues con la electricidad. En <a href="/">Reparaciones Manzanares</a> contamos con técnicos homologados que llegan en tiempo récord. Si necesitas un <strong><a href="/electricista-colmenar-viejo">electricista en Colmenar Viejo</a></strong>, contáctanos hoy mismo para obtener un presupuesto claro, sin compromiso y sin sorpresas de última hora.</p>
+    `
+  },
+  
+  {
     slug: "reparacion-persianas-mosquiteras-sierra-madrid-guia-precios",
     title: "Reparación de persianas en la Sierra de Madrid: Averías comunes, precios y cuándo cambiar la mosquitera",
     excerpt: "Guía completa sobre reparación de persianas y mosquiteras en chalets y viviendas de la Sierra Norte de Madrid. Averías más frecuentes, precios orientativos 2026 y consejos para el mantenimiento preventivo antes del invierno.",
