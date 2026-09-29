@@ -14,6 +14,11 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "electricista-colmenar-viejo-averias-precios",
     title: "Electricista en Colmenar Viejo: Averías más frecuentes y precios 2026",
+
+    publishDate: "2026-09-25",
+    readTime: "5 min",
+    category: "Electricidad",
+    imageUrl: "/images/blog-default.jpg",
     excerpt: "Guía completa sobre averías eléctricas en Colmenar Viejo. Conoce los motivos por los que salta la luz, tarifas actualizadas para 2026 y cómo encontrar un instalador autorizado de confianza.",
     relatedServiceSlug: "electricista-colmenar-viejo",
     content: `

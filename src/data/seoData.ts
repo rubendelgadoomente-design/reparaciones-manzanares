@@ -47,7 +47,7 @@ export const locationsData: LocationData[] = [
       "Los Molinos"
     ,
       "Colmenar Viejo"
-    
+    ]
   },
   {
     "name": "Moralzarzal",
@@ -62,7 +62,7 @@ export const locationsData: LocationData[] = [
       "El Boalo"
     ,
       "Colmenar Viejo"
-    
+    ]
   },
   {
     "name": "Alpedrete",
@@ -103,7 +103,7 @@ export const locationsData: LocationData[] = [
       "Moralzarzal"
     ,
       "Colmenar Viejo"
-    
+    ]
   },
   {
     "name": "El Boalo",
@@ -118,7 +118,7 @@ export const locationsData: LocationData[] = [
       "Moralzarzal"
     ,
       "Colmenar Viejo"
-    
+    ]
   },
   {
     "name": "Mataelpino",
