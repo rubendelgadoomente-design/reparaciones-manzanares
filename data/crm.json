@@ -1,0 +1,137 @@
+[
+  {
+    "id": "c_imunfo8y9mv2koumn",
+    "fecha": "2026-07-02",
+    "nombre": "Rubén García",
+    "telefono": "612345678",
+    "email": "ruben@gmail.com",
+    "localidad": "Manzanares el Real",
+    "servicio": "Fontanería",
+    "origen": "Google Orgánico",
+    "estado": "Finalizado",
+    "prioridad": "Alta",
+    "presupuesto": 180,
+    "facturado": 180,
+    "motivoDescarte": "",
+    "descripcion": "Fuga de agua en llave de paso general de patio.",
+    "observaciones": "Se atendió urgente. Muy agradecido.",
+    "fotos": [],
+    "createdAt": "2026-07-02T08:00:00.000Z",
+    "updatedAt": "2026-07-02T13:00:00.000Z",
+    "historial": [
+      {
+        "date": "2026-10-10T15:52:26.639Z",
+        "description": "Creado e importado como ejemplo."
+      }
+    ],
+    "notas": [
+      {
+        "date": "2026-10-10T15:52:26.639Z",
+        "text": "Trabajo rápido. Pago en efectivo."
+      }
+    ],
+    "llamadas": [
+      {
+        "date": "2026-10-10T15:52:26.639Z",
+        "text": "Llamada inicial del cliente explicando la fuga."
+      }
+    ]
+  },
+  {
+    "id": "c_jqan33lmhmv2koumn",
+    "fecha": "2026-07-05",
+    "nombre": "María Jesús López",
+    "telefono": "622987654",
+    "email": "mjesus@soto.es",
+    "localidad": "Soto del Real",
+    "servicio": "Calderas",
+    "origen": "Google Ads",
+    "estado": "Aceptado",
+    "prioridad": "Media",
+    "presupuesto": 1200,
+    "facturado": 0,
+    "motivoDescarte": "",
+    "descripcion": "Sustitución de caldera vieja por nueva caldera de condensación Junkers.",
+    "observaciones": "Material pedido a proveedor. Instalación prevista para el jueves.",
+    "fotos": [],
+    "createdAt": "2026-07-05T10:00:00.000Z",
+    "updatedAt": "2026-07-06T16:00:00.000Z",
+    "historial": [
+      {
+        "date": "2026-10-10T15:52:26.639Z",
+        "description": "Presupuesto aceptado."
+      }
+    ],
+    "notas": [],
+    "llamadas": []
+  },
+  {
+    "id": "c_qotr5eai5mv2koumn",
+    "fecha": "2026-07-08",
+    "nombre": "Antonio Martínez",
+    "telefono": "655432109",
+    "email": "",
+    "localidad": "Cerceda",
+    "servicio": "Electricidad",
+    "origen": "WhatsApp",
+    "estado": "Presupuesto enviado",
+    "prioridad": "Media",
+    "presupuesto": 350,
+    "facturado": 0,
+    "motivoDescarte": "",
+    "descripcion": "Instalación de focos LED en cocina y sustitución de varios enchufes en salón.",
+    "observaciones": "Pendiente de respuesta del cliente.",
+    "fotos": [],
+    "createdAt": "2026-07-08T07:30:00.000Z",
+    "updatedAt": "2026-07-08T09:00:00.000Z",
+    "historial": [],
+    "notas": [],
+    "llamadas": []
+  },
+  {
+    "id": "c_kty4jizosmv2koumn",
+    "fecha": "2026-07-10",
+    "nombre": "Lorena Ruiz",
+    "telefono": "699000111",
+    "email": "lorena@boalo.org",
+    "localidad": "El Boalo",
+    "servicio": "Cerrajería",
+    "origen": "Google Business Profile",
+    "estado": "Rechazado",
+    "prioridad": "Alta",
+    "presupuesto": 150,
+    "facturado": 0,
+    "motivoDescarte": "Precio demasiado alto",
+    "descripcion": "Cambio de bombín urgente por pérdida de llaves.",
+    "observaciones": "Le pareció caro la tarifa de urgencia y festivo.",
+    "fotos": [],
+    "createdAt": "2026-07-10T20:00:00.000Z",
+    "updatedAt": "2026-07-10T20:15:00.000Z",
+    "historial": [],
+    "notas": [],
+    "llamadas": []
+  },
+  {
+    "id": "c_697700s6ymv2koumn",
+    "fecha": "2026-06-15",
+    "nombre": "Pedro San Juan",
+    "telefono": "600778899",
+    "email": "",
+    "localidad": "Moralzarzal",
+    "servicio": "Persianas",
+    "origen": "Llamada directa",
+    "estado": "Finalizado",
+    "prioridad": "Baja",
+    "presupuesto": 90,
+    "facturado": 90,
+    "motivoDescarte": "",
+    "descripcion": "Reparación de persiana de aluminio atascada.",
+    "observaciones": "",
+    "fotos": [],
+    "createdAt": "2026-06-15T08:00:00.000Z",
+    "updatedAt": "2026-06-16T10:00:00.000Z",
+    "historial": [],
+    "notas": [],
+    "llamadas": []
+  }
+]

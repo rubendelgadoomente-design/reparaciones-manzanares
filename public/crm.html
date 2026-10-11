@@ -1,0 +1,3073 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0079)file:///C:/Users/ruben/.gemini/antigravity/scratch/contactos-manager/index.html -->
+<html lang="es" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reparaciones Manzanares – Gestor de Contactos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── CSS Variables (Matching Expenses Dashboard) ─── */
+    :root {
+      --bg: #0f1117;
+      --bg2: #161b27;
+      --bg3: #1e2535;
+      --border: #2a3347;
+      --text: #e8eaf0;
+      --text2: #8b95ab;
+      --accent: #6c8cff;
+      --accent2: #4f6ef7;
+      --green: #34d399;
+      --yellow: #fbbf24;
+      --red: #f87171;
+      --purple: #a78bfa;
+      --card-shadow: 0 4px 24px rgba(0,0,0,0.35);
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+    [data-theme="light"] {
+      --bg: #f0f4fa;
+      --bg2: #ffffff;
+      --bg3: #e8edf6;
+      --border: #d0d9ea;
+      --text: #1a2036;
+      --text2: #6b7a99;
+      --card-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    /* ─── Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background .3s, color .3s; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: inherit; outline: none; }
+    input, select, textarea { font-family: inherit; }
+
+    /* ─── Layout ─── */
+    .app { display: flex; min-height: 100vh; }
+
+    /* ─── Sidebar ─── */
+    .sidebar {
+      width: 240px;
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 100;
+      transition: transform .3s;
+    }
+    .sidebar-logo {
+      padding: 24px 20px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-logo h1 { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
+    .sidebar-logo p { font-size: .75rem; color: var(--text2); margin-top: 2px; }
+    .sidebar-nav { flex: 1; padding: 12px 10px; display: flex; flex-direction: column; gap: 4px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      color: var(--text2);
+      font-size: .9rem; font-weight: 500;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+      border: none; background: transparent; width: 100%; text-align: left;
+    }
+    .nav-item:hover { background: var(--bg3); color: var(--text); }
+    .nav-item.active { background: linear-gradient(135deg, #3b5bdb22, #6c8cff22); color: var(--accent); }
+    .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; fill: currentColor; }
+    .sidebar-footer { padding: 16px 10px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
+
+    /* ─── Main Content ─── */
+    .main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; width: calc(100% - 240px); }
+    .topbar {
+      height: 60px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .topbar-title { font-size: 1.1rem; font-weight: 600; }
+    .topbar-actions { display: flex; align-items: center; gap: 12px; }
+    .content { padding: 28px; flex: 1; }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 18px; border-radius: var(--radius-sm);
+      font-size: .875rem; font-weight: 500;
+      border: none; transition: all .2s;
+      color: #fff;
+    }
+    .btn-primary { background: var(--accent); }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(108,140,255,.4); }
+    .btn-ghost { background: transparent; color: var(--text2); border: 1px solid var(--border); }
+    .btn-ghost:hover { background: var(--bg3); color: var(--text); }
+    .btn-danger { background: #f8717122; color: var(--red); border: 1px solid #f8717144; }
+    .btn-danger:hover { background: #f8717133; }
+    .btn-success { background: #34d39922; color: var(--green); border: 1px solid #34d39944; }
+    .btn-success:hover { background: #34d39933; }
+    .btn-sm { padding: 6px 12px; font-size: .8rem; }
+
+    /* ─── Cards ─── */
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 24px;
+    }
+    .card-title { font-size: .85rem; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+
+    /* ─── KPI Grid ─── */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .kpi-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .kpi-card.blue::before { background: linear-gradient(90deg, var(--accent), #818cf8); }
+    .kpi-card.green::before { background: linear-gradient(90deg, var(--green), #6ee7b7); }
+    .kpi-card.yellow::before { background: linear-gradient(90deg, var(--yellow), #fde68a); }
+    .kpi-card.purple::before { background: linear-gradient(90deg, var(--purple), #c4b5fd); }
+    .kpi-card.red::before { background: linear-gradient(90deg, var(--red), #fca5a5); }
+    .kpi-label { font-size: .78rem; color: var(--text2); font-weight: 500; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .05em; }
+    .kpi-value { font-size: 1.6rem; font-weight: 700; color: var(--text); }
+    .kpi-sub { font-size: .78rem; color: var(--text2); margin-top: 4px; }
+
+    /* ─── Section Header ─── */
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .section-title { font-size: 1.1rem; font-weight: 600; }
+
+    /* ─── Forms ─── */
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group.half { grid-column: span 2; }
+    label { font-size: .82rem; font-weight: 500; color: var(--text2); }
+    input, select, textarea {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      padding: 10px 12px;
+      font-size: .9rem;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(108,140,255,.15);
+    }
+    select option { background: var(--bg2); }
+    textarea { resize: vertical; min-height: 80px; }
+    .form-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+
+    /* ─── Filters ─── */
+    .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; align-items: center; }
+    .filters input, .filters select { min-width: 140px; padding: 8px 12px; font-size: .85rem; }
+    .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .chip {
+      padding: 6px 14px; border-radius: 20px; font-size: .8rem; font-weight: 500;
+      border: 1px solid var(--border); background: transparent; color: var(--text2);
+      cursor: pointer; transition: all .2s;
+    }
+    .chip:hover, .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ─── Table ─── */
+    .table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg2); }
+    table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    th {
+      text-align: left; padding: 12px 16px;
+      font-size: .78rem; font-weight: 600; color: var(--text2);
+      text-transform: uppercase; letter-spacing: .05em;
+      background: var(--bg3); border-bottom: 1px solid var(--border);
+      cursor: pointer; user-select: none;
+    }
+    th:hover { color: var(--text); }
+    td { padding: 12px 16px; font-size: .875rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg3); }
+    .empty-row td { text-align: center; color: var(--text2); padding: 40px; }
+
+    /* ─── Badges ─── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 20px;
+      font-size: .75rem; font-weight: 600;
+    }
+    .badge-Nuevo { background: rgba(108,140,255,0.15); color: var(--accent); }
+    .badge-Contactado { background: rgba(167,139,250,0.15); color: var(--purple); }
+    .badge-Presupuesto { background: rgba(251,191,36,0.15); color: var(--yellow); }
+    .badge-Aceptado { background: rgba(52,211,153,0.15); color: var(--green); }
+    .badge-Finalizado { background: rgba(16,185,129,0.25); color: #10b981; }
+    .badge-Rechazado { background: rgba(248,113,113,0.15); color: var(--red); }
+    .badge-No-interesado { background: rgba(139,149,171,0.15); color: var(--text2); }
+
+    .badge-prio-Alta { background: rgba(248,113,113,0.15); color: var(--red); }
+    .badge-prio-Media { background: rgba(251,191,36,0.15); color: var(--yellow); }
+    .badge-prio-Baja { background: rgba(52,211,153,0.15); color: var(--green); }
+
+    /* ─── Theme Toggle ─── */
+    .theme-toggle {
+      width: 42px; height: 24px; border-radius: 12px;
+      background: var(--bg3); border: 1px solid var(--border);
+      position: relative; cursor: pointer; transition: background .3s;
+    }
+    .theme-toggle::after {
+      content: ''; position: absolute;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--accent); top: 3px; left: 3px;
+      transition: transform .3s;
+    }
+    [data-theme="light"] .theme-toggle::after { transform: translateX(18px); }
+
+    /* ─── Custom Responsive CSS Charts ─── */
+    .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-bottom: 24px; }
+    .chart-container { padding: 10px 0; min-height: 180px; display: flex; flex-direction: column; justify-content: center; }
+    .bar-chart { display: flex; align-items: flex-end; gap: 10px; height: 160px; padding: 0 4px; border-bottom: 1px solid var(--border); margin-top: 10px; }
+    .bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .bar {
+      width: 100%; border-radius: 4px 4px 0 0;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      min-height: 4px; transition: height .5s ease;
+      position: relative;
+      cursor: pointer;
+    }
+    .bar.green { background: linear-gradient(180deg, var(--green), #059669); }
+    .bar.purple { background: linear-gradient(180deg, var(--purple), #7c3aed); }
+    .bar:hover::after {
+      content: attr(data-value);
+      position: absolute; top: -26px; left: 50%; transform: translateX(-50%);
+      background: var(--bg2); border: 1px solid var(--border);
+      padding: 2px 8px; border-radius: 4px; font-size: .75rem; white-space: nowrap;
+      color: var(--text); z-index: 10;
+    }
+    .bar-label { font-size: .7rem; color: var(--text2); text-align: center; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .cat-list { display: flex; flex-direction: column; gap: 10px; }
+    .cat-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .cat-bar-bg { flex: 1; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+    .cat-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--purple)); transition: width .6s ease; }
+    .cat-bar-fill.green { background: linear-gradient(90deg, var(--green), var(--accent)); }
+    .cat-name { font-size: .82rem; width: 130px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .cat-amount { font-size: .82rem; font-weight: 600; width: 75px; text-align: right; flex-shrink: 0; }
+
+    /* ─── Modal ─── */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,.6);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 200; backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none; transition: opacity .2s;
+    }
+    .modal-backdrop.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      width: min(800px, 95vw); max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 25px 60px rgba(0,0,0,.5);
+      transform: scale(.95); transition: transform .2s;
+    }
+    .modal-backdrop.open .modal { transform: scale(1); }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .modal-title { font-size: 1.1rem; font-weight: 600; }
+    .modal-close { background: none; border: none; color: var(--text2); font-size: 1.4rem; cursor: pointer; line-height: 1; padding: 4px; }
+    .modal-close:hover { color: var(--text); }
+
+    /* ─── Details Drawer/Ficha del Contacto ─── */
+    .details-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; }
+    .detail-card-info { display: flex; flex-direction: column; gap: 14px; }
+    .detail-row { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-size: .9rem; }
+    .detail-row span:first-child { color: var(--text2); font-weight: 500; }
+    .detail-row span:last-child { font-weight: 600; text-align: right; }
+    .detail-description { background: var(--bg3); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border); font-size: .875rem; white-space: pre-wrap; margin-top: 6px; }
+
+    /* Ficha sidebar lists */
+    .history-list, .notes-list, .call-list { display: flex; flex-direction: column; gap: 10px; max-height: 250px; overflow-y: auto; padding-right: 6px; }
+    .history-item { font-size: .78rem; padding: 8px; background: var(--bg3); border-radius: 6px; border-left: 3px solid var(--accent); }
+    .history-date { color: var(--text2); font-size: .7rem; margin-bottom: 4px; }
+    .note-item { font-size: .82rem; padding: 8px; background: var(--bg3); border-radius: 6px; border: 1px solid var(--border); }
+    .note-date { color: var(--accent); font-size: .72rem; font-weight: 600; display: flex; justify-content: space-between; margin-bottom: 4px; }
+    .call-item { font-size: .82rem; padding: 8px; background: var(--bg3); border-radius: 6px; border-left: 3px solid var(--green); }
+    .call-date { color: var(--text2); font-size: .72rem; margin-bottom: 2px; }
+
+    /* Photos */
+    .photos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; margin-top: 10px; }
+    .photo-thumb { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; transition: transform .2s; }
+    .photo-thumb:hover { transform: scale(1.05); }
+
+    /* ─── Config view ─── */
+    .config-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .editable-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; max-height: 400px; overflow-y: auto; }
+    .editable-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+    .editable-item input { background: transparent; border: none; font-size: .875rem; color: var(--text); padding: 0; width: 70%; }
+    .editable-item input:focus { box-shadow: none; border-bottom: 1px solid var(--accent); }
+
+    /* ─── Toast ─── */
+    #toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 300; display: flex; flex-direction: column; gap: 8px; }
+    .toast {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 12px 18px;
+      box-shadow: var(--card-shadow); font-size: .875rem;
+      display: flex; align-items: center; gap: 10px;
+      animation: slideIn .3s ease;
+      min-width: 250px;
+    }
+    .toast.success { border-left: 4px solid var(--green); }
+    .toast.error { border-left: 4px solid var(--red); }
+    .toast.info { border-left: 4px solid var(--accent); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; width: 100%; }
+      .details-grid { grid-template-columns: 1fr; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* ─── Print Styles ─── */
+    @media print {
+        .sidebar, .topbar, .filters, .filter-chips, .section-header, .no-print, .form-actions, #toast-container, .modal-close { display: none !important; }
+        .main { margin-left: 0 !important; width: 100% !important; }
+        .page { display: block !important; }
+        .card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+        body { background: white; color: black; }
+        :root { --bg: white; --bg2: white; --bg3: #f5f5f5; --text: #000; --text2: #555; --border: #ddd; }
+        .badge { border: 1px solid #ccc; color: #000 !important; background: transparent !important; }
+        table { border: 1px solid #ddd; min-width: 100%; }
+        th { background: #eee; color: #000; }
+        td { border-bottom: 1px solid #ddd; }
+      }
+  </style>
+</head>
+<body>
+
+  <!-- PIN Auth Modal -->
+  <div id="auth-overlay" style="display:none; position:fixed; inset:0; background:rgba(15,17,23,0.97); backdrop-filter:blur(8px); z-index:99999; align-items:center; justify-content:center;">
+    <div style="background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:36px; width:100%; max-width:390px; text-align:center; box-shadow:var(--card-shadow);">
+      <div style="font-size:2.8rem; margin-bottom:12px;">🔐</div>
+      <h2 style="font-size:1.35rem; margin-bottom:6px; color:var(--text); font-weight:700;">Reparaciones Manzanares</h2>
+      <p style="font-size:0.88rem; color:var(--text2); margin-bottom:24px;">Acceso restringido al CRM</p>
+      <form onsubmit="handleAuthSubmit(event)">
+        <input type="password" id="auth-pin-input" placeholder="Introduce el PIN" style="width:100%; padding:14px 16px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--bg3); color:var(--text); font-size:1.25rem; text-align:center; letter-spacing:6px; margin-bottom:14px;" autofocus required>
+        <div id="auth-error" style="color:var(--red); font-size:0.85rem; margin-bottom:14px; display:none;">PIN incorrecto. Inténtalo de nuevo.</div>
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:12px; font-size:1rem; font-weight:600;">Entrar al CRM</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="app">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <h1>Reparaciones Manzanares</h1>
+        <p>Gestor de Contactos</p>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" onclick="navigate(&#39;dashboard&#39;)">
+          <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
+          Dashboard
+        </button>
+        <button class="nav-item" onclick="navigate(&#39;contactos&#39;)">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path></svg>
+          Contactos
+        </button>
+        <button class="nav-item" onclick="navigate(&#39;estadisticas&#39;)">
+          <svg viewBox="0 0 24 24"><path d="M5 19h14V5H5v14zm4-6h2v4H9v-4zm4-4h2v8h-2V9zm-8 6h2v2H5v-2z"></path></svg>
+          Estadísticas
+        </button>
+        <button class="nav-item" onclick="navigate(&#39;configuracion&#39;)">
+          <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"></path></svg>
+          Configuración
+        </button>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <input type="file" id="import-backup-file" accept=".json" style="display:none" onchange="importBackup(event)">
+        <button class="btn btn-ghost btn-sm" onclick="exportBackup()">Exportar Backup</button>
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('import-backup-file').click()" style="color:var(--accent)">Importar Backup</button>
+        <button class="btn btn-danger btn-sm" onclick="clearAllData()">Limpiar Datos</button>
+      </div>
+    </aside>
+
+    <!-- Main Section -->
+    <main class="main">
+      <div class="topbar">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button class="btn btn-ghost btn-sm no-print" id="menu-btn" onclick="toggleSidebar()" style="display:none; padding:6px 10px;">☰</button>
+          <div class="topbar-title" id="page-title">Dashboard</div>
+        </div>
+        <div class="topbar-actions">
+          <div class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema"></div>
+          <button class="btn btn-primary no-print" onclick="openContactModal()">+ Nuevo Contacto</button>
+        </div>
+      </div>
+
+      <div class="content">
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- PAGE: DASHBOARD -->
+        <!-- ════════════════════════════════════════════ -->
+        <section id="page-dashboard" class="page active">
+          <!-- KPI Cards Grid -->
+          <div class="kpi-grid">
+            <div class="kpi-card blue">
+              <div class="kpi-label">Contactos este Mes</div>
+              <div class="kpi-value" id="kpi-mes">4</div>
+              <div class="kpi-sub" id="kpi-mes-sub">+3 vs mes anterior (1)</div>
+            </div>
+            <div class="kpi-card blue">
+              <div class="kpi-label">Contactos este Año</div>
+              <div class="kpi-value" id="kpi-anio">5</div>
+            </div>
+            <div class="kpi-card yellow">
+              <div class="kpi-label">Pendientes</div>
+              <div class="kpi-value" id="kpi-pendientes">1</div>
+              <div class="kpi-sub">Esperando gestión</div>
+            </div>
+            <div class="kpi-card purple">
+              <div class="kpi-label">Beneficio Fijo Mes</div>
+              <div class="kpi-value" id="kpi-beneficio-fijo">0,00 &euro;</div>
+              <div class="kpi-sub">Leads directos (15&euro;, 30&euro;)</div>
+            </div>
+            <div class="kpi-card green">
+              <div class="kpi-label">Beneficio % Mes</div>
+              <div class="kpi-value" id="kpi-beneficio-pct">0,00 &euro;</div>
+              <div class="kpi-sub">Comisiones por presupuesto</div>
+            </div>
+            <div class="kpi-card blue">
+              <div class="kpi-label">Beneficio Total Mes</div>
+              <div class="kpi-value" id="kpi-beneficio-total">0,00 &euro;</div>
+              <div class="kpi-sub">Fijo + Porcentaje</div>
+            </div>
+            <div class="kpi-card green">
+              <div class="kpi-label">Convertidos en Trabajo</div>
+              <div class="kpi-value" id="kpi-convertidos">3</div>
+              <div class="kpi-sub">Aceptados y Finalizados</div>
+            </div>
+            <div class="kpi-card purple">
+              <div class="kpi-label">Tasa de Conversión</div>
+              <div class="kpi-value" id="kpi-conversion-pct">60.0%</div>
+              <div class="kpi-sub">Total convertidos / total</div>
+            </div>
+            <div class="kpi-card yellow">
+              <div class="kpi-label">Facturación Estimada</div>
+              <div class="kpi-value" id="kpi-fact-estimada">1820,00&nbsp;€</div>
+              <div class="kpi-sub">Presupuestos no rechazados</div>
+            </div>
+            <div class="kpi-card green">
+              <div class="kpi-label">Facturación Real</div>
+              <div class="kpi-value" id="kpi-fact-real">270,00&nbsp;€</div>
+              <div class="kpi-sub">Trabajos finalizados/aceptados</div>
+            </div>
+          </div>
+
+          <!-- Charts Section -->
+          <div class="charts-grid">
+            <div class="card">
+              <div class="card-title">Contactos por Mes</div>
+              <div class="chart-container">
+                <div class="bar-chart" id="chart-mes">
+          <div class="bar-group">
+            <div class="bar" style="height:4px" data-value="0"></div>
+            <div class="bar-label">Ene</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar" style="height:4px" data-value="0"></div>
+            <div class="bar-label">Feb</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar" style="height:4px" data-value="0"></div>
+            <div class="bar-label">Mar</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar" style="height:4px" data-value="0"></div>
+            <div class="bar-label">Abr</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar" style="height:4px" data-value="0"></div>
+            <div class="bar-label">May</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar" style="height:30px" data-value="1"></div>
+            <div class="bar-label">Jun</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar" style="height:120px" data-value="4"></div>
+            <div class="bar-label">Jul</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar" style="height:4px" data-value="0"></div>
+            <div class="bar-label">Ago</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar" style="height:4px" data-value="0"></div>
+            <div class="bar-label">Sep</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar" style="height:4px" data-value="0"></div>
+            <div class="bar-label">Oct</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar" style="height:4px" data-value="0"></div>
+            <div class="bar-label">Nov</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar" style="height:4px" data-value="0"></div>
+            <div class="bar-label">Dic</div>
+          </div>
+        </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Conversión Mensual (%)</div>
+              <div class="chart-container">
+                <div class="bar-chart" id="chart-conv-mes">
+          <div class="bar-group">
+            <div class="bar purple" style="height:4px" data-value="0.0%"></div>
+            <div class="bar-label">Ene</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar purple" style="height:4px" data-value="0.0%"></div>
+            <div class="bar-label">Feb</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar purple" style="height:4px" data-value="0.0%"></div>
+            <div class="bar-label">Mar</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar purple" style="height:4px" data-value="0.0%"></div>
+            <div class="bar-label">Abr</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar purple" style="height:4px" data-value="0.0%"></div>
+            <div class="bar-label">May</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar purple" style="height:120px" data-value="100.0%"></div>
+            <div class="bar-label">Jun</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar purple" style="height:60px" data-value="50.0%"></div>
+            <div class="bar-label">Jul</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar purple" style="height:4px" data-value="0.0%"></div>
+            <div class="bar-label">Ago</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar purple" style="height:4px" data-value="0.0%"></div>
+            <div class="bar-label">Sep</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar purple" style="height:4px" data-value="0.0%"></div>
+            <div class="bar-label">Oct</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar purple" style="height:4px" data-value="0.0%"></div>
+            <div class="bar-label">Nov</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar purple" style="height:4px" data-value="0.0%"></div>
+            <div class="bar-label">Dic</div>
+          </div>
+        </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Facturación Mensual (€)</div>
+              <div class="chart-container">
+                <div class="bar-chart" id="chart-fact-mes">
+          <div class="bar-group">
+            <div class="bar green" style="height:4px" data-value="0,00 €"></div>
+            <div class="bar-label">Ene</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar green" style="height:4px" data-value="0,00 €"></div>
+            <div class="bar-label">Feb</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar green" style="height:4px" data-value="0,00 €"></div>
+            <div class="bar-label">Mar</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar green" style="height:4px" data-value="0,00 €"></div>
+            <div class="bar-label">Abr</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar green" style="height:4px" data-value="0,00 €"></div>
+            <div class="bar-label">May</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar green" style="height:60px" data-value="90,00 €"></div>
+            <div class="bar-label">Jun</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar green" style="height:120px" data-value="180,00 €"></div>
+            <div class="bar-label">Jul</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar green" style="height:4px" data-value="0,00 €"></div>
+            <div class="bar-label">Ago</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar green" style="height:4px" data-value="0,00 €"></div>
+            <div class="bar-label">Sep</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar green" style="height:4px" data-value="0,00 €"></div>
+            <div class="bar-label">Oct</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar green" style="height:4px" data-value="0,00 €"></div>
+            <div class="bar-label">Nov</div>
+          </div>
+        
+          <div class="bar-group">
+            <div class="bar green" style="height:4px" data-value="0,00 €"></div>
+            <div class="bar-label">Dic</div>
+          </div>
+        </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="charts-grid">
+            <div class="card">
+              <div class="card-title">Contactos por Servicio</div>
+              <div class="chart-container">
+                <div class="cat-list" id="chart-servicio">
+          <div class="cat-item">
+            <span class="cat-name">Fontanería</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+            <span class="cat-amount">1</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-name">Cerrajería</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+            <span class="cat-amount">1</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-name">Persianas</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+            <span class="cat-amount">1</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-name">Electricidad</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+            <span class="cat-amount">1</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-name">Calderas</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+            <span class="cat-amount">1</span>
+          </div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Contactos por Localidad</div>
+              <div class="chart-container">
+                <div class="cat-list" id="chart-localidad">
+          <div class="cat-item">
+            <span class="cat-name">Manzanares el Real</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill green" style="width:100%"></div></div>
+            <span class="cat-amount">1</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-name">El Boalo</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill green" style="width:100%"></div></div>
+            <span class="cat-amount">1</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-name">Moralzarzal</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill green" style="width:100%"></div></div>
+            <span class="cat-amount">1</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-name">Cerceda</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill green" style="width:100%"></div></div>
+            <span class="cat-amount">1</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-name">Soto del Real</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill green" style="width:100%"></div></div>
+            <span class="cat-amount">1</span>
+          </div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Contactos por Estado</div>
+              <div class="chart-container">
+                <div class="cat-list" id="chart-estado">
+          <div class="cat-item">
+            <span class="cat-name">Finalizado</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+            <span class="cat-amount">2</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-name">Rechazado</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:50%"></div></div>
+            <span class="cat-amount">1</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-name">Presupuesto enviado</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:50%"></div></div>
+            <span class="cat-amount">1</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-name">Aceptado</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:50%"></div></div>
+            <span class="cat-amount">1</span>
+          </div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- PAGE: CONTACTOS (LISTADO PRINCIPAL) -->
+        <!-- ════════════════════════════════════════════ -->
+        <section id="page-contactos" class="page">
+          <!-- Filters bar -->
+          <div class="card no-print">
+            <div class="filters">
+              <input type="text" id="filter-search" placeholder="Buscar nombre, tlf..." oninput="applyFilters()">
+              
+              <select id="filter-servicio" onchange="applyFilters()"><option value="">Todos los Servicios</option><option value="Fontanería">Fontanería</option><option value="Electricidad">Electricidad</option><option value="Cerrajería">Cerrajería</option><option value="Aire acondicionado">Aire acondicionado</option><option value="Calderas">Calderas</option><option value="Persianas">Persianas</option><option value="Manitas">Manitas</option><option value="Albañilería">Albañilería</option><option value="Pintura">Pintura</option><option value="Electrodomésticos">Electrodomésticos</option><option value="Otro">Otro</option></select>
+              
+              <select id="filter-localidad" onchange="applyFilters()"><option value="">Todas las Localidades</option><option value="Manzanares el Real">Manzanares el Real</option><option value="Soto del Real">Soto del Real</option><option value="Cerceda">Cerceda</option><option value="Becerril de la Sierra">Becerril de la Sierra</option><option value="El Boalo">El Boalo</option><option value="Mataelpino">Mataelpino</option><option value="Moralzarzal">Moralzarzal</option><option value="Colmenar Viejo">Colmenar Viejo</option><option value="Miraflores de la Sierra">Miraflores de la Sierra</option><option value="Guadalix de la Sierra">Guadalix de la Sierra</option><option value="Navacerrada">Navacerrada</option><option value="Tres Cantos">Tres Cantos</option><option value="Colmenar">Colmenar</option><option value="Otro">Otro</option></select>
+              
+              <select id="filter-estado" onchange="applyFilters()">
+                <option value="">Todos los Estados</option>
+              </select>
+
+              <select id="filter-origen" onchange="applyFilters()"><option value="">Todos los Orígenes</option><option value="Google Orgánico">Google Orgánico</option><option value="Google Ads">Google Ads</option><option value="Google Business Profile">Google Business Profile</option><option value="WhatsApp">WhatsApp</option><option value="Llamada directa">Llamada directa</option><option value="Recomendación">Recomendación</option><option value="Otro">Otro</option></select>
+
+              <select id="filter-prioridad" onchange="applyFilters()">
+                <option value="">Todas las Prioridades</option>
+              </select>
+              
+              <input type="date" id="filter-fecha-desde" onchange="applyFilters()" placeholder="Desde">
+              <input type="date" id="filter-fecha-hasta" onchange="applyFilters()" placeholder="Hasta">
+
+              <button class="btn btn-ghost btn-sm" onclick="clearFilters()">Limpiar Filtros</button>
+            </div>
+
+            <div class="filter-chips">
+              <button class="chip active" onclick="setQuickFilter(this, &#39;todos&#39;)">Todos</button>
+              <button class="chip" onclick="setQuickFilter(this, &#39;pendientes&#39;)">Pendientes</button>
+              <button class="chip" onclick="setQuickFilter(this, &#39;convertidos&#39;)">Aceptados/Finalizados</button>
+              <button class="chip" onclick="setQuickFilter(this, &#39;mes&#39;)">De este mes</button>
+              <button class="chip" onclick="setQuickFilter(this, &#39;prioridad-alta&#39;)">Prioridad Alta</button>
+            </div>
+          </div>
+
+          <div class="section-header">
+            <div id="table-count" style="font-size:.9rem; color:var(--text2)">Mostrando <strong>5</strong> contactos</div>
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-ghost btn-sm no-print" onclick="exportToCSV()">Exportar CSV</button>
+              <button class="btn btn-ghost btn-sm no-print" onclick="window.print()">Imprimir PDF</button>
+              <button class="btn btn-primary btn-sm no-print" onclick="mostrarInformeMensual()">Resumen Mes (Partner)</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+            <tr>
+              <th data-sort="fecha">FECHA ↕</th>
+              <th data-sort="nombre">NOMBRE ↕</th>
+              <th data-sort="telefono">TELÉFONO</th>
+              <th data-sort="localidad">LOCALIDAD ↕</th>
+              <th data-sort="servicio">SERVICIO ↕</th>
+              <th data-sort="estado">ESTADO ↕</th>
+              <th data-sort="prioridad">PRIORIDAD ↕</th>
+              <th data-sort="presupuesto">PRESUPUESTO ↕</th>
+              <th data-sort="facturado">FACTURA ↕</th>
+              <th>BENEFICIO</th>
+              <th data-sort="origen">ORIGEN ↕</th>
+              <th data-sort="updatedAt">ÚLTIMA MODIF. ↕</th>
+              <th class="no-print">ACCIONES</th>
+            </tr>
+          </thead>
+              <tbody id="contactos-body">
+        <tr style="cursor:pointer;" onclick="if (!event.target.closest(&#39;button&#39;)) showFichaModal(&#39;c_hlko8odcumrjgrrs8&#39;)">
+          <td>10/07/2026</td>
+          <td style="font-weight:600">Lorena Ruiz</td>
+          <td>699000111</td>
+          <td>El Boalo</td>
+          <td>Cerrajería</td>
+          <td><span class="badge badge-Rechazado">Rechazado</span></td>
+          <td><span class="badge badge-prio-Alta">Alta</span></td>
+          <td style="text-align:right">150,00&nbsp;€</td>
+          <td style="text-align:right">0,00&nbsp;€</td>
+          <td><span style="font-size:.8rem;color:var(--text2)">Google Business Profile</span></td>
+          <td style="font-size:.8rem;color:var(--text2)">10/07/2026, 22:15</td>
+          <td class="no-print">
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-ghost btn-sm" onclick="openContactModal(JSON.parse(escape(JSON.stringify(filteredContacts.find(x =&gt; x.id === &#39;c_hlko8odcumrjgrrs8&#39;)))))" title="Editar">✏️</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteContact(&#39;c_hlko8odcumrjgrrs8&#39;)" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+      
+        <tr style="cursor:pointer;" onclick="if (!event.target.closest(&#39;button&#39;)) showFichaModal(&#39;c_wj98nyym0mrjgrrs8&#39;)">
+          <td>08/07/2026</td>
+          <td style="font-weight:600">Antonio Martínez</td>
+          <td>655432109</td>
+          <td>Cerceda</td>
+          <td>Electricidad</td>
+          <td><span class="badge badge-Presupuesto-enviado">Presupuesto enviado</span></td>
+          <td><span class="badge badge-prio-Media">Media</span></td>
+          <td style="text-align:right">350,00&nbsp;€</td>
+          <td style="text-align:right">0,00&nbsp;€</td>
+          <td><span style="font-size:.8rem;color:var(--text2)">WhatsApp</span></td>
+          <td style="font-size:.8rem;color:var(--text2)">08/07/2026, 11:00</td>
+          <td class="no-print">
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-ghost btn-sm" onclick="openContactModal(JSON.parse(escape(JSON.stringify(filteredContacts.find(x =&gt; x.id === &#39;c_wj98nyym0mrjgrrs8&#39;)))))" title="Editar">✏️</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteContact(&#39;c_wj98nyym0mrjgrrs8&#39;)" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+      
+        <tr style="cursor:pointer;" onclick="if (!event.target.closest(&#39;button&#39;)) showFichaModal(&#39;c_y9dw6ikvpmrjgrrs8&#39;)">
+          <td>05/07/2026</td>
+          <td style="font-weight:600">María Jesús López</td>
+          <td>622987654</td>
+          <td>Soto del Real</td>
+          <td>Calderas</td>
+          <td><span class="badge badge-Aceptado">Aceptado</span></td>
+          <td><span class="badge badge-prio-Media">Media</span></td>
+          <td style="text-align:right">1200,00&nbsp;€</td>
+          <td style="text-align:right">0,00&nbsp;€</td>
+          <td><span style="font-size:.8rem;color:var(--text2)">Google Ads</span></td>
+          <td style="font-size:.8rem;color:var(--text2)">06/07/2026, 18:00</td>
+          <td class="no-print">
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-ghost btn-sm" onclick="openContactModal(JSON.parse(escape(JSON.stringify(filteredContacts.find(x =&gt; x.id === &#39;c_y9dw6ikvpmrjgrrs8&#39;)))))" title="Editar">✏️</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteContact(&#39;c_y9dw6ikvpmrjgrrs8&#39;)" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+      
+        <tr style="cursor:pointer;" onclick="if (!event.target.closest(&#39;button&#39;)) showFichaModal(&#39;c_hj366nfuamrjgrrs7&#39;)">
+          <td>02/07/2026</td>
+          <td style="font-weight:600">Rubén García</td>
+          <td>612345678</td>
+          <td>Manzanares el Real</td>
+          <td>Fontanería</td>
+          <td><span class="badge badge-Finalizado">Finalizado</span></td>
+          <td><span class="badge badge-prio-Alta">Alta</span></td>
+          <td style="text-align:right">180,00&nbsp;€</td>
+          <td style="text-align:right">180,00&nbsp;€</td>
+          <td><span style="font-size:.8rem;color:var(--text2)">Google Orgánico</span></td>
+          <td style="font-size:.8rem;color:var(--text2)">02/07/2026, 15:00</td>
+          <td class="no-print">
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-ghost btn-sm" onclick="openContactModal(JSON.parse(escape(JSON.stringify(filteredContacts.find(x =&gt; x.id === &#39;c_hj366nfuamrjgrrs7&#39;)))))" title="Editar">✏️</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteContact(&#39;c_hj366nfuamrjgrrs7&#39;)" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+      
+        <tr style="cursor:pointer;" onclick="if (!event.target.closest(&#39;button&#39;)) showFichaModal(&#39;c_jw66o6b3cmrjgrrs8&#39;)">
+          <td>15/06/2026</td>
+          <td style="font-weight:600">Pedro San Juan</td>
+          <td>600778899</td>
+          <td>Moralzarzal</td>
+          <td>Persianas</td>
+          <td><span class="badge badge-Finalizado">Finalizado</span></td>
+          <td><span class="badge badge-prio-Baja">Baja</span></td>
+          <td style="text-align:right">90,00&nbsp;€</td>
+          <td style="text-align:right">90,00&nbsp;€</td>
+          <td><span style="font-size:.8rem;color:var(--text2)">Llamada directa</span></td>
+          <td style="font-size:.8rem;color:var(--text2)">16/06/2026, 12:00</td>
+          <td class="no-print">
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-ghost btn-sm" onclick="openContactModal(JSON.parse(escape(JSON.stringify(filteredContacts.find(x =&gt; x.id === &#39;c_jw66o6b3cmrjgrrs8&#39;)))))" title="Editar">✏️</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteContact(&#39;c_jw66o6b3cmrjgrrs8&#39;)" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- PAGE: ESTADÍSTICAS -->
+        <!-- ════════════════════════════════════════════ -->
+        <section id="page-estadisticas" class="page">
+          <div class="charts-grid">
+            <div class="card">
+              <div class="card-title">Servicios Más Solicitados</div>
+              <div class="cat-list" id="stats-solicitados">
+        <div class="cat-item">
+          <span class="cat-name" title="Fontanería">Fontanería</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+          <span class="cat-amount">1 pet.</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-name" title="Cerrajería">Cerrajería</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+          <span class="cat-amount">1 pet.</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-name" title="Persianas">Persianas</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+          <span class="cat-amount">1 pet.</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-name" title="Electricidad">Electricidad</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+          <span class="cat-amount">1 pet.</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-name" title="Calderas">Calderas</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+          <span class="cat-amount">1 pet.</span>
+        </div></div>
+            </div>
+            <div class="card">
+              <div class="card-title">Servicios Más Rentables (€ Facturado)</div>
+              <div class="cat-list" id="stats-rentables">
+        <div class="cat-item">
+          <span class="cat-name" title="Fontanería">Fontanería</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill green" style="width:100%"></div></div>
+          <span class="cat-amount">180,00&nbsp;€</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-name" title="Persianas">Persianas</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill green" style="width:50%"></div></div>
+          <span class="cat-amount">90,00&nbsp;€</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-name" title="Cerrajería">Cerrajería</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill green" style="width:0%"></div></div>
+          <span class="cat-amount">0,00&nbsp;€</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-name" title="Electricidad">Electricidad</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill green" style="width:0%"></div></div>
+          <span class="cat-amount">0,00&nbsp;€</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-name" title="Calderas">Calderas</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill green" style="width:0%"></div></div>
+          <span class="cat-amount">0,00&nbsp;€</span>
+        </div></div>
+            </div>
+          </div>
+
+          <div class="charts-grid">
+            <div class="card">
+              <div class="card-title">Localidades con Más Contactos</div>
+              <div class="cat-list" id="stats-localidad-contactos">
+        <div class="cat-item">
+          <span class="cat-name" title="Manzanares el Real">Manzanares el Real</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+          <span class="cat-amount">1 cont.</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-name" title="El Boalo">El Boalo</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+          <span class="cat-amount">1 cont.</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-name" title="Moralzarzal">Moralzarzal</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+          <span class="cat-amount">1 cont.</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-name" title="Cerceda">Cerceda</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+          <span class="cat-amount">1 cont.</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-name" title="Soto del Real">Soto del Real</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:100%"></div></div>
+          <span class="cat-amount">1 cont.</span>
+        </div></div>
+            </div>
+            <div class="card">
+              <div class="card-title">Localidades con Mayor Conversión (%)</div>
+              <div class="cat-list" id="stats-localidad-conversion"><p style="color:var(--text2); font-size:.85rem;">Sin suficientes datos para conversión.</p></div>
+            </div>
+          </div>
+
+          <div class="charts-grid">
+            <div class="card">
+              <div class="card-title">Motivos de Descarte más Frecuentes</div>
+              <div class="cat-list" id="stats-descarte">
+          <div class="cat-item">
+            <span class="cat-name" title="Precio demasiado alto">Precio demasiado alto</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill" style="background:var(--red); width:100%"></div></div>
+            <span class="cat-amount">1</span>
+          </div></div>
+            </div>
+            <div class="card">
+              <div class="card-title">Métricas de Rendimiento</div>
+              <div class="detail-card-info" style="margin-top:10px;">
+                <div class="detail-row">
+                  <span>Importe medio por presupuesto</span>
+                  <span id="stat-avg-presupuesto">394,00&nbsp;€</span>
+                </div>
+                <div class="detail-row">
+                  <span>Importe medio facturado por trabajo</span>
+                  <span id="stat-avg-facturado">135,00&nbsp;€</span>
+                </div>
+                <div class="detail-row">
+                  <span>Porcentaje de presupuestos aceptados</span>
+                  <span id="stat-aceptacion-pct">60.0%</span>
+                </div>
+                <div class="detail-row">
+                  <span>Tiempo medio desde contacto al cierre</span>
+                  <span id="stat-tiempo-cierre">1 día</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════════════════════════════════════════════ -->
+        <!-- PAGE: CONFIGURACIÓN (LISTAS EDITABLES) -->
+        <!-- ════════════════════════════════════════════ -->
+        <section id="page-configuracion" class="page">
+          <div class="config-layout">
+            <!-- Localidades -->
+            <div class="card">
+              <div class="card-title">Localidades
+                <button class="btn btn-primary btn-sm" onclick="addNewConfigItem(&#39;localidades&#39;)">+ Añadir</button>
+              </div>
+              <div class="editable-list" id="list-localidades">
+          <div class="editable-item">
+            <input type="text" value="Manzanares el Real" onchange="updateConfigItem(&#39;localidades&#39;, 0, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;localidades&#39;, 0)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Soto del Real" onchange="updateConfigItem(&#39;localidades&#39;, 1, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;localidades&#39;, 1)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Cerceda" onchange="updateConfigItem(&#39;localidades&#39;, 2, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;localidades&#39;, 2)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Becerril de la Sierra" onchange="updateConfigItem(&#39;localidades&#39;, 3, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;localidades&#39;, 3)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="El Boalo" onchange="updateConfigItem(&#39;localidades&#39;, 4, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;localidades&#39;, 4)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Mataelpino" onchange="updateConfigItem(&#39;localidades&#39;, 5, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;localidades&#39;, 5)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Moralzarzal" onchange="updateConfigItem(&#39;localidades&#39;, 6, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;localidades&#39;, 6)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Colmenar Viejo" onchange="updateConfigItem(&#39;localidades&#39;, 7, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;localidades&#39;, 7)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Miraflores de la Sierra" onchange="updateConfigItem(&#39;localidades&#39;, 8, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;localidades&#39;, 8)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Guadalix de la Sierra" onchange="updateConfigItem(&#39;localidades&#39;, 9, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;localidades&#39;, 9)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Navacerrada" onchange="updateConfigItem(&#39;localidades&#39;, 10, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;localidades&#39;, 10)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Tres Cantos" onchange="updateConfigItem(&#39;localidades&#39;, 11, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;localidades&#39;, 11)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Colmenar" onchange="updateConfigItem(&#39;localidades&#39;, 12, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;localidades&#39;, 12)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Otro" onchange="updateConfigItem(&#39;localidades&#39;, 13, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;localidades&#39;, 13)" style="padding:4px 8px;">🗑</button>
+          </div>
+        </div>
+            </div>
+            <!-- Servicios -->
+            <div class="card">
+              <div class="card-title">Servicios
+                <button class="btn btn-primary btn-sm" onclick="addNewConfigItem(&#39;servicios&#39;)">+ Añadir</button>
+              </div>
+              <div class="editable-list" id="list-servicios">
+          <div class="editable-item">
+            <input type="text" value="Fontanería" onchange="updateConfigItem(&#39;servicios&#39;, 0, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;servicios&#39;, 0)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Electricidad" onchange="updateConfigItem(&#39;servicios&#39;, 1, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;servicios&#39;, 1)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Cerrajería" onchange="updateConfigItem(&#39;servicios&#39;, 2, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;servicios&#39;, 2)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Aire acondicionado" onchange="updateConfigItem(&#39;servicios&#39;, 3, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;servicios&#39;, 3)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Calderas" onchange="updateConfigItem(&#39;servicios&#39;, 4, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;servicios&#39;, 4)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Persianas" onchange="updateConfigItem(&#39;servicios&#39;, 5, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;servicios&#39;, 5)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Manitas" onchange="updateConfigItem(&#39;servicios&#39;, 6, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;servicios&#39;, 6)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Albañilería" onchange="updateConfigItem(&#39;servicios&#39;, 7, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;servicios&#39;, 7)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Pintura" onchange="updateConfigItem(&#39;servicios&#39;, 8, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;servicios&#39;, 8)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Electrodomésticos" onchange="updateConfigItem(&#39;servicios&#39;, 9, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;servicios&#39;, 9)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Otro" onchange="updateConfigItem(&#39;servicios&#39;, 10, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;servicios&#39;, 10)" style="padding:4px 8px;">🗑</button>
+          </div>
+        </div>
+            </div>
+            <!-- Orígenes -->
+            <div class="card">
+              <div class="card-title">Orígenes de Contacto
+                <button class="btn btn-primary btn-sm" onclick="addNewConfigItem(&#39;origenes&#39;)">+ Añadir</button>
+              </div>
+              <div class="editable-list" id="list-origenes">
+          <div class="editable-item">
+            <input type="text" value="Google Orgánico" onchange="updateConfigItem(&#39;origenes&#39;, 0, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;origenes&#39;, 0)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Google Ads" onchange="updateConfigItem(&#39;origenes&#39;, 1, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;origenes&#39;, 1)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Google Business Profile" onchange="updateConfigItem(&#39;origenes&#39;, 2, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;origenes&#39;, 2)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="WhatsApp" onchange="updateConfigItem(&#39;origenes&#39;, 3, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;origenes&#39;, 3)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Llamada directa" onchange="updateConfigItem(&#39;origenes&#39;, 4, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;origenes&#39;, 4)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Recomendación" onchange="updateConfigItem(&#39;origenes&#39;, 5, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;origenes&#39;, 5)" style="padding:4px 8px;">🗑</button>
+          </div>
+        
+          <div class="editable-item">
+            <input type="text" value="Otro" onchange="updateConfigItem(&#39;origenes&#39;, 6, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem(&#39;origenes&#39;, 6)" style="padding:4px 8px;">🗑</button>
+          </div>
+        </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- MODAL: REGISTRO / EDICIÓN DE CONTACTO -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="modal-backdrop" id="modal-contacto">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="contact-modal-title">Nuevo Contacto</h2>
+        <button class="modal-close" onclick="closeContactModal()">×</button>
+      </div>
+      <form id="contact-form" onsubmit="saveContact(event)">
+        <input type="hidden" id="c-id">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="c-fecha">Fecha *</label>
+            <input type="date" id="c-fecha" required="">
+          </div>
+          <div class="form-group">
+            <label for="c-nombre">Nombre *</label>
+            <input type="text" id="c-nombre" required="" placeholder="Nombre del cliente">
+          </div>
+          <div class="form-group">
+            <label for="c-telefono">Teléfono *</label>
+            <input type="tel" id="c-telefono" required="" placeholder="Ej: 600123456">
+          </div>
+          <div class="form-group">
+            <label for="c-email">Email (opcional)</label>
+            <input type="email" id="c-email" placeholder="cliente@correo.com">
+          </div>
+          <div class="form-group">
+            <label for="c-localidad">Localidad</label>
+            <select id="c-localidad"><option value="Manzanares el Real">Manzanares el Real</option><option value="Soto del Real">Soto del Real</option><option value="Cerceda">Cerceda</option><option value="Becerril de la Sierra">Becerril de la Sierra</option><option value="El Boalo">El Boalo</option><option value="Mataelpino">Mataelpino</option><option value="Moralzarzal">Moralzarzal</option><option value="Colmenar Viejo">Colmenar Viejo</option><option value="Miraflores de la Sierra">Miraflores de la Sierra</option><option value="Guadalix de la Sierra">Guadalix de la Sierra</option><option value="Navacerrada">Navacerrada</option><option value="Tres Cantos">Tres Cantos</option><option value="Colmenar">Colmenar</option><option value="Otro">Otro</option></select>
+          </div>
+          <div class="form-group">
+            <label for="c-servicio">Servicio Solicitado</label>
+            <select id="c-servicio"><option value="Fontanería">Fontanería</option><option value="Electricidad">Electricidad</option><option value="Cerrajería">Cerrajería</option><option value="Aire acondicionado">Aire acondicionado</option><option value="Calderas">Calderas</option><option value="Persianas">Persianas</option><option value="Manitas">Manitas</option><option value="Albañilería">Albañilería</option><option value="Pintura">Pintura</option><option value="Electrodomésticos">Electrodomésticos</option><option value="Otro">Otro</option></select>
+          </div>
+          <div class="form-group">
+            <label for="c-origen">Origen del Contacto</label>
+            <select id="c-origen"><option value="Google Orgánico">Google Orgánico</option><option value="Google Ads">Google Ads</option><option value="Google Business Profile">Google Business Profile</option><option value="WhatsApp">WhatsApp</option><option value="Llamada directa">Llamada directa</option><option value="Recomendación">Recomendación</option><option value="Otro">Otro</option></select>
+          </div>
+          <div class="form-group">
+            <label for="c-estado">Estado</label>
+            <select id="c-estado" onchange="toggleRejectionReason()">
+              <option value="Nuevo">Nuevo</option>
+              <option value="Contactado">Contactado</option>
+              <option value="Presupuesto enviado">Presupuesto enviado</option>
+              <option value="Aceptado">Aceptado</option>
+              <option value="Finalizado">Finalizado</option>
+              <option value="Rechazado">Rechazado</option>
+              <option value="No interesado">No interesado</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="c-prioridad">Prioridad</label>
+            <select id="c-prioridad">
+              <option value="Baja">Baja</option>
+              <option value="Media" selected="">Media</option>
+              <option value="Alta">Alta</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="c-presupuesto">Presupuesto Estimado (€)</label>
+            <input type="number" id="c-presupuesto" step="0.01" min="0" value="0">
+          </div>
+          <div class="form-group">
+            <label for="c-facturado">Importe Facturado (€)</label>
+            <input type="number" id="c-facturado" step="0.01" min="0" value="0">
+          </div>
+
+          <div class="form-group" id="group-descarte" style="display:none;">
+            <label for="c-motivo-descarte">Motivo de Descarte</label>
+            <select id="c-motivo-descarte">
+              <option value="">Ninguno</option>
+              <option value="Precio demasiado alto">Precio demasiado alto</option>
+              <option value="Servicio que no ofrecemos">Servicio que no ofrecemos</option>
+              <option value="Fuera de la zona">Fuera de la zona</option>
+              <option value="Cliente no respondió">Cliente no respondió</option>
+              <option value="Ya estaba resuelto">Ya estaba resuelto</option>
+              <option value="Solo quería información">Solo quería información</option>
+              <option value="Trabajo demasiado pequeño">Trabajo demasiado pequeño</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label for="c-descripcion">Descripción del Trabajo</label>
+            <textarea id="c-descripcion" placeholder="Detalla las necesidades del cliente..."></textarea>
+          </div>
+          
+          <div class="form-group full">
+            <label for="c-observaciones">Observaciones Internas</label>
+            <textarea id="c-observaciones" placeholder="Detalles de seguimiento interno..."></textarea>
+          </div>
+
+          <div class="form-group full">
+            <label>Fotografías (Opcional)</label>
+            <input type="file" id="c-fotos-input" multiple="" accept="image/*" onchange="handleImageSelection(event)">
+            <div id="c-fotos-preview" class="photos-grid"></div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" onclick="closeContactModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Contacto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- MODAL: FICHA DETALLADA DEL CONTACTO -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="modal-backdrop" id="modal-ficha">
+    <div class="modal" style="width: min(900px, 95vw);">
+      <div class="modal-header">
+        <h2 class="modal-title">Ficha Completa del Contacto</h2>
+        <div>
+          <button class="btn btn-ghost btn-sm no-print" onclick="editCurrentFicha()">Editar Ficha</button>
+          <button class="btn btn-ghost btn-sm no-print" onclick="window.print()">Imprimir</button>
+          <button class="modal-close" onclick="closeFichaModal()">×</button>
+        </div>
+      </div>
+      
+      <div class="details-grid">
+        <!-- Columna Izquierda: Detalles del Contacto -->
+        <div>
+          <div class="card" style="margin-bottom:16px;">
+            <div class="card-title">Información del Cliente</div>
+            <div class="detail-card-info">
+              <div class="detail-row"><span>Nombre:</span><span id="f-nombre">Lorena Ruiz</span></div>
+              <div class="detail-row"><span>Teléfono:</span><span id="f-telefono"><a href="tel:699000111" style="color:var(--accent); text-decoration:underline;">699000111</a></span></div>
+              <div class="detail-row"><span>Email:</span><span id="f-email">lorena@boalo.org</span></div>
+              <div class="detail-row"><span>Localidad:</span><span id="f-localidad">El Boalo</span></div>
+              <div class="detail-row"><span>Origen:</span><span id="f-origen">Google Business Profile</span></div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom:16px;">
+            <div class="card-title">Detalles del Trabajo</div>
+            <div class="detail-card-info">
+              <div class="detail-row"><span>Servicio:</span><span id="f-servicio">Cerrajería</span></div>
+              <div class="detail-row"><span>Estado:</span><span id="f-estado"><span class="badge badge-Rechazado">Rechazado</span></span></div>
+              <div class="detail-row"><span>Prioridad:</span><span id="f-prioridad"><span class="badge badge-prio-Alta">Alta</span></span></div>
+              <div class="detail-row"><span>Presupuesto Estimado:</span><span id="f-presupuesto">150,00&nbsp;€</span></div>
+              <div class="detail-row"><span>Importe Facturado:</span><span id="f-facturado">0,00</span></div>
+              <div class="detail-row"><span>Tu Beneficio (Auto):</span><span id="f-beneficio" style="color:var(--accent); font-weight:bold;">0,00</span></div>
+              <div class="detail-row" id="f-row-descarte" style="display: flex;"><span>Motivo Descarte:</span><span id="f-descarte">Precio demasiado alto</span></div>
+              <div class="detail-row"><span>Fecha Registro:</span><span id="f-fecha">10/07/2026</span></div>
+              <div class="detail-row"><span>Última Actualización:</span><span id="f-actualizado">10/07/2026, 22:15</span></div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom:16px;">
+            <div class="card-title">Descripción del Trabajo</div>
+            <div class="detail-description" id="f-descripcion">Cambio de bombín urgente por pérdida de llaves.</div>
+          </div>
+
+          <div class="card" style="margin-bottom:16px;">
+            <div class="card-title">Observaciones Internas</div>
+            <div class="detail-description" id="f-observaciones">Le pareció caro la tarifa de urgencia y festivo.</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Fotografías Adjuntas</div>
+            <div class="photos-grid" id="f-photos-grid"><p style="color:var(--text2); font-size:.85rem; grid-column:1/-1;">No hay imágenes adjuntas.</p></div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Historial, Notas y Llamadas -->
+        <div>
+          <!-- Notas -->
+          <div class="card" style="margin-bottom:16px;">
+            <div class="card-title">Notas de Seguimiento</div>
+            <div style="display:flex; gap:6px; margin-bottom:10px;" class="no-print">
+              <input type="text" id="new-note-text" placeholder="Añadir una nota..." style="flex:1; padding:6px 10px; font-size:.85rem;">
+              <button class="btn btn-primary btn-sm" onclick="addNoteToCurrent()">+</button>
+            </div>
+            <div class="notes-list" id="f-notes-list"><p style="color:var(--text2); font-size:.8rem;">No hay notas.</p></div>
+          </div>
+
+          <!-- Registro de llamadas -->
+          <div class="card" style="margin-bottom:16px;">
+            <div class="card-title">Llamadas y Contactos</div>
+            <div style="display:flex; gap:6px; margin-bottom:10px;" class="no-print">
+              <input type="text" id="new-call-desc" placeholder="Registrar llamada (ej: No contesta...)" style="flex:1; padding:6px 10px; font-size:.85rem;">
+              <button class="btn btn-success btn-sm" onclick="addCallToCurrent()">Registrar</button>
+            </div>
+            <div class="call-list" id="f-calls-list"><p style="color:var(--text2); font-size:.8rem;">Sin registro de llamadas.</p></div>
+          </div>
+
+          <!-- Historial de Modificaciones -->
+          <div class="card">
+            <div class="card-title">Historial de Cambios</div>
+            <div class="history-list" id="f-history-list"><p style="color:var(--text2); font-size:.8rem;">Sin historial disponible.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- JAVASCRIPT LOGIC & DATABASE -->
+  <!-- ════════════════════════════════════════════ -->
+  <script>
+    // ─── Default Configuration Lists ───
+    const DEFAULT_LOCALIDADES = [
+      "Manzanares el Real", "Soto del Real", "Cerceda", "Becerril de la Sierra",
+      "El Boalo", "Mataelpino", "Moralzarzal", "Colmenar Viejo",
+      "Miraflores de la Sierra", "Guadalix de la Sierra", "Navacerrada",
+      "Tres Cantos", "Colmenar", "Guadarrama", "Madrid", "Otro"
+    ];
+
+    const DEFAULT_SERVICIOS = [
+      "Fontanería", "Electricidad", "Cerrajería", "Aire acondicionado",
+      "Calderas", "Persianas", "Manitas", "Albañilería", "Pintura",
+      "Toldos", "Cerramientos PVC", "Gas Radón",
+      "Electrodomésticos", "Otro"
+    ];
+
+    const DEFAULT_ORIGENES = [
+      "Google Orgánico", "Google Ads", "Google Business Profile",
+      "WhatsApp", "Llamada directa", "Recomendación", "Toño", "Otro"
+    ];
+
+    // Global variables
+    let db = null;
+    let currentFichaContactId = null;
+    let selectedImagesBase64 = []; // Temporary image storage during form edit
+    let tableSortColumn = 'fecha';
+    let tableSortAsc = false;
+    let activeQuickFilter = 'todos';
+
+    // ─── Database Initialization (IndexedDB) ───
+    function initDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open("ReparacionesManzanaresDB", 1);
+
+        request.onupgradeneeded = function(e) {
+          const db = e.target.result;
+          
+          if (!db.objectStoreNames.contains("contactos")) {
+            db.createObjectStore("contactos", { keyPath: "id" });
+          }
+          if (!db.objectStoreNames.contains("configuracion")) {
+            db.createObjectStore("configuracion", { keyPath: "id" });
+          }
+          if (!db.objectStoreNames.contains("fotos")) {
+            db.createObjectStore("fotos", { keyPath: "id" });
+          }
+        };
+
+        request.onsuccess = function(e) {
+          db = e.target.result;
+          resolve(db);
+        };
+
+        request.onerror = function(e) {
+          reject(e.target.error);
+        };
+      });
+    }
+
+    // Helper functions for Database CRUD
+    function getStore(storeName, mode = "readonly") {
+      const transaction = db.transaction(storeName, mode);
+      return transaction.objectStore(storeName);
+    }
+
+    async function getAll(storeName) {
+      if(storeName === 'contactos') {
+        try {
+            const res = await fetch('/api/crm', { headers: getCrmHeaders() });
+            if (res.status === 401) {
+              checkAuthPin();
+              return [];
+            }
+            return await res.json();
+        } catch(e) { console.error(e); return []; }
+      }
+      return new Promise((resolve) => {
+        const store = getStore(storeName);
+        const request = store.getAll();
+        request.onsuccess = () => resolve(request.result);
+      });
+    }
+
+    async function getById(storeName, id) {
+      if(storeName === 'contactos') {
+        try {
+            const res = await fetch('/api/crm', { headers: getCrmHeaders() });
+            const all = await res.json();
+            return all.find(c => c.id === id);
+        } catch(e) { console.error(e); return null; }
+      }
+      return new Promise((resolve) => {
+        const store = getStore(storeName);
+        const request = store.get(id);
+        request.onsuccess = () => resolve(request.result);
+      });
+    }
+
+    async function saveItem(storeName, item) {
+      if(storeName === 'contactos') {
+        try {
+            await fetch('/api/crm', { method: 'POST', headers: getCrmHeaders(), body: JSON.stringify(item) });
+        } catch(e) { console.error(e); }
+        return item.id;
+      }
+      return new Promise((resolve) => {
+        const store = getStore(storeName, "readwrite");
+        const request = store.put(item);
+        request.onsuccess = () => resolve(request.result);
+      });
+    }
+
+    async function deleteItem(storeName, id) {
+      if(storeName === 'contactos') {
+        try {
+            await fetch('/api/crm?id=' + id, { method: 'DELETE', headers: getCrmHeaders() });
+        } catch(e) { console.error(e); }
+        return true;
+      }
+      return new Promise((resolve) => {
+        const store = getStore(storeName, "readwrite");
+        const request = store.delete(id);
+        request.onsuccess = () => resolve(true);
+      });
+    }
+
+    // Initialize list configs
+    async function loadConfig() {
+      const configs = await getAll("configuracion");
+      const configMap = {};
+      configs.forEach(c => configMap[c.id] = c.values);
+
+      if (!configMap.localidades) {
+        await saveItem("configuracion", { id: "localidades", values: DEFAULT_LOCALIDADES });
+        configMap.localidades = DEFAULT_LOCALIDADES;
+      }
+      if (!configMap.servicios) {
+        await saveItem("configuracion", { id: "servicios", values: DEFAULT_SERVICIOS });
+        configMap.servicios = DEFAULT_SERVICIOS;
+      }
+      if (!configMap.origenes) {
+        await saveItem("configuracion", { id: "origenes", values: DEFAULT_ORIGENES });
+        configMap.origenes = DEFAULT_ORIGENES;
+      }
+
+      window.localidades = configMap.localidades;
+      window.servicios = configMap.servicios;
+      window.origenes = configMap.origenes;
+
+      populateSelectOptions();
+    }
+
+    function populateSelectOptions() {
+      const fillSelect = (id, list, placeholder) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        let html = placeholder ? `<option value="">${placeholder}</option>` : '';
+        html += list.map(v => `<option value="${v}">${v}</option>`).join('');
+        el.innerHTML = html;
+      };
+
+      fillSelect('filter-localidad', window.localidades, 'Todas las Localidades');
+      fillSelect('filter-servicio', window.servicios, 'Todos los Servicios');
+      fillSelect('filter-origen', window.origenes, 'Todos los Orígenes');
+
+      fillSelect('c-localidad', window.localidades);
+      fillSelect('c-servicio', window.servicios);
+      fillSelect('c-origen', window.origenes);
+    }
+
+    // ─── SPA Navigation ───
+    function navigate(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+      const activePage = document.getElementById('page-' + pageId);
+      if (activePage) activePage.classList.add('active');
+
+      const activeNav = Array.from(document.querySelectorAll('.nav-item')).find(n => n.textContent.trim().toLowerCase().includes(pageId));
+      if (activeNav) activeNav.classList.add('active');
+
+      document.getElementById('page-title').textContent = pageId.charAt(0).toUpperCase() + pageId.slice(1);
+
+      if (window.innerWidth <= 900) {
+        document.getElementById('sidebar').classList.remove('open');
+      }
+
+      if (pageId === 'dashboard') renderDashboard();
+      if (pageId === 'contactos') renderContactosTable();
+      if (pageId === 'estadisticas') renderEstadisticas();
+      if (pageId === 'configuracion') renderConfiguracion();
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    // ─── Theme Management ───
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('theme', nextTheme);
+    }
+
+    // ─── Formatting utils ───
+    function fmtDate(dStr) {
+      if (!dStr) return '—';
+      const parts = dStr.split('-');
+      if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+      return dStr;
+    }
+
+    // Fixed escape characters in json serialization
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function fmtDateTime(dtStr) {
+      if (!dtStr) return '—';
+      const d = new Date(dtStr);
+      if (isNaN(d.getTime())) return dtStr;
+      return d.toLocaleString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+
+    function fmtMoney(val) {
+      return Number(val || 0).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+    }
+
+    function showToast(msg, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const el = document.createElement('div');
+      el.className = `toast ${type}`;
+      el.textContent = msg;
+      container.appendChild(el);
+      setTimeout(() => el.remove(), 3500);
+    }
+
+    function uniqueId() {
+      return 'c_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+    }
+
+    // ─── Form Dialog Actions ───
+    function openContactModal(contact = null) {
+      const modal = document.getElementById('modal-contacto');
+      const form = document.getElementById('contact-form');
+      form.reset();
+      selectedImagesBase64 = [];
+      document.getElementById('c-fotos-preview').innerHTML = '';
+      
+      document.getElementById('c-id').value = contact ? contact.id : '';
+      document.getElementById('contact-modal-title').textContent = contact ? 'Editar Contacto' : 'Nuevo Contacto';
+      
+      // Default today's date
+      document.getElementById('c-fecha').value = contact ? contact.fecha : new Date().toISOString().slice(0, 10);
+      
+      if (contact) {
+        document.getElementById('c-nombre').value = contact.nombre;
+        document.getElementById('c-telefono').value = contact.telefono;
+        document.getElementById('c-email').value = contact.email || '';
+        document.getElementById('c-localidad').value = contact.localidad;
+        document.getElementById('c-servicio').value = contact.servicio;
+        document.getElementById('c-origen').value = contact.origen;
+        document.getElementById('c-estado').value = contact.estado;
+        document.getElementById('c-prioridad').value = contact.prioridad;
+        document.getElementById('c-presupuesto').value = contact.presupuesto || 0;
+        document.getElementById('c-facturado').value = contact.facturado || 0;
+        document.getElementById('c-motivo-descarte').value = contact.motivoDescarte || '';
+        document.getElementById('c-descripcion').value = contact.descripcion || '';
+        document.getElementById('c-observaciones').value = contact.observaciones || '';
+        
+        // Load photos if edit
+        if (contact.fotos && contact.fotos.length > 0) {
+          selectedImagesBase64 = [...contact.fotos];
+          renderImagePreviews();
+        }
+      }
+      
+      toggleRejectionReason();
+      modal.classList.add('open');
+    }
+
+    function closeContactModal() {
+      document.getElementById('modal-contacto').classList.remove('open');
+    }
+
+    function toggleRejectionReason() {
+      const estado = document.getElementById('c-estado').value;
+      const groupDescarte = document.getElementById('group-descarte');
+      if (estado === 'Rechazado' || estado === 'No interesado') {
+        groupDescarte.style.display = 'block';
+      } else {
+        groupDescarte.style.display = 'none';
+        document.getElementById('c-motivo-descarte').value = '';
+      }
+    }
+
+    // Image Upload Handler (convert to base64 for local database storage)
+    function handleImageSelection(e) {
+      const files = Array.from(e.target.files);
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          selectedImagesBase64.push(evt.target.result);
+          renderImagePreviews();
+        };
+        reader.readAsDataURL(file);
+      });
+      e.target.value = ''; // Reset file input
+    }
+
+    function renderImagePreviews() {
+      const container = document.getElementById('c-fotos-preview');
+      container.innerHTML = selectedImagesBase64.map((src, idx) => `
+        <div style="position:relative; width:90px; height:90px;">
+          <img src="${src}" class="photo-thumb">
+          <button type="button" onclick="removeSelectedImage(${idx})" style="position:absolute; top:-5px; right:-5px; background:var(--red); color:white; border:none; border-radius:50%; width:20px; height:20px; font-size:.8rem; display:flex; align-items:center; justify-content:center; cursor:pointer;">×</button>
+        </div>
+      `).join('');
+    }
+
+    function removeSelectedImage(idx) {
+      selectedImagesBase64.splice(idx, 1);
+      renderImagePreviews();
+    }
+
+    // Form Save Operation
+    async function saveContact(e) {
+      e.preventDefault();
+      
+      const id = document.getElementById('c-id').value || uniqueId();
+      const existing = document.getElementById('c-id').value ? await getById("contactos", id) : null;
+      
+      const fecha = document.getElementById('c-fecha').value;
+      const nombre = document.getElementById('c-nombre').value;
+      const telefono = document.getElementById('c-telefono').value;
+      const email = document.getElementById('c-email').value;
+      const localidad = document.getElementById('c-localidad').value;
+      const servicio = document.getElementById('c-servicio').value;
+      const origen = document.getElementById('c-origen').value;
+      const estado = document.getElementById('c-estado').value;
+      const prioridad = document.getElementById('c-prioridad').value;
+      const presupuesto = parseFloat(document.getElementById('c-presupuesto').value) || 0;
+      const facturado = parseFloat(document.getElementById('c-facturado').value) || 0;
+      const motivoDescarte = document.getElementById('c-motivo-descarte').value;
+      const descripcion = document.getElementById('c-descripcion').value;
+      const observaciones = document.getElementById('c-observaciones').value;
+      
+      const nowStr = new Date().toISOString();
+      
+      const contact = {
+        id,
+        fecha,
+        nombre,
+        telefono,
+        email,
+        localidad,
+        servicio,
+        origen,
+        estado,
+        prioridad,
+        presupuesto,
+        facturado,
+        motivoDescarte,
+        descripcion,
+        observaciones,
+        fotos: selectedImagesBase64,
+        createdAt: existing ? existing.createdAt : nowStr,
+        updatedAt: nowStr,
+        historial: existing ? existing.historial : [],
+        notas: existing ? existing.notas : [],
+        llamadas: existing ? existing.llamadas : []
+      };
+
+      // If existing, check fields change to append to history log
+      if (existing) {
+        const changes = [];
+        if (existing.estado !== estado) changes.push(`El estado cambió de "${existing.estado}" a "${estado}"`);
+        if (existing.presupuesto !== presupuesto) changes.push(`Presupuesto modificado de ${fmtMoney(existing.presupuesto)} a ${fmtMoney(presupuesto)}`);
+        if (existing.facturado !== facturado) changes.push(`Importe facturado modificado de ${fmtMoney(existing.facturado)} a ${fmtMoney(facturado)}`);
+        if (existing.prioridad !== prioridad) changes.push(`Prioridad modificada de "${existing.prioridad}" a "${prioridad}"`);
+        if (existing.localidad !== localidad) changes.push(`Localidad modificada de "${existing.localidad}" a "${localidad}"`);
+        if (existing.servicio !== servicio) changes.push(`Servicio modificado de "${existing.servicio}" a "${servicio}"`);
+
+        if (changes.length > 0) {
+          contact.historial.push({
+            date: nowStr,
+            description: changes.join(" · ")
+          });
+        }
+      } else {
+        contact.historial.push({
+          date: nowStr,
+          description: "Contacto creado."
+        });
+      }
+
+      await saveItem("contactos", contact);
+      closeContactModal();
+      showToast("✅ Contacto guardado correctamente", "success");
+
+      // Reload active views
+      const activeTab = document.querySelector('.nav-item.active').textContent.trim().toLowerCase();
+      if (activeTab.includes('dashboard')) renderDashboard();
+      if (activeTab.includes('contactos')) renderContactosTable();
+      if (activeTab.includes('estadísticas')) renderEstadisticas();
+
+      if (currentFichaContactId === id) {
+          showFichaModal(id);
+        }
+      }
+
+    async function deleteContact(id) {
+      if (!confirm("AEstás seguro de que deseas eliminar este contacto?")) return;
+      await deleteItem("contactos", id);
+      showToast("🗑 Contacto eliminado correctamente", "info");
+      
+      const activeTab = document.querySelector('.nav-item.active').textContent.trim().toLowerCase();
+      if (activeTab.includes('dashboard')) renderDashboard();
+      if (activeTab.includes('contactos')) renderContactosTable();
+    }
+
+    // ─── Contact Detail Sheet (Ficha) ───
+    async function showFichaModal(id) {
+      currentFichaContactId = id;
+      const contact = await getById("contactos", id);
+      if (!contact) return;
+
+      document.getElementById('f-nombre').textContent = contact.nombre;
+      document.getElementById('f-telefono').innerHTML = `<a href="tel:${contact.telefono}" style="color:var(--accent); text-decoration:underline;">${contact.telefono}</a>`;
+      document.getElementById('f-email').textContent = contact.email || '—';
+      document.getElementById('f-localidad').textContent = contact.localidad;
+      document.getElementById('f-origen').textContent = contact.origen;
+      
+      document.getElementById('f-servicio').textContent = contact.servicio;
+      document.getElementById('f-estado').innerHTML = `<span class="badge badge-${contact.estado.replace(/ /g, '-')}">${contact.estado}</span>`;
+      document.getElementById('f-prioridad').innerHTML = `<span class="badge badge-prio-${contact.prioridad}">${contact.prioridad}</span>`;
+      document.getElementById('f-presupuesto').textContent = fmtMoney(contact.presupuesto);
+      document.getElementById('f-facturado').textContent = fmtMoney(contact.facturado);
+      const fben = document.getElementById('f-beneficio'); if(fben) fben.textContent = fmtMoney(calcularBeneficio(contact));
+      
+      const rowDescarte = document.getElementById('f-row-descarte');
+      if (contact.motivoDescarte) {
+        rowDescarte.style.display = 'flex';
+        document.getElementById('f-descarte').textContent = contact.motivoDescarte;
+      } else {
+        rowDescarte.style.display = 'none';
+      }
+
+      document.getElementById('f-fecha').textContent = fmtDate(contact.fecha);
+      document.getElementById('f-actualizado').textContent = fmtDateTime(contact.updatedAt);
+      
+      document.getElementById('f-descripcion').textContent = contact.descripcion || 'Sin descripción del trabajo.';
+      document.getElementById('f-observaciones').textContent = contact.observaciones || 'Sin observaciones.';
+
+      // Render Photos
+      const photosGrid = document.getElementById('f-photos-grid');
+      if (contact.fotos && contact.fotos.length > 0) {
+        photosGrid.innerHTML = contact.fotos.map(src => `<img src="${src}" class="photo-thumb" onclick="viewFullImage('${src}')">`).join('');
+      } else {
+        photosGrid.innerHTML = '<p style="color:var(--text2); font-size:.85rem; grid-column:1/-1;">No hay imágenes adjuntas.</p>';
+      }
+
+      // Render Notes
+      const notesList = document.getElementById('f-notes-list');
+      if (contact.notas && contact.notas.length > 0) {
+        notesList.innerHTML = contact.notas.map((n, idx) => `
+          <div class="note-item">
+            <div class="note-date">
+              <span>${fmtDateTime(n.date)}</span>
+              <button onclick="deleteNote(${idx})" class="no-print" style="background:none; border:none; color:var(--red); font-size:.8rem; cursor:pointer;">Eliminar</button>
+            </div>
+            <div>${escapeHtml(n.text)}</div>
+          </div>
+        `).reverse().join('');
+      } else {
+        notesList.innerHTML = '<p style="color:var(--text2); font-size:.8rem;">No hay notas.</p>';
+      }
+
+      // Render Call log
+      const callList = document.getElementById('f-calls-list');
+      if (contact.llamadas && contact.llamadas.length > 0) {
+        callList.innerHTML = contact.llamadas.map(c => `
+          <div class="call-item">
+            <div class="call-date">${fmtDateTime(c.date)}</div>
+            <div>${escapeHtml(c.text)}</div>
+          </div>
+        `).reverse().join('');
+      } else {
+        callList.innerHTML = '<p style="color:var(--text2); font-size:.8rem;">Sin registro de llamadas.</p>';
+      }
+
+      // Render History log
+      const historyList = document.getElementById('f-history-list');
+      if (contact.historial && contact.historial.length > 0) {
+        historyList.innerHTML = contact.historial.map(h => `
+          <div class="history-item">
+            <div class="history-date">${fmtDateTime(h.date)}</div>
+            <div>${escapeHtml(h.description)}</div>
+          </div>
+        `).reverse().join('');
+      } else {
+        historyList.innerHTML = '<p style="color:var(--text2); font-size:.8rem;">Sin historial disponible.</p>';
+      }
+
+      document.getElementById('modal-ficha').classList.add('open');
+    }
+
+    function closeFichaModal() {
+      document.getElementById('modal-ficha').classList.remove('open');
+      currentFichaContactId = null;
+    }
+
+    async function editCurrentFicha() {
+      if (!currentFichaContactId) return;
+      const contact = await getById("contactos", currentFichaContactId);
+      closeFichaModal();
+      openContactModal(contact);
+    }
+
+    async function addNoteToCurrent() {
+      const input = document.getElementById('new-note-text');
+      const text = input.value.trim();
+      if (!text || !currentFichaContactId) return;
+
+      const contact = await getById("contactos", currentFichaContactId);
+      if (!contact.notas) contact.notas = [];
+      contact.notas.push({
+        date: new Date().toISOString(),
+        text: text
+      });
+
+      await saveItem("contactos", contact);
+      input.value = '';
+      showFichaModal(currentFichaContactId);
+      showToast("Nota añadida", "success");
+    }
+
+    async function deleteNote(idx) {
+      if (!confirm("ADeseas eliminar esta nota?")) return;
+      const contact = await getById("contactos", currentFichaContactId);
+      contact.notas.splice(idx, 1);
+      await saveItem("contactos", contact);
+      showFichaModal(currentFichaContactId);
+    }
+
+    async function addCallToCurrent() {
+      const input = document.getElementById('new-call-desc');
+      const text = input.value.trim();
+      if (!text || !currentFichaContactId) return;
+
+      const contact = await getById("contactos", currentFichaContactId);
+      if (!contact.llamadas) contact.llamadas = [];
+      contact.llamadas.push({
+        date: new Date().toISOString(),
+        text: text
+      });
+
+      await saveItem("contactos", contact);
+      input.value = '';
+      showFichaModal(currentFichaContactId);
+      showToast("Llamada registrada", "success");
+    }
+
+    function viewFullImage(src) {
+      const w = window.open();
+      w.document.write(`<img src="${src}" style="max-width:100%; max-height:100vh; display:block; margin:auto;">`);
+    }
+
+    // ─── Dashboard Render and Custom Chart drawing ───
+    async function renderDashboard() {
+      const list = await getAll("contactos");
+      
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const currentMonthStr = String(now.getMonth() + 1).padStart(2, '0');
+      const currentYearMonth = `${currentYear}-${currentMonthStr}`;
+
+      const totalThisMonth = list.filter(c => c.fecha && c.fecha.startsWith(currentYearMonth));
+      const totalThisYear = list.filter(c => c.fecha && c.fecha.startsWith(String(currentYear)));
+      const totalPendientes = list.filter(c => ['Nuevo', 'Contactado', 'Presupuesto enviado'].includes(c.estado));
+      const totalConvertidos = list.filter(c => ['Aceptado', 'Finalizado'].includes(c.estado));
+
+      // Calculate conversion rate
+      const conversionRate = list.length > 0 ? (totalConvertidos.length / list.length) * 100 : 0;
+
+      // Estimate / Real Revenue
+      // Estimate: Presupuestos of all non-rejected leads
+      const estimatedRev = list
+        .filter(c => !['Rechazado', 'No interesado'].includes(c.estado))
+        .reduce((sum, c) => sum + (c.presupuesto || 0), 0);
+
+      // Real Revenue: Sum of facturado of accepted/finalized leads
+      const realRev = list
+        .filter(c => ['Aceptado', 'Finalizado'].includes(c.estado))
+        .reduce((sum, c) => sum + (c.facturado || 0), 0);
+
+      // Display metrics
+      document.getElementById('kpi-mes').textContent = totalThisMonth.length;
+      document.getElementById('kpi-anio').textContent = totalThisYear.length;
+      document.getElementById('kpi-pendientes').textContent = totalPendientes.length;
+      document.getElementById('kpi-convertidos').textContent = totalConvertidos.length;
+      document.getElementById('kpi-conversion-pct').textContent = conversionRate.toFixed(1) + '%';
+      document.getElementById('kpi-fact-estimada').textContent = fmtMoney(estimatedRev);
+      document.getElementById('kpi-fact-real').textContent = fmtMoney(realRev);
+
+      // Calcular Beneficios Desglosados para el mes actual
+      let mesFijo = 0;
+      let mesPct = 0;
+      let mesTotal = 0;
+      
+      totalThisMonth.forEach(c => {
+         const desglosado = calcularBeneficiosDesglosados(c);
+         mesFijo += desglosado.fijo;
+         mesPct += desglosado.porcentaje;
+         mesTotal += desglosado.total;
+      });
+      
+      const elFijo = document.getElementById("kpi-beneficio-fijo");
+      if(elFijo) elFijo.textContent = fmtMoney(mesFijo);
+      
+      const elPct = document.getElementById("kpi-beneficio-pct");
+      if(elPct) elPct.textContent = fmtMoney(mesPct);
+      
+      const elTot = document.getElementById("kpi-beneficio-total");
+      if(elTot) elTot.textContent = fmtMoney(mesTotal);
+
+      // Compare vs last month
+      const prevMonth = now.getMonth() === 0 ? 11 : now.getMonth() - 1;
+      const prevYear = now.getMonth() === 0 ? currentYear - 1 : currentYear;
+      const prevMonthStr = `${prevYear}-${String(prevMonth + 1).padStart(2, '0')}`;
+      const totalPrevMonth = list.filter(c => c.fecha && c.fecha.startsWith(prevMonthStr)).length;
+      const diff = totalThisMonth.length - totalPrevMonth;
+      document.getElementById('kpi-mes-sub').textContent = `${diff >= 0 ? '+' : ''}${diff} vs mes anterior (${totalPrevMonth})`;
+
+      // ─── Charts Drawing ───
+      // Months labels
+      const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+      const mTotals = Array(12).fill(0);
+      const mConvs = Array(12).fill(0);
+      const mFact = Array(12).fill(0);
+
+      months.forEach((_, i) => {
+        const mStr = String(i + 1).padStart(2, '0');
+        const monthLeads = list.filter(c => c.fecha && c.fecha.startsWith(`${currentYear}-${mStr}`));
+        mTotals[i] = monthLeads.length;
+
+        const converted = monthLeads.filter(c => ['Aceptado', 'Finalizado'].includes(c.estado)).length;
+        mConvs[i] = monthLeads.length > 0 ? (converted / monthLeads.length) * 100 : 0;
+        
+        mFact[i] = monthLeads.reduce((sum, c) => sum + (c.facturado || 0), 0);
+      });
+
+      // Render Contacts por mes
+      const maxLeads = Math.max(...mTotals, 1);
+      document.getElementById('chart-mes').innerHTML = months.map((label, i) => {
+        const h = (mTotals[i] / maxLeads) * 120;
+        return `
+          <div class="bar-group">
+            <div class="bar" style="height:${Math.max(h, 4)}px" data-value="${mTotals[i]}"></div>
+            <div class="bar-label">${label}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Render Conversión Mensual (%)
+      const maxConv = Math.max(...mConvs, 1);
+      document.getElementById('chart-conv-mes').innerHTML = months.map((label, i) => {
+        const h = (mConvs[i] / 100) * 120; // scale to 100%
+        return `
+          <div class="bar-group">
+            <div class="bar purple" style="height:${Math.max(h, 4)}px" data-value="${mConvs[i].toFixed(1)}%"></div>
+            <div class="bar-label">${label}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Render Facturación Mensual (€)
+      const maxFact = Math.max(...mFact, 1);
+      document.getElementById('chart-fact-mes').innerHTML = months.map((label, i) => {
+        const h = (mFact[i] / maxFact) * 120;
+        return `
+          <div class="bar-group">
+            <div class="bar green" style="height:${Math.max(h, 4)}px" data-value="${fmtMoney(mFact[i])}"></div>
+            <div class="bar-label">${label}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Render Category lists (Service, Location, Status)
+      const countBy = (arr, prop) => {
+        const counts = {};
+        arr.forEach(item => { counts[item[prop]] = (counts[item[prop]] || 0) + 1; });
+        return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+      };
+
+      const servCounts = countBy(list, 'servicio');
+      const maxServ = servCounts.length > 0 ? servCounts[0][1] : 1;
+      document.getElementById('chart-servicio').innerHTML = servCounts.length > 0
+        ? servCounts.map(([name, count]) => `
+          <div class="cat-item">
+            <span class="cat-name">${name}</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:${(count / maxServ) * 100}%"></div></div>
+            <span class="cat-amount">${count}</span>
+          </div>`).join('')
+        : '<p style="color:var(--text2); font-size:.85rem;">Sin datos</p>';
+
+      const locCounts = countBy(list, 'localidad');
+      const maxLoc = locCounts.length > 0 ? locCounts[0][1] : 1;
+      document.getElementById('chart-localidad').innerHTML = locCounts.length > 0
+        ? locCounts.map(([name, count]) => `
+          <div class="cat-item">
+            <span class="cat-name">${name}</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill green" style="width:${(count / maxLoc) * 100}%"></div></div>
+            <span class="cat-amount">${count}</span>
+          </div>`).join('')
+        : '<p style="color:var(--text2); font-size:.85rem;">Sin datos</p>';
+
+      const estCounts = countBy(list, 'estado');
+      const maxEst = estCounts.length > 0 ? estCounts[0][1] : 1;
+      document.getElementById('chart-estado').innerHTML = estCounts.length > 0
+        ? estCounts.map(([name, count]) => `
+          <div class="cat-item">
+            <span class="cat-name">${name}</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:${(count / maxEst) * 100}%"></div></div>
+            <span class="cat-amount">${count}</span>
+          </div>`).join('')
+        : '<p style="color:var(--text2); font-size:.85rem;">Sin datos</p>';
+    }
+
+    // ─── Contacts List (Table Filters & Sort) ───
+    function setQuickFilter(btn, type) {
+      document.querySelectorAll('.filter-chips .chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      activeQuickFilter = type;
+      applyFilters();
+    }
+
+    function clearFilters() {
+      document.getElementById('filter-search').value = '';
+      document.getElementById('filter-servicio').value = '';
+      document.getElementById('filter-localidad').value = '';
+      document.getElementById('filter-estado').value = '';
+      document.getElementById('filter-origen').value = '';
+      document.getElementById('filter-prioridad').value = '';
+      document.getElementById('filter-fecha-desde').value = '';
+      document.getElementById('filter-fecha-hasta').value = '';
+      
+      document.querySelectorAll('.filter-chips .chip').forEach(c => c.classList.remove('active'));
+      const defaultChip = Array.from(document.querySelectorAll('.filter-chips .chip')).find(c => c.textContent.toLowerCase() === 'todos');
+      if (defaultChip) defaultChip.classList.add('active');
+      activeQuickFilter = 'todos';
+
+      applyFilters();
+    }
+
+    let filteredContacts = [];
+    async function applyFilters() {
+      const list = await getAll("contactos");
+      const search = document.getElementById('filter-search').value.toLowerCase();
+      const servicio = document.getElementById('filter-servicio').value;
+      const localidad = document.getElementById('filter-localidad').value;
+      const estado = document.getElementById('filter-estado').value;
+      const origen = document.getElementById('filter-origen').value;
+      const prioridad = document.getElementById('filter-prioridad').value;
+      const desde = document.getElementById('filter-fecha-desde').value;
+      const hasta = document.getElementById('filter-fecha-hasta').value;
+
+      const now = new Date();
+      const currentYearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+
+      filteredContacts = list.filter(c => {
+        if (search && !c.nombre.toLowerCase().includes(search) && !c.telefono.toLowerCase().includes(search) && !(c.descripcion||'').toLowerCase().includes(search)) return false;
+        if (servicio && c.servicio !== servicio) return false;
+        if (localidad && c.localidad !== localidad) return false;
+        if (estado && c.estado !== estado) return false;
+        if (origen && c.origen !== origen) return false;
+        if (prioridad && c.prioridad !== prioridad) return false;
+        if (desde && c.fecha < desde) return false;
+        if (hasta && c.fecha > hasta) return false;
+
+        // Quick filters
+        if (activeQuickFilter === 'pendientes' && !['Nuevo', 'Contactado', 'Presupuesto enviado'].includes(c.estado)) return false;
+        if (activeQuickFilter === 'convertidos' && !['Aceptado', 'Finalizado'].includes(c.estado)) return false;
+        if (activeQuickFilter === 'mes' && c.fecha && !c.fecha.startsWith(currentYearMonth)) return false;
+        if (activeQuickFilter === 'prioridad-alta' && c.prioridad !== 'Alta') return false;
+
+        return true;
+      });
+
+      // Sort
+      sortList();
+      renderTableBody();
+    }
+
+    function sortTable(column) {
+      if (tableSortColumn === column) {
+        tableSortAsc = !tableSortAsc;
+      } else {
+        tableSortColumn = column;
+        tableSortAsc = true;
+      }
+      sortList();
+      renderTableBody();
+    }
+
+    function sortList() {
+      filteredContacts.sort((a, b) => {
+        let valA = a[tableSortColumn] || '';
+        let valB = b[tableSortColumn] || '';
+
+        if (tableSortColumn === 'presupuesto' || tableSortColumn === 'facturado') {
+          valA = parseFloat(valA) || 0;
+          valB = parseFloat(valB) || 0;
+        } else {
+          valA = String(valA).toLowerCase();
+          valB = String(valB).toLowerCase();
+        }
+
+        if (valA < valB) return tableSortAsc ? -1 : 1;
+        if (valA > valB) return tableSortAsc ? 1 : -1;
+        return 0;
+      });
+    }
+
+    
+    
+    
+    // Nueva versión: devuelve un objeto con el beneficio fijo, el beneficio de porcentaje y el total
+    function calcularBeneficiosDesglosados(c) {
+      let estado = (c.estado || '').toLowerCase();
+        if (estado.includes('rechazado') || estado.includes('no interesado') || estado.includes('descartado')) {
+          return { fijo: 0, porcentaje: 0, total: 0 };
+        }
+        let s = (c.servicio || '').toLowerCase();
+      let o = (c.origen || '').toLowerCase();
+      let f = parseFloat(c.facturado) || 0;
+      let p = parseFloat(c.presupuesto) || 0;
+      let v = f > 0 ? f : p; 
+      
+      let bFijo = 0;
+      let bPorcentaje = 0;
+      
+      if (s.includes('albañiler') || s.includes('alba&ntilde;iler') || s.includes('albailer') || s.includes('reforma') || s.includes('toldo') || s.includes('cerramiento') || s.includes('pvc') || (s.includes('cerraj') && (s.includes('puerta') || s.includes('garage') || s.includes('garaje')))) {
+        if (o.includes('toño') || o.includes('to&ntilde;o') || o.includes('too')) {
+          bPorcentaje = v * 0.02;
+        } else {
+          bPorcentaje = v * 0.05;
+        }
+      } 
+      else if (s.includes('cerraj')) {
+        bFijo = 30;
+      } 
+      else if (s.includes('radón') || s.includes('rad&oacute;n') || s.includes('radn') || s.includes('radon')) {
+        bFijo = 25;
+        bPorcentaje = v * 0.05;
+      } 
+      else {
+        // Resto de oficios (fontanería, pintura, electricidad, etc)
+        bFijo = 15;
+      }
+      
+      return {
+        fijo: bFijo,
+        porcentaje: bPorcentaje,
+        total: bFijo + bPorcentaje
+      };
+    }
+
+    function calcularBeneficio(c) {
+      return calcularBeneficiosDesglosados(c).total;
+    }
+    
+    function renderTableBody() {
+      const body = document.getElementById('contactos-body');
+      const count = document.getElementById('table-count');
+
+      count.innerHTML = `Mostrando <strong>${filteredContacts.length}</strong> contacto${filteredContacts.length !== 1 ? 's' : ''}`;
+
+      if (filteredContacts.length === 0) {
+        body.innerHTML = '<tr class="empty-row"><td colspan="12">No se encontraron contactos.</td></tr>';
+        return;
+      }
+
+      body.innerHTML = filteredContacts.map(c => `
+          <tr style="cursor:pointer;" onclick="if (!event.target.closest('button')) showFichaModal('${c.id}')">
+            <td>${fmtDate(c.fecha)}</td>
+            <td style="font-weight:600">${c.nombre}</td>
+            <td>${c.telefono}</td>
+            <td>${c.localidad}</td>
+            <td>${c.servicio}</td>
+            <td><span class="badge badge-${c.estado.replace(/ /g, '-')}">${c.estado}</span></td>
+            <td><span class="badge badge-prio-${c.prioridad}">${c.prioridad}</span></td>
+            <td style="text-align:right">${fmtMoney(c.presupuesto)}</td>
+            <td style="text-align:right">${fmtMoney(c.facturado)}</td>
+            <td style="text-align:right;font-weight:bold;color:var(--accent)">${fmtMoney(calcularBeneficio(c))}</td>
+            <td><span style="font-size:.8rem;color:var(--text2)">${c.origen}</span></td>
+            <td style="font-size:.8rem;color:var(--text2)">${fmtDateTime(c.updatedAt)}</td>
+            <td class="no-print">
+              <div style="display:flex; gap:6px;">
+                <button class="btn btn-ghost btn-sm" onclick="openContactModal(JSON.parse(escape(JSON.stringify(filteredContacts.find(x => x.id === '${c.id}')))))">✏️</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteContact('${c.id}')">🗑</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+    }
+
+    // Workaround to escape/unescape object safely for onclick argument in HTML
+    window.escape = function(str) {
+      return btoa(unescape(encodeURIComponent(str)));
+    };
+    window.unescape = function(str) {
+      return decodeURIComponent(escape(atob(str)));
+    };
+
+    async function renderContactosTable() {
+      await loadConfig();
+      await applyFilters();
+    }
+
+    // ─── Estadísticas Detalladas ───
+    async function renderEstadisticas() {
+      const list = await getAll("contactos");
+      if (list.length === 0) {
+        const placeholder = '<p style="color:var(--text2); font-size:.85rem;">Carga datos para visualizar estadísticas.</p>';
+        document.getElementById('stats-solicitados').innerHTML = placeholder;
+        document.getElementById('stats-rentables').innerHTML = placeholder;
+        document.getElementById('stats-localidad-contactos').innerHTML = placeholder;
+        document.getElementById('stats-localidad-conversion').innerHTML = placeholder;
+        document.getElementById('stats-descarte').innerHTML = placeholder;
+        return;
+      }
+
+      // Group Helper
+      const groupStats = (arr, keyProp) => {
+        const map = {};
+        arr.forEach(item => {
+          const key = item[keyProp] || 'Desconocido';
+          if (!map[key]) {
+            map[key] = { count: 0, converted: 0, facturado: 0, presupuestosCount: 0, presupuestosSum: 0 };
+          }
+          map[key].count++;
+          if (['Aceptado', 'Finalizado'].includes(item.estado)) {
+            map[key].converted++;
+            map[key].facturado += item.facturado || 0;
+          }
+          if (item.presupuesto) {
+            map[key].presupuestosCount++;
+            map[key].presupuestosSum += item.presupuesto;
+          }
+        });
+        return Object.entries(map);
+      };
+
+      const services = groupStats(list, 'servicio');
+      const locations = groupStats(list, 'localidad');
+
+      // 1. Servicios más solicitados
+      services.sort((a, b) => b[1].count - a[1].count);
+      const maxServCount = services.length > 0 ? services[0][1].count : 1;
+      document.getElementById('stats-solicitados').innerHTML = services.slice(0, 6).map(([name, stat]) => `
+        <div class="cat-item">
+          <span class="cat-name" title="${name}">${name}</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:${(stat.count / maxServCount) * 100}%"></div></div>
+          <span class="cat-amount">${stat.count} pet.</span>
+        </div>`).join('');
+
+      // 2. Servicios más rentables
+      services.sort((a, b) => b[1].facturado - a[1].facturado);
+      const maxServFact = services.length > 0 && services[0][1].facturado > 0 ? services[0][1].facturado : 1;
+      document.getElementById('stats-rentables').innerHTML = services.slice(0, 6).map(([name, stat]) => `
+        <div class="cat-item">
+          <span class="cat-name" title="${name}">${name}</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill green" style="width:${(stat.facturado / maxServFact) * 100}%"></div></div>
+          <span class="cat-amount">${fmtMoney(stat.facturado)}</span>
+        </div>`).join('');
+
+      // 3. Localidades con más contactos
+      locations.sort((a, b) => b[1].count - a[1].count);
+      const maxLocCount = locations.length > 0 ? locations[0][1].count : 1;
+      document.getElementById('stats-localidad-contactos').innerHTML = locations.slice(0, 6).map(([name, stat]) => `
+        <div class="cat-item">
+          <span class="cat-name" title="${name}">${name}</span>
+          <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:${(stat.count / maxLocCount) * 100}%"></div></div>
+          <span class="cat-amount">${stat.count} cont.</span>
+        </div>`).join('');
+
+      // 4. Localidades con mayor conversión (%)
+      const locationsFiltered = locations.filter(([_, stat]) => stat.count >= 2); // Minimum 2 leads to show rate
+      locationsFiltered.sort((a, b) => (b[1].converted / b[1].count) - (a[1].converted / a[1].count));
+      document.getElementById('stats-localidad-conversion').innerHTML = locationsFiltered.slice(0, 6).length > 0
+        ? locationsFiltered.slice(0, 6).map(([name, stat]) => {
+            const rate = (stat.converted / stat.count) * 100;
+            return `
+              <div class="cat-item">
+                <span class="cat-name" title="${name}">${name}</span>
+                <div class="cat-bar-bg"><div class="cat-bar-fill purple" style="width:${rate}%"></div></div>
+                <span class="cat-amount">${rate.toFixed(1)}%</span>
+              </div>`;
+          }).join('')
+        : '<p style="color:var(--text2); font-size:.85rem;">Sin suficientes datos para conversión.</p>';
+
+      // 5. Motivos de descarte
+      const descartes = {};
+      list.forEach(c => {
+        if (c.motivoDescarte) {
+          descartes[c.motivoDescarte] = (descartes[c.motivoDescarte] || 0) + 1;
+        }
+      });
+      const descList = Object.entries(descartes).sort((a, b) => b[1] - a[1]);
+      const maxDesc = descList.length > 0 ? descList[0][1] : 1;
+      document.getElementById('stats-descarte').innerHTML = descList.length > 0
+        ? descList.slice(0, 6).map(([name, count]) => `
+          <div class="cat-item">
+            <span class="cat-name" title="${name}">${name}</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill" style="background:var(--red); width:${(count / maxDesc) * 100}%"></div></div>
+            <span class="cat-amount">${count}</span>
+          </div>`).join('')
+        : '<p style="color:var(--text2); font-size:.85rem;">No hay descartes registrados.</p>';
+
+      // 6. Metrics computations
+      const contactsWithPresupuesto = list.filter(c => c.presupuesto > 0);
+      const avgPres = contactsWithPresupuesto.reduce((s, c) => s + c.presupuesto, 0) / (contactsWithPresupuesto.length || 1);
+      
+      const closedJobs = list.filter(c => ['Aceptado', 'Finalizado'].includes(c.estado) && c.facturado > 0);
+      const avgFact = closedJobs.reduce((s, c) => s + c.facturado, 0) / (closedJobs.length || 1);
+
+      const totalPresupuestos = list.filter(c => ['Presupuesto enviado', 'Aceptado', 'Finalizado', 'Rechazado'].includes(c.estado)).length;
+      const totalAceptados = list.filter(c => ['Aceptado', 'Finalizado'].includes(c.estado)).length;
+      const acceptRate = totalPresupuestos > 0 ? (totalAceptados / totalPresupuestos) * 100 : 0;
+
+      // Avg closure time
+      let closureDaysSum = 0;
+      let closureCount = 0;
+      list.forEach(c => {
+        if (['Aceptado', 'Finalizado'].includes(c.estado) && c.createdAt) {
+          const start = new Date(c.fecha); // Use lead date
+          const end = new Date(c.updatedAt);
+          const diffMs = end - start;
+          const diffDays = Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+          closureDaysSum += diffDays;
+          closureCount++;
+        }
+      });
+      const avgClosureDays = closureCount > 0 ? Math.round(closureDaysSum / closureCount) : 0;
+
+      document.getElementById('stat-avg-presupuesto').textContent = fmtMoney(avgPres);
+      document.getElementById('stat-avg-facturado').textContent = fmtMoney(avgFact);
+      document.getElementById('stat-aceptacion-pct').textContent = acceptRate.toFixed(1) + '%';
+      document.getElementById('stat-tiempo-cierre').textContent = avgClosureDays + ' día' + (avgClosureDays !== 1 ? 's' : '');
+    }
+
+    // ─── Config view CRUD (Localidades, Servicios, Orígenes) ───
+    async function renderConfiguracion() {
+      await loadConfig();
+
+      const renderConfigList = (containerId, list, type) => {
+        const container = document.getElementById(containerId);
+        container.innerHTML = list.map((val, idx) => `
+          <div class="editable-item">
+            <input type="text" value="${val}" onchange="updateConfigItem('${type}', ${idx}, this.value)">
+            <button class="btn btn-danger btn-sm" onclick="deleteConfigItem('${type}', ${idx})" style="padding:4px 8px;">🗑</button>
+          </div>
+        `).join('');
+      };
+
+      renderConfigList('list-localidades', window.localidades, 'localidades');
+      renderConfigList('list-servicios', window.servicios, 'servicios');
+      renderConfigList('list-origenes', window.origenes, 'origenes');
+    }
+
+    async function updateConfigItem(type, idx, val) {
+      const trimmed = val.trim();
+      if (!trimmed) return renderConfiguracion();
+      
+      window[type][idx] = trimmed;
+      await saveItem("configuracion", { id: type, values: window[type] });
+      showToast("Configuración guardada", "success");
+      renderConfiguracion();
+    }
+
+    async function deleteConfigItem(type, idx) {
+      if (!confirm("ADeseas eliminar este elemento de la lista?")) return;
+      window[type].splice(idx, 1);
+      await saveItem("configuracion", { id: type, values: window[type] });
+      showToast("Elemento eliminado", "info");
+      renderConfiguracion();
+    }
+
+    async function addNewConfigItem(type) {
+      const val = prompt("Introduce el nuevo elemento:");
+      if (!val || !val.trim()) return;
+
+      window[type].push(val.trim());
+      await saveItem("configuracion", { id: type, values: window[type] });
+      showToast("Elemento añadido", "success");
+      renderConfiguracion();
+    }
+
+    // ─── Export CSV ───
+    function exportToCSV() {
+      if (filteredContacts.length === 0) {
+        showToast("No hay contactos para exportar", "error");
+        return;
+      }
+
+      const headers = ['Fecha', 'Nombre', 'Teléfono', 'Email', 'Localidad', 'Servicio', 'Origen', 'Estado', 'Prioridad', 'Presupuesto (€)', 'Facturado (€)', 'Motivo Descarte', 'Creado', 'Actualizado'];
+      const rows = filteredContacts.map(c => [
+        c.fecha, c.nombre, c.telefono, c.email || '', c.localidad, c.servicio, c.origen, c.estado, c.prioridad, c.presupuesto || 0, c.facturado || 0, c.motivoDescarte || '', c.createdAt, c.updatedAt
+      ]);
+
+      const csvContent = [headers, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(';')).join('\n');
+      
+      const bom = '\uFEFF';
+      const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `reparaciones_manzanares_contactos_${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("✅ CSV exportado correctamente", "success");
+    }
+
+    // Backup Export & Reset
+    async function exportBackup() {
+      const list = await getAll("contactos");
+      const config = await getAll("configuracion");
+      const data = {
+        contactos: list,
+        configuracion: config,
+        exportedAt: new Date().toISOString(),
+        version: 1
+      };
+
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `backup_contactos_manzanares_${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("✅ Copia de seguridad guardada", "success");
+    }
+
+    async function clearAllData() {
+      if (!confirm("⚠️ AATENCIÓN! Estás a punto de borrar todos los contactos de la base de datos de manera irreversible. ADeseas continuar?")) return;
+      
+      const store = getStore("contactos", "readwrite");
+      const req = store.clear();
+      req.onsuccess = () => {
+        showToast("🗑 Base de datos vaciada", "info");
+        navigate('dashboard');
+      };
+    }
+
+    // ─── Seed Database with Demo Data on First Launch ───
+    async function seedDatabaseIfEmpty() {
+      const list = await getAll("contactos");
+      if (list.length > 0) return;
+
+      showToast("Inicializando base de datos con datos de ejemplo...", "info");
+
+      const now = new Date();
+      const yr = now.getFullYear();
+
+      // Sample dataset matching local areas and services
+      const sample = [
+        {
+          id: uniqueId(),
+          fecha: `${yr}-07-02`,
+          nombre: "Rubén García",
+          telefono: "612345678",
+          email: "ruben@gmail.com",
+          localidad: "Manzanares el Real",
+          servicio: "Fontanería",
+          origen: "Google Orgánico",
+          estado: "Finalizado",
+          prioridad: "Alta",
+          presupuesto: 180,
+          facturado: 180,
+          motivoDescarte: "",
+          descripcion: "Fuga de agua en llave de paso general de patio.",
+          observaciones: "Se atendió urgente. Muy agradecido.",
+          fotos: [],
+          createdAt: new Date(`${yr}-07-02T10:00:00`).toISOString(),
+          updatedAt: new Date(`${yr}-07-02T15:00:00`).toISOString(),
+          historial: [{ date: new Date().toISOString(), description: "Creado e importado como ejemplo." }],
+          notas: [{ date: new Date().toISOString(), text: "Trabajo rápido. Pago en efectivo." }],
+          llamadas: [{ date: new Date().toISOString(), text: "Llamada inicial del cliente explicando la fuga." }]
+        },
+        {
+          id: uniqueId(),
+          fecha: `${yr}-07-05`,
+          nombre: "María Jesús López",
+          telefono: "622987654",
+          email: "mjesus@soto.es",
+          localidad: "Soto del Real",
+          servicio: "Calderas",
+          origen: "Google Ads",
+          estado: "Aceptado",
+          prioridad: "Media",
+          presupuesto: 1200,
+          facturado: 0,
+          motivoDescarte: "",
+          descripcion: "Sustitución de caldera vieja por nueva caldera de condensación Junkers.",
+          observaciones: "Material pedido a proveedor. Instalación prevista para el jueves.",
+          fotos: [],
+          createdAt: new Date(`${yr}-07-05T12:00:00`).toISOString(),
+          updatedAt: new Date(`${yr}-07-06T18:00:00`).toISOString(),
+          historial: [{ date: new Date().toISOString(), description: "Presupuesto aceptado." }],
+          notas: [],
+          llamadas: []
+        },
+        {
+          id: uniqueId(),
+          fecha: `${yr}-07-08`,
+          nombre: "Antonio Martínez",
+          telefono: "655432109",
+          email: "",
+          localidad: "Cerceda",
+          servicio: "Electricidad",
+          origen: "WhatsApp",
+          estado: "Presupuesto enviado",
+          prioridad: "Media",
+          presupuesto: 350,
+          facturado: 0,
+          motivoDescarte: "",
+          descripcion: "Instalación de focos LED en cocina y sustitución de varios enchufes en salón.",
+          observaciones: "Pendiente de respuesta del cliente.",
+          fotos: [],
+          createdAt: new Date(`${yr}-07-08T09:30:00`).toISOString(),
+          updatedAt: new Date(`${yr}-07-08T11:00:00`).toISOString(),
+          historial: [],
+          notas: [],
+          llamadas: []
+        },
+        {
+          id: uniqueId(),
+          fecha: `${yr}-07-10`,
+          nombre: "Lorena Ruiz",
+          telefono: "699000111",
+          email: "lorena@boalo.org",
+          localidad: "El Boalo",
+          servicio: "Cerrajería",
+          origen: "Google Business Profile",
+          estado: "Rechazado",
+          prioridad: "Alta",
+          presupuesto: 150,
+          facturado: 0,
+          motivoDescarte: "Precio demasiado alto",
+          descripcion: "Cambio de bombín urgente por pérdida de llaves.",
+          observaciones: "Le pareció caro la tarifa de urgencia y festivo.",
+          fotos: [],
+          createdAt: new Date(`${yr}-07-10T22:00:00`).toISOString(),
+          updatedAt: new Date(`${yr}-07-10T22:15:00`).toISOString(),
+          historial: [],
+          notas: [],
+          llamadas: []
+        },
+        {
+          id: uniqueId(),
+          fecha: `${yr}-06-15`,
+          nombre: "Pedro San Juan",
+          telefono: "600778899",
+          email: "",
+          localidad: "Moralzarzal",
+          servicio: "Persianas",
+          origen: "Llamada directa",
+          estado: "Finalizado",
+          prioridad: "Baja",
+          presupuesto: 90,
+          facturado: 90,
+          motivoDescarte: "",
+          descripcion: "Reparación de persiana de aluminio atascada.",
+          observaciones: "",
+          fotos: [],
+          createdAt: new Date(`${yr}-06-15T10:00:00`).toISOString(),
+          updatedAt: new Date(`${yr}-06-16T12:00:00`).toISOString(),
+          historial: [],
+          notas: [],
+          llamadas: []
+        }
+      ];
+
+      for (const item of sample) {
+        await saveItem("contactos", item);
+      }
+
+      showToast("Datos de demostración cargados.", "success");
+    }
+
+    // ─── Initialization on document ready ───
+    
+    function getCrmHeaders() {
+      return {
+        'Content-Type': 'application/json',
+        'x-crm-pin': sessionStorage.getItem('crm_pin') || '112233'
+      };
+    }
+
+    function checkAuthPin() {
+      const saved = sessionStorage.getItem('crm_pin');
+      const overlay = document.getElementById('auth-overlay');
+      if (saved === '112233') {
+        if (overlay) overlay.style.display = 'none';
+        return true;
+      }
+      if (overlay) overlay.style.display = 'flex';
+      return false;
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('auth-pin-input');
+      const err = document.getElementById('auth-error');
+      if (input.value === '112233') {
+        sessionStorage.setItem('crm_pin', '112233');
+        document.getElementById('auth-overlay').style.display = 'none';
+        if (err) err.style.display = 'none';
+        initApp();
+      } else {
+        if (err) err.style.display = 'block';
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    async function importBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      try {
+        const text = await file.text();
+        const data = JSON.parse(text);
+        const contacts = Array.isArray(data) ? data : (data.contactos || []);
+        
+        if (!contacts.length) {
+          showToast("⚠️ El archivo seleccionado no contiene contactos", "error");
+          return;
+        }
+
+        showToast("⏳ Importando " + contacts.length + " contactos...", "info");
+
+        const res = await fetch('/api/crm', {
+          method: 'POST',
+          headers: getCrmHeaders(),
+          body: JSON.stringify(contacts)
+        });
+
+        if (!res.ok) {
+          throw new Error("Error en el servidor: " + res.status);
+        }
+
+        if (data.configuracion && Array.isArray(data.configuracion)) {
+          for (const conf of data.configuracion) {
+            await saveItem("configuracion", conf);
+          }
+        }
+
+        showToast("✅ " + contacts.length + " contactos importados con éxito", "success");
+        await applyFilters();
+        if (typeof renderStats === 'function') renderStats();
+      } catch (err) {
+        console.error("Error importando backup:", err);
+        showToast("❌ Error al importar: " + err.message, "error");
+      } finally {
+        event.target.value = '';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      if (!checkAuthPin()) return;
+      // Set light/dark theme preference
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+
+      try {
+        await initDB();
+        await loadConfig();
+        await seedDatabaseIfEmpty();
+        
+        // Show menu button on smaller screens
+        if (window.innerWidth <= 900) {
+          document.getElementById('menu-btn').style.display = 'block';
+        }
+        
+        navigate('dashboard');
+      } catch (err) {
+        console.error("No se pudo iniciar la base de datos:", err);
+        showToast("Error de base de datos local (IndexedDB)", "error");
+      }
+    });
+
+    // Close modals clicking outside
+    document.querySelectorAll('.modal-backdrop').forEach(modal => {
+      modal.addEventListener('click', e => {
+        if (e.target === modal) {
+          if (modal.id === 'modal-contacto') closeContactModal();
+          if (modal.id === 'modal-ficha') closeFichaModal();
+            if (modal.id === 'modal-informe') cerrarInforme();
+        }
+      });
+    });
+  
+  
+    function mostrarInformeMensual() {
+      const modal = document.getElementById('modal-informe');
+      modal.classList.add('open');
+      
+      const now = new Date();
+      const currentMonth = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+      document.getElementById('informe-month').value = currentMonth;
+      
+      generarInformeMensual();
+    }
+
+    function cerrarInforme() {
+      document.getElementById('modal-informe').classList.remove('open');
+    }
+
+    async function generarInformeMensual() {
+      const monthVal = document.getElementById('informe-month').value;
+      if (!monthVal) return;
+      
+      const parts = monthVal.split('-');
+      const year = parts[0];
+      const month = parts[1];
+      const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+      document.getElementById('informe-titulo').textContent = 'Liquidaci\u00f3n de Comisiones - ' + monthNames[parseInt(month)-1] + ' ' + year;
+
+      const todosContactos = await getAll('contactos');
+      const contactosMes = todosContactos.filter(function(c) {
+        if (!c.fecha) return false;
+        return c.fecha.startsWith(monthVal) && c.estado !== 'Descartado' && c.estado !== 'Rechazado' && c.estado !== 'No interesado';
+      });
+
+      contactosMes.sort(function(a,b) { return a.fecha.localeCompare(b.fecha); });
+
+      let htmlFijas = '';
+      let htmlPct = '';
+      let subfijo = 0;
+      let subpct = 0;
+
+      contactosMes.forEach(function(c) {
+        const desglosado = calcularBeneficiosDesglosados(c);
+        
+        if (desglosado.fijo > 0) {
+          htmlFijas += '<tr>'
+            + '<td>' + fmtDate(c.fecha) + '</td>'
+            + '<td>' + c.nombre + ' (' + c.localidad + ')</td>'
+            + '<td>' + c.servicio + '</td>'
+            + '<td style="text-align:right; font-weight:600;">' + fmtMoney(desglosado.fijo) + '</td>'
+            + '</tr>';
+          subfijo += desglosado.fijo;
+        }
+
+        if (desglosado.porcentaje > 0) {
+          const v = (parseFloat(c.facturado) || 0) > 0 ? (parseFloat(c.facturado) || 0) : (parseFloat(c.presupuesto) || 0);
+          const pctAplicado = Math.abs(desglosado.porcentaje - (v * 0.02)) < 0.01 ? '2%' : '5%';
+          
+          htmlPct += '<tr>'
+            + '<td>' + fmtDate(c.fecha) + '</td>'
+            + '<td>' + c.nombre + ' (' + c.localidad + ')</td>'
+            + '<td>' + c.servicio + ' <span style="font-size:0.8rem;color:#888;">(' + (c.origen || 'Propio') + ')</span></td>'
+            + '<td style="text-align:right;">' + fmtMoney(v) + '</td>'
+            + '<td style="text-align:right;">' + pctAplicado + '</td>'
+            + '<td style="text-align:right; font-weight:600;">' + fmtMoney(desglosado.porcentaje) + '</td>'
+            + '</tr>';
+          subpct += desglosado.porcentaje;
+        }
+      });
+
+      if (htmlFijas === '') htmlFijas = '<tr><td colspan="4" style="text-align:center; color:#888;">No hay comisiones fijas este mes.</td></tr>';
+      if (htmlPct === '') htmlPct = '<tr><td colspan="6" style="text-align:center; color:#888;">No hay comisiones a porcentaje este mes.</td></tr>';
+
+      document.getElementById('informe-tabla-fijas').innerHTML = htmlFijas;
+      document.getElementById('informe-subtotal-fijas').textContent = fmtMoney(subfijo);
+      
+      document.getElementById('informe-tabla-pct').innerHTML = htmlPct;
+      document.getElementById('informe-subtotal-pct').textContent = fmtMoney(subpct);
+
+      document.getElementById('informe-total-mes').textContent = fmtMoney(subfijo + subpct);
+    }
+
+    function printInforme() {
+      const area = document.getElementById('informe-printable-area');
+      const printWin = window.open('', '_blank');
+      printWin.document.write('<html><head><title>Informe Comisiones</title>');
+      printWin.document.write('<style>body{font-family:system-ui,sans-serif;padding:30px;color:#111;}table{width:100%;border-collapse:collapse;margin:10px 0 20px 0;}th,td{padding:8px 10px;border-bottom:1px solid #ddd;font-size:13px;}th{text-align:left;font-weight:bold;border-bottom:2px solid #333;font-size:11px;text-transform:uppercase;color:#666;}h2{margin:0 0 20px 0;}h4{margin:20px 0 10px 0;color:#e67e22;border-bottom:1px solid #ddd;padding-bottom:5px;}</style>');
+      printWin.document.write('</head><body>');
+      printWin.document.write(area.innerHTML);
+      printWin.document.write('</body></html>');
+      printWin.document.close();
+      printWin.focus();
+      printWin.print();
+    }
+
+    </script>
+  </body></html>');
+      printWin.document.close();
+      printWin.focus();
+      printWin.print();
+    }
+
+    </script>
+
+
+
+
+  
+  <!-- MODAL INFORME MENSUAL -->
+  <div class="modal-backdrop" id="modal-informe">
+    <div class="modal" style="width: min(900px, 95vw);">
+      <div class="modal-header">
+        <h2 class="modal-title">Informe Mensual de Comisiones</h2>
+        <button class="modal-close" onclick="cerrarInforme()">&times;</button>
+      </div>
+      
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;" class="no-print">
+        <div>
+          <label style="font-size:.85rem; color:var(--text2); display:block; margin-bottom:4px;">Seleccionar Mes</label>
+          <input type="month" id="informe-month" class="input-field" onchange="generarInformeMensual()">
+        </div>
+        <button class="btn btn-primary" onclick="printInforme()">Imprimir Informe</button>
+      </div>
+      
+      <div id="informe-printable-area">
+        <h2 style="margin-top:0; color:var(--text); font-size:1.4rem;" id="informe-titulo">Liquidaci&oacute;n de Comisiones</h2>
+        
+        <div style="margin-top:20px;">
+          <h4 style="margin:0 0 10px 0; border-bottom: 1px solid var(--border); padding-bottom:5px; color:var(--accent)">1. Comisiones Fijas (15&euro;, 25&euro;, 30&euro;)</h4>
+          <table class="data-table" style="margin-bottom: 20px; width:100%;">
+            <thead>
+              <tr>
+                <th style="text-align:left">Fecha</th>
+                <th style="text-align:left">Cliente/Localidad</th>
+                <th style="text-align:left">Servicio</th>
+                <th style="text-align:right">Comisi&oacute;n</th>
+              </tr>
+            </thead>
+            <tbody id="informe-tabla-fijas"></tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" style="text-align:right; font-weight:bold;">Subtotal Fijas:</td>
+                <td id="informe-subtotal-fijas" style="text-align:right; font-weight:bold;">0,00 &euro;</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div style="margin-top:20px;">
+          <h4 style="margin:0 0 10px 0; border-bottom: 1px solid var(--border); padding-bottom:5px; color:var(--accent)">2. Comisiones a Porcentaje (5%, 2%)</h4>
+          <table class="data-table" style="margin-bottom: 20px; width:100%;">
+            <thead>
+              <tr>
+                <th style="text-align:left">Fecha</th>
+                <th style="text-align:left">Cliente/Localidad</th>
+                <th style="text-align:left">Servicio (Origen)</th>
+                <th style="text-align:right">Base</th>
+                <th style="text-align:right">%</th>
+                <th style="text-align:right">Comisi&oacute;n</th>
+              </tr>
+            </thead>
+            <tbody id="informe-tabla-pct"></tbody>
+            <tfoot>
+              <tr>
+                <td colspan="5" style="text-align:right; font-weight:bold;">Subtotal Porcentaje:</td>
+                <td id="informe-subtotal-pct" style="text-align:right; font-weight:bold;">0,00 &euro;</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div style="margin-top:30px; text-align:right; background: var(--bg2); padding: 20px; border-radius: 8px; border: 2px solid var(--accent);">
+          <div style="font-size: 1rem; color: var(--text2);">Total Liquidaci&oacute;n Mes</div>
+          <div id="informe-total-mes" style="font-size: 2rem; font-weight: 900; color: var(--accent);">0,00 &euro;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body></html>
