@@ -359,6 +359,12 @@
         th { background: #eee; color: #000; }
         td { border-bottom: 1px solid #ddd; }
       }
+  
+    /* Informe: selección y liquidado */
+    .inf-check { width: 34px; text-align: center; }
+    .inf-check input { width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent); }
+    tr.inf-excluido td:not(.inf-check) { opacity: .35; text-decoration: line-through; }
+    .tag-liquidado { display:inline-block; margin-left:6px; padding:1px 7px; border-radius:10px; font-size:.7rem; font-weight:600; background:rgba(52,211,153,.15); color:var(--green); border:1px solid rgba(52,211,153,.4); cursor:pointer; text-decoration:none; }
   </style>
 </head>
 <body>
@@ -2909,10 +2915,14 @@
       document.getElementById('modal-informe').classList.remove('open');
     }
 
+    // ── Informe con selección de trabajos ──
+    let informeContactos = [];
+    let informeExcluidos = new Set();
+
     async function generarInformeMensual() {
       const monthVal = document.getElementById('informe-month').value;
       if (!monthVal) return;
-      
+
       const parts = monthVal.split('-');
       const year = parts[0];
       const month = parts[1];
@@ -2920,74 +2930,149 @@
       document.getElementById('informe-titulo').textContent = 'Liquidaci\u00f3n de Comisiones - ' + monthNames[parseInt(month)-1] + ' ' + year;
 
       const todosContactos = await getAll('contactos');
-      const contactosMes = todosContactos.filter(function(c) {
+      informeContactos = todosContactos.filter(function(c) {
         if (!c.fecha) return false;
         return c.fecha.startsWith(monthVal) && c.estado !== 'Descartado' && c.estado !== 'Rechazado' && c.estado !== 'No interesado';
       });
+      informeContactos.sort(function(a,b) { return a.fecha.localeCompare(b.fecha); });
 
-      contactosMes.sort(function(a,b) { return a.fecha.localeCompare(b.fecha); });
+      // Al abrir o cambiar de mes: todo marcado
+      informeExcluidos = new Set();
+      renderInforme();
+    }
 
+    function informeTagLiquidado(c) {
+      if (!c.liquidado) return '';
+      return ' <span class="tag-liquidado" title="Liquidado el ' + fmtDate(c.liquidado) + ' (clic para quitar)" onclick="quitarLiquidado(\'' + c.id + '\')">Liquidado</span>';
+    }
+
+    function renderInforme() {
       let htmlFijas = '';
       let htmlPct = '';
       let subfijo = 0;
       let subpct = 0;
 
-      contactosMes.forEach(function(c) {
+      informeContactos.forEach(function(c) {
         const desglosado = calcularBeneficiosDesglosados(c);
-        
+        const incluido = !informeExcluidos.has(c.id);
+        const rowClass = incluido ? '' : ' class="inf-excluido"';
+        const check = '<td class="inf-check"><input type="checkbox" ' + (incluido ? 'checked' : '') + ' onchange="toggleInformeItem(\'' + c.id + '\', this.checked)"></td>';
+
         if (desglosado.fijo > 0) {
-          htmlFijas += '<tr>'
+          htmlFijas += '<tr' + rowClass + '>'
+            + check
             + '<td>' + fmtDate(c.fecha) + '</td>'
-            + '<td>' + c.nombre + ' (' + c.localidad + ')</td>'
+            + '<td>' + c.nombre + ' (' + c.localidad + ')' + informeTagLiquidado(c) + '</td>'
             + '<td>' + c.servicio + '</td>'
             + '<td style="text-align:right; font-weight:600;">' + fmtMoney(desglosado.fijo) + '</td>'
             + '</tr>';
-          subfijo += desglosado.fijo;
+          if (incluido) subfijo += desglosado.fijo;
         }
 
         if (desglosado.porcentaje > 0) {
           const v = (parseFloat(c.facturado) || 0) > 0 ? (parseFloat(c.facturado) || 0) : (parseFloat(c.presupuesto) || 0);
           const pctAplicado = Math.abs(desglosado.porcentaje - (v * 0.02)) < 0.01 ? '2%' : '5%';
-          
-          htmlPct += '<tr>'
+
+          htmlPct += '<tr' + rowClass + '>'
+            + check
             + '<td>' + fmtDate(c.fecha) + '</td>'
-            + '<td>' + c.nombre + ' (' + c.localidad + ')</td>'
+            + '<td>' + c.nombre + ' (' + c.localidad + ')' + informeTagLiquidado(c) + '</td>'
             + '<td>' + c.servicio + ' <span style="font-size:0.8rem;color:#888;">(' + (c.origen || 'Propio') + ')</span></td>'
             + '<td style="text-align:right;">' + fmtMoney(v) + '</td>'
             + '<td style="text-align:right;">' + pctAplicado + '</td>'
             + '<td style="text-align:right; font-weight:600;">' + fmtMoney(desglosado.porcentaje) + '</td>'
             + '</tr>';
-          subpct += desglosado.porcentaje;
+          if (incluido) subpct += desglosado.porcentaje;
         }
       });
 
-      if (htmlFijas === '') htmlFijas = '<tr><td colspan="4" style="text-align:center; color:#888;">No hay comisiones fijas este mes.</td></tr>';
-      if (htmlPct === '') htmlPct = '<tr><td colspan="6" style="text-align:center; color:#888;">No hay comisiones a porcentaje este mes.</td></tr>';
+      if (htmlFijas === '') htmlFijas = '<tr><td colspan="5" style="text-align:center; color:#888;">No hay comisiones fijas este mes.</td></tr>';
+      if (htmlPct === '') htmlPct = '<tr><td colspan="7" style="text-align:center; color:#888;">No hay comisiones a porcentaje este mes.</td></tr>';
 
       document.getElementById('informe-tabla-fijas').innerHTML = htmlFijas;
       document.getElementById('informe-subtotal-fijas').textContent = fmtMoney(subfijo);
-      
       document.getElementById('informe-tabla-pct').innerHTML = htmlPct;
       document.getElementById('informe-subtotal-pct').textContent = fmtMoney(subpct);
-
       document.getElementById('informe-total-mes').textContent = fmtMoney(subfijo + subpct);
+
+      const nSel = informeContactos.filter(function(c) { return !informeExcluidos.has(c.id); }).length;
+      const contador = document.getElementById('informe-contador');
+      if (contador) contador.textContent = nSel + ' de ' + informeContactos.length + ' trabajos seleccionados';
+    }
+
+    function toggleInformeItem(id, checked) {
+      if (checked) informeExcluidos.delete(id); else informeExcluidos.add(id);
+      renderInforme();
+    }
+
+    function informeSeleccionarTodos(marcar) {
+      informeExcluidos = new Set();
+      if (!marcar) informeContactos.forEach(function(c) { informeExcluidos.add(c.id); });
+      renderInforme();
+    }
+
+    async function guardarContactosBulk(lista) {
+      const res = await fetch('/api/crm', { method: 'POST', headers: getCrmHeaders(), body: JSON.stringify(lista) });
+      if (!res.ok) throw new Error('Error del servidor: ' + res.status);
+    }
+
+    async function marcarInformeLiquidado() {
+      const seleccionados = informeContactos.filter(function(c) { return !informeExcluidos.has(c.id); });
+      if (!seleccionados.length) { showToast('No hay trabajos seleccionados', 'error'); return; }
+      if (!confirm('¿Marcar ' + seleccionados.length + ' trabajos como LIQUIDADOS?')) return;
+      const hoy = new Date().toISOString().slice(0, 10);
+      seleccionados.forEach(function(c) { c.liquidado = hoy; c.updatedAt = new Date().toISOString(); });
+      try {
+        await guardarContactosBulk(seleccionados);
+        showToast('✅ ' + seleccionados.length + ' trabajos marcados como liquidados', 'success');
+        renderInforme();
+        if (typeof applyFilters === 'function') applyFilters();
+      } catch (e) {
+        console.error(e);
+        showToast('❌ No se pudo guardar: ' + e.message, 'error');
+      }
+    }
+
+    async function quitarLiquidado(id) {
+      const c = informeContactos.find(function(x) { return x.id === id; });
+      if (!c || !confirm('¿Quitar la marca de liquidado a ' + c.nombre + '?')) return;
+      delete c.liquidado;
+      c.updatedAt = new Date().toISOString();
+      try {
+        await guardarContactosBulk([c]);
+        showToast('Marca de liquidado eliminada', 'info');
+        renderInforme();
+      } catch (e) {
+        console.error(e);
+        showToast('❌ No se pudo guardar: ' + e.message, 'error');
+      }
     }
 
     function printInforme() {
-      const area = document.getElementById('informe-printable-area');
+      const area = document.getElementById('informe-printable-area').cloneNode(true);
+      // Fuera los trabajos desmarcados y la columna de casillas
+      area.querySelectorAll('tr.inf-excluido').forEach(function(el) { el.remove(); });
+      area.querySelectorAll('.inf-check').forEach(function(el) { el.remove(); });
+      area.querySelectorAll('.tag-liquidado').forEach(function(el) { el.remove(); });
+      area.querySelectorAll('tfoot td[colspan]').forEach(function(td) {
+        td.colSpan = Math.max(1, td.colSpan - 1);
+      });
+      area.querySelectorAll('tbody td[colspan]').forEach(function(td) {
+        td.colSpan = Math.max(1, td.colSpan - 1);
+      });
+      area.querySelectorAll('tbody').forEach(function(tb) {
+        if (!tb.querySelector('tr')) {
+          const cols = tb.closest('table').querySelectorAll('thead th').length;
+          tb.innerHTML = '<tr><td colspan="' + cols + '" style="text-align:center; color:#888;">Sin trabajos seleccionados.</td></tr>';
+        }
+      });
+
       const printWin = window.open('', '_blank');
       printWin.document.write('<html><head><title>Informe Comisiones</title>');
       printWin.document.write('<style>body{font-family:system-ui,sans-serif;padding:30px;color:#111;}table{width:100%;border-collapse:collapse;margin:10px 0 20px 0;}th,td{padding:8px 10px;border-bottom:1px solid #ddd;font-size:13px;}th{text-align:left;font-weight:bold;border-bottom:2px solid #333;font-size:11px;text-transform:uppercase;color:#666;}h2{margin:0 0 20px 0;}h4{margin:20px 0 10px 0;color:#e67e22;border-bottom:1px solid #ddd;padding-bottom:5px;}</style>');
       printWin.document.write('</head><body>');
       printWin.document.write(area.innerHTML);
       printWin.document.write('</body></html>');
-      printWin.document.close();
-      printWin.focus();
-      printWin.print();
-    }
-
-    </script>
-  </body></html>');
       printWin.document.close();
       printWin.focus();
       printWin.print();
@@ -3011,8 +3096,14 @@
         <div>
           <label style="font-size:.85rem; color:var(--text2); display:block; margin-bottom:4px;">Seleccionar Mes</label>
           <input type="month" id="informe-month" class="input-field" onchange="generarInformeMensual()">
+          <div id="informe-contador" style="font-size:.8rem; color:var(--text2); margin-top:6px;"></div>
         </div>
-        <button class="btn btn-primary" onclick="printInforme()">Imprimir Informe</button>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;">
+          <button class="btn btn-ghost btn-sm" onclick="informeSeleccionarTodos(true)">Marcar todos</button>
+          <button class="btn btn-ghost btn-sm" onclick="informeSeleccionarTodos(false)">Desmarcar todos</button>
+          <button class="btn btn-ghost btn-sm" style="color:var(--green); border-color:var(--green);" onclick="marcarInformeLiquidado()">Marcar seleccionados como liquidados</button>
+          <button class="btn btn-primary" onclick="printInforme()">Imprimir Informe</button>
+        </div>
       </div>
       
       <div id="informe-printable-area">
@@ -3023,6 +3114,7 @@
           <table class="data-table" style="margin-bottom: 20px; width:100%;">
             <thead>
               <tr>
+                <th class="inf-check"></th>
                 <th style="text-align:left">Fecha</th>
                 <th style="text-align:left">Cliente/Localidad</th>
                 <th style="text-align:left">Servicio</th>
@@ -3032,7 +3124,7 @@
             <tbody id="informe-tabla-fijas"></tbody>
             <tfoot>
               <tr>
-                <td colspan="3" style="text-align:right; font-weight:bold;">Subtotal Fijas:</td>
+                <td colspan="4" style="text-align:right; font-weight:bold;">Subtotal Fijas:</td>
                 <td id="informe-subtotal-fijas" style="text-align:right; font-weight:bold;">0,00 &euro;</td>
               </tr>
             </tfoot>
@@ -3044,6 +3136,7 @@
           <table class="data-table" style="margin-bottom: 20px; width:100%;">
             <thead>
               <tr>
+                <th class="inf-check"></th>
                 <th style="text-align:left">Fecha</th>
                 <th style="text-align:left">Cliente/Localidad</th>
                 <th style="text-align:left">Servicio (Origen)</th>
@@ -3055,7 +3148,7 @@
             <tbody id="informe-tabla-pct"></tbody>
             <tfoot>
               <tr>
-                <td colspan="5" style="text-align:right; font-weight:bold;">Subtotal Porcentaje:</td>
+                <td colspan="6" style="text-align:right; font-weight:bold;">Subtotal Porcentaje:</td>
                 <td id="informe-subtotal-pct" style="text-align:right; font-weight:bold;">0,00 &euro;</td>
               </tr>
             </tfoot>
