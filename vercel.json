@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "reparacionesmanzanares.es"
+        }
+      ],
+      "destination": "https://www.reparacionesmanzanares.es/$1",
+      "permanent": true
+    }
+  ]
+}

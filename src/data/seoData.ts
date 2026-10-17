@@ -209,33 +209,7 @@ export const locationsData: LocationData[] = [
       "El Boalo"
     ]
   },
-  {
-    "name": "Navacerrada",
-    "timeToArrive": "30 minutos",
-    "localReferences": "junto al puerto de Navacerrada y la estación de esquí",
-    "neighborhoods": "casco urbano, Navacerrada Pueblo, La Barranca, urbanización La Dehesa, El Ventorrillo, y la zona del puerto",
-    "uniqueContent": "Navacerrada, enclave de montaña junto al famoso puerto y la estación de esquí, concentra una alta demanda de servicios de mantenimiento en viviendas de sierra sometidas a condiciones climatológicas extremas. Las heladas del invierno provocan con frecuencia la rotura de tuberías de agua en las zonas exteriores de chalets y casas rurales, así como el bloqueo de persianas por la contracción del material. Atendemos en menos de 30 minutos las zonas del casco urbano, La Barranca y La Dehesa. Somos especialistas en reparaciones urgentes de fontanería por congelación, revisiones y puesta a punto de calderas de gasoil y gas antes de la temporada de invierno, y en reformas de baños y cocinas para las viviendas de segunda residencia que sus propietarios desean actualizar.",
-    "nearbyLocations": [
-      "Cercedilla",
-      "Los Molinos",
-      "Guadarrama",
-      "Alpedrete"
-    ]
-  },
-  {
-    "name": "Becerril de la Sierra",
-    "timeToArrive": "25 minutos",
-    "localReferences": "junto a la Sierra de Guadarrama y la reserva de la biosfera",
-    "neighborhoods": "casco urbano, urbanización La Herrería, El Cuartel, Las Praderas, Los Jarales, y la zona del mirador de La Pedriza",
-    "uniqueContent": "Becerril de la Sierra, municipio de montaña integrado en la Reserva de la Biosfera de la Sierra de Guadarrama, concentra una importante población de segunda residencia con chalets y casas de campo que requieren mantenimiento especializado. Atendemos en menos de 25 minutos las urbanizaciones de La Herrería, El Cuartel y Las Praderas, así como el núcleo urbano histórico. Las viviendas de Becerril presentan con frecuencia averías derivadas de las bajas temperaturas invernales: tuberías rotas por congelación, calderas de gasoil bloqueadas tras el verano y persianas dañadas por el viento del puerto. Somos el equipo de referencia para fontanería urgente, electricidad, cerrajería de emergencia y reformas integrales de baño y cocina en Becerril de la Sierra y su entorno.",
-    "nearbyLocations": [
-      "Manzanares el Real",
-      "Miraflores de la Sierra",
-      "Cercedilla",
-      "Navacerrada"
-    ]
-  }
-];
+  ];
 
 export const locations = locationsData.map(l => l.name);
 

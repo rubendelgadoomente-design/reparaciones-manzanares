@@ -28,15 +28,28 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const location = locationData.name;
   const arrivalTime = locationData.timeToArrive;
   
-  // Custom high-CTR title
+  // Custom high-CTR titles and descriptions by service category
   const isReforma = service.id.startsWith('reformas');
-  const title = isReforma 
-    ? `${service.title} en ${location} | Presupuesto Gratis 2026`
-    : `${service.title} en ${location} | En ${arrivalTime} · ${PHONE_NUMBER}`;
-  
-  const description = isReforma
-    ? `¿Planeas una ${service.name.toLowerCase()} en ${location}? Presupuesto cerrado y gratuito, sin sorpresas. Coordinamos todos los gremios con un único interlocutor. Llama al ${PHONE_NUMBER}.`
-    : `¿Avería en ${location}? Llegamos en ${arrivalTime}. Tarifas transparentes, sin intermediarios ni costes ocultos. Llama ahora: ${PHONE_NUMBER}.`;
+  const isCerrajeria = service.id === 'cerrajeria';
+  const isFontaneria = service.id === 'fontaneria';
+  const isManitas = service.id === 'manitas';
+
+  let title = `${service.title} en ${location} | En ${arrivalTime} · ${PHONE_NUMBER}`;
+  let description = `¿Avería en ${location}? Llegamos en ${arrivalTime}. Tarifas transparentes, sin intermediarios ni costes ocultos. Llama ahora: ${PHONE_NUMBER}.`;
+
+  if (isCerrajeria) {
+    title = `Cerrajero Urgente en ${location} 24h | Apertura Sin Romper · En ${arrivalTime}`;
+    description = `¿Llaves dentro o cerradura rota en ${location}? Llegamos en ${arrivalTime}. Apertura de puertas sin daños, cambio de bombines y cerraduras 24h. Llama ya: ${PHONE_NUMBER}.`;
+  } else if (isFontaneria) {
+    title = `Fontanero Urgente en ${location} 24h | Desatascos y Fugas · En ${arrivalTime}`;
+    description = `¿Fuga de agua o tubería atascada en ${location}? Llegamos en ${arrivalTime}. Desatascos, fontanería general y termos 24 horas sin intermediarios: ${PHONE_NUMBER}.`;
+  } else if (isManitas) {
+    title = `Manitas a Domicilio en ${location} | Reparaciones del Hogar Rápidas`;
+    description = `Manitas profesional en ${location}. Arreglos rápidos del hogar: colgar lámparas, montaje de muebles, persianas y pequeños arreglos. Llama al ${PHONE_NUMBER}.`;
+  } else if (isReforma) {
+    title = `${service.title} en ${location} | Presupuesto Gratis 2026`;
+    description = `¿Planeas una ${service.name.toLowerCase()} en ${location}? Presupuesto cerrado y gratuito, sin sorpresas. Coordinamos todos los gremios con un único interlocutor. Llama al ${PHONE_NUMBER}.`;
+  }
 
   return {
     title,
