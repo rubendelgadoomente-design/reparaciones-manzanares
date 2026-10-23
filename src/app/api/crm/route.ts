@@ -1,16 +1,53 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import { sql } from '@vercel/postgres';
 
 const dataFile = path.join(process.cwd(), 'data', 'crm.json');
-const CRM_PIN = '112233';
+// El secreto vive en la variable de entorno CRM_PIN (Vercel → Settings → Environment Variables).
+// Si no está definida, el CRM queda cerrado (fail closed).
+const CRM_PIN = process.env.CRM_PIN || '';
 
-function isAuthorized(request: Request): boolean {
-  const pinHeader = request.headers.get('x-crm-pin');
-  const { searchParams } = new URL(request.url);
-  const pinQuery = searchParams.get('pin');
-  return pinHeader === CRM_PIN || pinQuery === CRM_PIN;
+// Rate limit básico de intentos fallidos por IP. Es memoria de la instancia
+// serverless: frena fuerza bruta casual, no un ataque distribuido.
+const MAX_FAILS = 10;
+const WINDOW_MS = 15 * 60 * 1000;
+const failedAttempts = new Map<string, { count: number; first: number }>();
+
+function clientIp(request: Request): string {
+  return (request.headers.get('x-forwarded-for') || '').split(',')[0].trim() || 'unknown';
+}
+
+function safeEqual(a: string, b: string): boolean {
+  const ha = crypto.createHash('sha256').update(a).digest();
+  const hb = crypto.createHash('sha256').update(b).digest();
+  return crypto.timingSafeEqual(ha, hb);
+}
+
+// Devuelve null si está autorizado, o la respuesta de error a enviar.
+function checkAuth(request: Request): NextResponse | null {
+  if (!CRM_PIN) {
+    return NextResponse.json({ error: 'CRM no configurado' }, { status: 503 });
+  }
+  const ip = clientIp(request);
+  const now = Date.now();
+  const entry = failedAttempts.get(ip);
+  if (entry && now - entry.first > WINDOW_MS) failedAttempts.delete(ip);
+  const current = failedAttempts.get(ip);
+  if (current && current.count >= MAX_FAILS) {
+    return NextResponse.json({ error: 'Demasiados intentos' }, { status: 429 });
+  }
+
+  const pin = request.headers.get('x-crm-pin') || '';
+  if (pin && safeEqual(pin, CRM_PIN)) {
+    failedAttempts.delete(ip);
+    return null;
+  }
+
+  if (current) current.count += 1;
+  else failedAttempts.set(ip, { count: 1, first: now });
+  return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 }
 
 const hasPostgres = Boolean(process.env.POSTGRES_URL || process.env.DATABASE_URL);
@@ -29,9 +66,8 @@ async function ensurePostgresTable() {
 }
 
 export async function GET(request: Request) {
-  if (!isAuthorized(request)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const authError = checkAuth(request);
+  if (authError) return authError;
 
   try {
     if (hasPostgres) {
@@ -50,14 +86,13 @@ export async function GET(request: Request) {
     }
   } catch (error: any) {
     console.error('Error fetching CRM leads:', error);
-    return NextResponse.json({ error: error.message, stack: error.stack }, { status: 500 });
+    return NextResponse.json({ error: 'Error interno' }, { status: 500 });
   }
 }
 
 export async function POST(request: Request) {
-  if (!isAuthorized(request)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const authError = checkAuth(request);
+  if (authError) return authError;
 
   try {
     const payload = await request.json();
@@ -98,14 +133,13 @@ export async function POST(request: Request) {
     }
   } catch (error: any) {
     console.error('Error saving CRM leads:', error);
-    return NextResponse.json({ error: error.message, stack: error.stack }, { status: 500 });
+    return NextResponse.json({ error: 'Error interno' }, { status: 500 });
   }
 }
 
 export async function DELETE(request: Request) {
-  if (!isAuthorized(request)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const authError = checkAuth(request);
+  if (authError) return authError;
 
   try {
     const { searchParams } = new URL(request.url);
@@ -128,6 +162,6 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ success: true });
   } catch (error: any) {
     console.error('Error deleting CRM lead:', error);
-    return NextResponse.json({ error: error.message, stack: error.stack }, { status: 500 });
+    return NextResponse.json({ error: 'Error interno' }, { status: 500 });
   }
 }
