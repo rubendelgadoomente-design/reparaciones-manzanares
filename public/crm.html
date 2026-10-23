@@ -1640,7 +1640,8 @@
       if(storeName === 'contactos') {
         try {
             const res = await fetch('/api/crm', { headers: getCrmHeaders() });
-            if (res.status === 401) {
+            if (res.status === 401 || res.status === 429 || res.status === 503) {
+              sessionStorage.removeItem('crm_pin');
               checkAuthPin();
               return [];
             }
@@ -2878,14 +2879,14 @@
     function getCrmHeaders() {
       return {
         'Content-Type': 'application/json',
-        'x-crm-pin': sessionStorage.getItem('crm_pin') || '112233'
+        'x-crm-pin': sessionStorage.getItem('crm_pin') || ''
       };
     }
 
     function checkAuthPin() {
       const saved = sessionStorage.getItem('crm_pin');
       const overlay = document.getElementById('auth-overlay');
-      if (saved === '112233') {
+      if (saved) {
         if (overlay) overlay.style.display = 'none';
         return true;
       }
@@ -2893,17 +2894,27 @@
       return false;
     }
 
-    function handleAuthSubmit(e) {
+    async function handleAuthSubmit(e) {
       e.preventDefault();
       const input = document.getElementById('auth-pin-input');
       const err = document.getElementById('auth-error');
-      if (input.value === '112233') {
-        sessionStorage.setItem('crm_pin', '112233');
+      const pin = input.value;
+      let res;
+      try {
+        res = await fetch('/api/crm', { headers: { 'x-crm-pin': pin } });
+      } catch (ex) { res = null; }
+      if (res && res.ok) {
+        sessionStorage.setItem('crm_pin', pin);
         document.getElementById('auth-overlay').style.display = 'none';
         if (err) err.style.display = 'none';
         startApp();
       } else {
-        if (err) err.style.display = 'block';
+        if (err) {
+          err.textContent = res && res.status === 429
+            ? 'Demasiados intentos. Espera 15 minutos.'
+            : 'PIN incorrecto. Inténtalo de nuevo.';
+          err.style.display = 'block';
+        }
         input.value = '';
         input.focus();
       }
