@@ -499,6 +499,11 @@
         <!-- PAGE: DASHBOARD -->
         <!-- ════════════════════════════════════════════ -->
         <section id="page-dashboard" class="page active">
+          <!-- Tareas de hoy: seguimiento, control de partners y reseñas -->
+          <div class="card" id="tareas-card" style="margin-bottom:20px;">
+            <div class="card-title">Tareas de hoy</div>
+            <div id="tareas-hoy"></div>
+          </div>
           <!-- KPI Cards Grid -->
           <div class="kpi-grid">
             <div class="kpi-card blue">
@@ -518,7 +523,7 @@
             <div class="kpi-card purple">
               <div class="kpi-label">Beneficio Fijo Mes</div>
               <div class="kpi-value" id="kpi-beneficio-fijo">0,00 &euro;</div>
-              <div class="kpi-sub">Leads directos (15&euro;, 30&euro;)</div>
+              <div class="kpi-sub">Leads pasados (15&euro;, 25&euro;, 30&euro;)</div>
             </div>
             <div class="kpi-card green">
               <div class="kpi-label">Beneficio % Mes</div>
@@ -1434,6 +1439,14 @@
             <label for="c-facturado">Importe Facturado (€)</label>
             <input type="number" id="c-facturado" step="0.01" min="0" value="0">
           </div>
+          <div class="form-group">
+            <label for="c-partner">Partner asignado</label>
+            <select id="c-partner"></select>
+          </div>
+          <div class="form-group">
+            <label for="c-proxima">Próxima llamada</label>
+            <input type="date" id="c-proxima">
+          </div>
 
           <div class="form-group" id="group-descarte" style="display:none;">
             <label for="c-motivo-descarte">Motivo de Descarte</label>
@@ -1483,6 +1496,7 @@
       <div class="modal-header">
         <h2 class="modal-title">Ficha Completa del Contacto</h2>
         <div>
+          <button class="btn btn-ghost btn-sm no-print" style="color:var(--green); border-color:var(--green);" onclick="pedirResena(currentFichaContactId)">Pedir reseña (WhatsApp)</button>
           <button class="btn btn-ghost btn-sm no-print" onclick="editCurrentFicha()">Editar Ficha</button>
           <button class="btn btn-ghost btn-sm no-print" onclick="window.print()">Imprimir</button>
           <button class="modal-close" onclick="closeFichaModal()">×</button>
@@ -1511,7 +1525,10 @@
               <div class="detail-row"><span>Prioridad:</span><span id="f-prioridad"><span class="badge badge-prio-Alta">Alta</span></span></div>
               <div class="detail-row"><span>Presupuesto Estimado:</span><span id="f-presupuesto">150,00&nbsp;€</span></div>
               <div class="detail-row"><span>Importe Facturado:</span><span id="f-facturado">0,00</span></div>
+              <div class="detail-row"><span>Partner:</span><span id="f-partner">—</span></div>
               <div class="detail-row"><span>Tu Beneficio (Auto):</span><span id="f-beneficio" style="color:var(--accent); font-weight:bold;">0,00</span></div>
+              <div class="detail-row"><span>Próxima llamada:</span><span id="f-proxima">—</span></div>
+              <div class="detail-row"><span>Reseña pedida:</span><span id="f-resena">—</span></div>
               <div class="detail-row" id="f-row-descarte" style="display: flex;"><span>Motivo Descarte:</span><span id="f-descarte">Precio demasiado alto</span></div>
               <div class="detail-row"><span>Fecha Registro:</span><span id="f-fecha">10/07/2026</span></div>
               <div class="detail-row"><span>Última Actualización:</span><span id="f-actualizado">10/07/2026, 22:15</span></div>
@@ -1583,18 +1600,50 @@
     const DEFAULT_SERVICIOS = [
       "Fontanería", "Electricidad", "Cerrajería", "Aire acondicionado",
       "Calderas", "Persianas", "Manitas", "Albañilería", "Pintura",
-      "Toldos", "Cerramientos PVC", "Gas Radón",
+      "Toldos", "Cerramientos PVC", "Gas Radón", "Reformas", "Climatización",
       "Electrodomésticos", "Otro"
     ];
 
     const DEFAULT_ORIGENES = [
       "Google Orgánico", "Google Ads", "Google Business Profile",
-      "WhatsApp", "Llamada directa", "Recomendación", "Toño", "Otro"
+      "WhatsApp", "Llamada directa", "Recomendación", "Toño", "Rank & Rent Madrid", "Otro"
     ];
+
+    // ─── Partners y comisiones (acuerdos vigentes desde 23/10/2026) ───
+    // fijo: lo que paga el partner por cada lead que se le pasa.
+    // pctReformas: % sobre la base imponible de las reformas que ejecuta (solo trabajos aceptados).
+    const PARTNERS = {
+      "Jose": { fijo: 15, pctReformas: 0.05 },
+      "Partner nuevo": { fijo: 25, pctReformas: 0 },
+      "Cerrajero 24h": { fijo: 30, pctReformas: 0 }
+    };
+    // Reformas que llegan del amigo de rank & rent: la comisión es el 2%.
+    const PCT_REFORMAS_AMIGO = 0.02;
+    // Enlace de Google para dejar reseña (Perfil de empresa → "Pedir reseñas").
+    const RESENA_URL = '';
+    // Días sin movimiento para avisar en "Tareas de hoy".
+    const DIAS_PRESUPUESTO_PARADO = 5;
+    const DIAS_OBRA_SIN_CERRAR = 30;
+
+    // Servicios y orígenes que deben existir aunque el aparato tenga listas antiguas guardadas.
+    const SERVICIOS_OBLIGATORIOS = ["Reformas", "Climatización"];
+    const ORIGENES_OBLIGATORIOS = ["Rank & Rent Madrid"];
+
+    function esReforma(servicio) {
+      const s = (servicio || '').toLowerCase();
+      return s.includes('albañiler') || s.includes('reforma') || s.includes('obra') ||
+        s.includes('toldo') || s.includes('cerramiento') || s.includes('pvc');
+    }
+
+    function esOrigenAmigo(origen) {
+      const o = (origen || '').toLowerCase();
+      return o.includes('rank') || o.includes('toño');
+    }
 
     // Global variables
     let db = null;
     let currentFichaContactId = null;
+    let contactosCache = {}; // última copia descargada, para acciones que no pueden esperar (abrir WhatsApp)
     let selectedImagesBase64 = []; // Temporary image storage during form edit
     let tableSortColumn = 'fecha';
     let tableSortAsc = false;
@@ -1645,8 +1694,16 @@
               checkAuthPin();
               return [];
             }
-            return await res.json();
-        } catch(e) { console.error(e); return []; }
+            if (!res.ok) throw new Error('Error del servidor: ' + res.status);
+            const lista = await res.json();
+            contactosCache = {};
+            lista.forEach(c => { contactosCache[c.id] = c; });
+            return lista;
+        } catch(e) {
+          console.error(e);
+          showToast("❌ No se pudieron cargar los contactos. Revisa la conexión y recarga.", "error");
+          return [];
+        }
       }
       return new Promise((resolve) => {
         const store = getStore(storeName);
@@ -1658,8 +1715,7 @@
     async function getById(storeName, id) {
       if(storeName === 'contactos') {
         try {
-            const res = await fetch('/api/crm', { headers: getCrmHeaders() });
-            const all = await res.json();
+            const all = await getAll('contactos');
             return all.find(c => c.id === id);
         } catch(e) { console.error(e); return null; }
       }
@@ -1672,9 +1728,22 @@
 
     async function saveItem(storeName, item) {
       if(storeName === 'contactos') {
+        // Si no se guarda, se avisa y se corta: nunca mostrar "guardado" sin estarlo.
+        let res;
         try {
-            await fetch('/api/crm', { method: 'POST', headers: getCrmHeaders(), body: JSON.stringify(item) });
-        } catch(e) { console.error(e); }
+          res = await fetch('/api/crm', { method: 'POST', headers: getCrmHeaders(), body: JSON.stringify(item) });
+        } catch(e) {
+          console.error(e);
+          showToast("❌ NO se ha guardado: sin conexión con el servidor", "error");
+          throw e;
+        }
+        if (!res.ok) {
+          const motivo = res.status === 413 ? 'las fotos pesan demasiado' : 'error del servidor ' + res.status;
+          showToast("❌ NO se ha guardado (" + motivo + ")", "error");
+          if (res.status === 401) { sessionStorage.removeItem('crm_pin'); checkAuthPin(); }
+          throw new Error(motivo);
+        }
+        contactosCache[item.id] = item;
         return item.id;
       }
       return new Promise((resolve) => {
@@ -1686,9 +1755,15 @@
 
     async function deleteItem(storeName, id) {
       if(storeName === 'contactos') {
+        let ok = false;
         try {
-            await fetch('/api/crm?id=' + id, { method: 'DELETE', headers: getCrmHeaders() });
+          const res = await fetch('/api/crm?id=' + encodeURIComponent(id), { method: 'DELETE', headers: getCrmHeaders() });
+          ok = res.ok;
         } catch(e) { console.error(e); }
+        if (!ok) {
+          showToast("❌ NO se ha podido eliminar", "error");
+          throw new Error('No eliminado');
+        }
         return true;
       }
       return new Promise((resolve) => {
@@ -1717,6 +1792,17 @@
         configMap.origenes = DEFAULT_ORIGENES;
       }
 
+      // Añade a las listas guardadas en este aparato lo que falte de los acuerdos nuevos
+      const asegurar = async (tipo, obligatorios) => {
+        const faltan = obligatorios.filter(v => !configMap[tipo].includes(v));
+        if (faltan.length) {
+          configMap[tipo] = configMap[tipo].filter(v => v !== 'Otro').concat(faltan, configMap[tipo].includes('Otro') ? ['Otro'] : []);
+          await saveItem("configuracion", { id: tipo, values: configMap[tipo] });
+        }
+      };
+      await asegurar('servicios', SERVICIOS_OBLIGATORIOS);
+      await asegurar('origenes', ORIGENES_OBLIGATORIOS);
+
       window.localidades = configMap.localidades;
       window.servicios = configMap.servicios;
       window.origenes = configMap.origenes;
@@ -1740,6 +1826,8 @@
       fillSelect('c-localidad', window.localidades);
       fillSelect('c-servicio', window.servicios);
       fillSelect('c-origen', window.origenes);
+      fillSelect('c-partner', Object.keys(PARTNERS), 'Sin asignar');
+      fillSelect('informe-partner', Object.keys(PARTNERS), 'Todos los partners');
     }
 
     // ─── SPA Navigation ───
@@ -1851,6 +1939,8 @@
         document.getElementById('c-motivo-descarte').value = contact.motivoDescarte || '';
         document.getElementById('c-descripcion').value = contact.descripcion || '';
         document.getElementById('c-observaciones').value = contact.observaciones || '';
+        document.getElementById('c-partner').value = contact.partner || '';
+        document.getElementById('c-proxima').value = contact.proximaLlamada || '';
         
         // Load photos if edit
         if (contact.fotos && contact.fotos.length > 0) {
@@ -1879,13 +1969,73 @@
     }
 
     // Image Upload Handler (convert to base64 for local database storage)
+    // Una foto de móvil (3-5 MB) supera el límite de envío del servidor (4,5 MB).
+    // Se reduce a 1280 px y calidad JPEG 0,7: unos 150-300 KB, de sobra para ver la avería.
+    function comprimirImagen(dataUrl) {
+      return new Promise(function(resolve) {
+        const img = new Image();
+        img.onload = function() {
+          const max = 1280;
+          const escala = Math.min(1, max / Math.max(img.width, img.height));
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.round(img.width * escala);
+          canvas.height = Math.round(img.height * escala);
+          canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL('image/jpeg', 0.7));
+        };
+        img.onerror = function() { resolve(dataUrl); };
+        img.src = dataUrl;
+      });
+    }
+
+    // ─── Reseñas ───
+    function telefonoWhatsApp(tel) {
+      let d = String(tel || '').replace(/\D/g, '');
+      if (d.startsWith('00')) d = d.slice(2);
+      if (d.length === 9) d = '34' + d;
+      return d;
+    }
+
+    // Abre WhatsApp con el mensaje ya escrito. Tiene que abrirse en el mismo toque
+    // (si no, el móvil lo bloquea), por eso usa la copia en memoria y guarda después.
+    function pedirResena(id) {
+      const c = contactosCache[id];
+      if (!c) return;
+      if (!RESENA_URL) {
+        showToast("Falta configurar el enlace de reseñas de Google", "error");
+        return;
+      }
+      const tel = telefonoWhatsApp(c.telefono);
+      if (tel.length < 11) {
+        showToast("El teléfono del cliente no parece válido para WhatsApp", "error");
+        return;
+      }
+      const nombre = (c.nombre || '').split(' ')[0];
+      const texto = 'Hola ' + nombre + ', soy Rubén de Reparaciones Manzanares. Muchas gracias por confiar en nosotros. ' +
+        'Si quedó contento con el trabajo, nos ayudaría muchísimo que nos dejara una reseña en Google, solo es un minuto: ' +
+        RESENA_URL + ' ¡Gracias!';
+      window.open('https://wa.me/' + tel + '?text=' + encodeURIComponent(texto), '_blank');
+
+      const hoy = new Date().toISOString().slice(0, 10);
+      const actualizado = Object.assign({}, c, { resenaPedida: hoy, updatedAt: new Date().toISOString() });
+      actualizado.historial = (c.historial || []).concat([{ date: new Date().toISOString(), description: 'Reseña pedida por WhatsApp.' }]);
+      saveItem("contactos", actualizado).then(function() {
+        showToast("⭐ Reseña pedida a " + nombre, "success");
+        if (currentFichaContactId === id) showFichaModal(id);
+        const activeTab = document.querySelector('.nav-item.active');
+        if (activeTab && activeTab.textContent.toLowerCase().includes('dashboard')) renderDashboard();
+      }).catch(function() {});
+    }
+
     function handleImageSelection(e) {
       const files = Array.from(e.target.files);
       files.forEach(file => {
         const reader = new FileReader();
         reader.onload = function(evt) {
-          selectedImagesBase64.push(evt.target.result);
-          renderImagePreviews();
+          comprimirImagen(evt.target.result).then(function(reducida) {
+            selectedImagesBase64.push(reducida);
+            renderImagePreviews();
+          });
         };
         reader.readAsDataURL(file);
       });
@@ -1928,6 +2078,8 @@
       const motivoDescarte = document.getElementById('c-motivo-descarte').value;
       const descripcion = document.getElementById('c-descripcion').value;
       const observaciones = document.getElementById('c-observaciones').value;
+      const partner = document.getElementById('c-partner').value;
+      const proximaLlamada = document.getElementById('c-proxima').value;
       
       const nowStr = new Date().toISOString();
       
@@ -1947,12 +2099,14 @@
         motivoDescarte,
         descripcion,
         observaciones,
+        partner,
+        proximaLlamada,
         fotos: selectedImagesBase64,
         createdAt: existing ? existing.createdAt : nowStr,
         updatedAt: nowStr,
-        historial: existing ? existing.historial : [],
-        notas: existing ? existing.notas : [],
-        llamadas: existing ? existing.llamadas : []
+        historial: existing ? (existing.historial || []) : [],
+        notas: existing ? (existing.notas || []) : [],
+        llamadas: existing ? (existing.llamadas || []) : []
       };
 
       // If existing, check fields change to append to history log
@@ -1964,6 +2118,7 @@
         if (existing.prioridad !== prioridad) changes.push(`Prioridad modificada de "${existing.prioridad}" a "${prioridad}"`);
         if (existing.localidad !== localidad) changes.push(`Localidad modificada de "${existing.localidad}" a "${localidad}"`);
         if (existing.servicio !== servicio) changes.push(`Servicio modificado de "${existing.servicio}" a "${servicio}"`);
+        if ((existing.partner || '') !== partner) changes.push(`Partner: "${existing.partner || 'sin asignar'}" → "${partner || 'sin asignar'}"`);
 
         if (changes.length > 0) {
           contact.historial.push({
@@ -1978,7 +2133,14 @@
         });
       }
 
-      await saveItem("contactos", contact);
+      // Conservar lo que no se edita en el formulario (liquidado, reseña...)
+      const contactoFinal = existing ? Object.assign({}, existing, contact) : contact;
+
+      try {
+        await saveItem("contactos", contactoFinal);
+      } catch (err) {
+        return; // saveItem ya ha avisado; el formulario sigue abierto para no perder lo escrito
+      }
       closeContactModal();
       showToast("✅ Contacto guardado correctamente", "success");
 
@@ -1988,14 +2150,19 @@
       if (activeTab.includes('contactos')) renderContactosTable();
       if (activeTab.includes('estadísticas')) renderEstadisticas();
 
-      if (currentFichaContactId === id) {
-          showFichaModal(id);
-        }
+      // Al finalizar un trabajo se abre la ficha para pedir la reseña con un toque
+      const recienFinalizado = estado === 'Finalizado' && (!existing || existing.estado !== 'Finalizado');
+      if (recienFinalizado && !contactoFinal.resenaPedida) {
+        showToast("⭐ Trabajo finalizado: pulsa \"Pedir reseña\" en la ficha", "info");
+        showFichaModal(id);
+      } else if (currentFichaContactId === id) {
+        showFichaModal(id);
       }
+    }
 
     async function deleteContact(id) {
-      if (!confirm("AEstás seguro de que deseas eliminar este contacto?")) return;
-      await deleteItem("contactos", id);
+      if (!confirm("¿Estás seguro de que deseas eliminar este contacto?")) return;
+      try { await deleteItem("contactos", id); } catch (e) { return; }
       showToast("🗑 Contacto eliminado correctamente", "info");
       
       const activeTab = document.querySelector('.nav-item.active').textContent.trim().toLowerCase();
@@ -2021,6 +2188,9 @@
       document.getElementById('f-presupuesto').textContent = fmtMoney(contact.presupuesto);
       document.getElementById('f-facturado').textContent = fmtMoney(contact.facturado);
       const fben = document.getElementById('f-beneficio'); if(fben) fben.textContent = fmtMoney(calcularBeneficio(contact));
+      document.getElementById('f-partner').textContent = contact.partner || 'Sin asignar';
+      document.getElementById('f-proxima').textContent = contact.proximaLlamada ? fmtDate(contact.proximaLlamada) : '—';
+      document.getElementById('f-resena').textContent = contact.resenaPedida ? 'Sí, el ' + fmtDate(contact.resenaPedida) : 'No';
       
       const rowDescarte = document.getElementById('f-row-descarte');
       if (contact.motivoDescarte) {
@@ -2151,6 +2321,52 @@
     }
 
     // ─── Dashboard Render and Custom Chart drawing ───
+    function diasDesde(fechaIso) {
+      if (!fechaIso) return 0;
+      return Math.floor((Date.now() - new Date(fechaIso).getTime()) / 86400000);
+    }
+
+    // Lista de lo que hay que hacer hoy. Cada contacto aparece una sola vez, en su tarea más urgente.
+    function renderTareasHoy(list) {
+      const hoy = new Date().toISOString().slice(0, 10);
+      const abiertos = ['Nuevo', 'Contactado', 'Presupuesto enviado', 'Aceptado'];
+      const vistos = new Set();
+      const grupo = (filtro) => list.filter(c => !vistos.has(c.id) && filtro(c)).map(c => { vistos.add(c.id); return c; });
+
+      const llamar = grupo(c => c.proximaLlamada && c.proximaLlamada <= hoy && abiertos.includes(c.estado));
+      const parados = grupo(c => c.estado === 'Presupuesto enviado' && diasDesde(c.updatedAt) >= DIAS_PRESUPUESTO_PARADO && !(c.proximaLlamada > hoy));
+      const sinCerrar = grupo(c => c.estado === 'Aceptado' && diasDesde(c.updatedAt) >= DIAS_OBRA_SIN_CERRAR);
+      const nuevos = grupo(c => c.estado === 'Nuevo' && diasDesde(c.createdAt || c.fecha) >= 1);
+      const resenas = grupo(c => c.estado === 'Finalizado' && !c.resenaPedida && (c.fecha || '') >= FECHA_ACUERDOS);
+
+      const fila = (c, detalle, boton) => `
+        <div class="detail-row" style="cursor:pointer; gap:10px; align-items:center;" onclick="showFichaModal('${c.id}')">
+          <span><strong>${escapeHtml(c.nombre)}</strong> · ${escapeHtml(c.servicio || '')}${c.partner ? ' · ' + escapeHtml(c.partner) : ''}</span>
+          <span style="color:var(--text2); font-size:.8rem; text-align:right;">${detalle}${boton || ''}</span>
+        </div>`;
+      const bloque = (titulo, ayuda, items, detalle, boton) => items.length === 0 ? '' : `
+        <div style="margin-bottom:14px;">
+          <div style="font-weight:700; margin-bottom:2px;">${titulo} (${items.length})</div>
+          <div style="color:var(--text2); font-size:.78rem; margin-bottom:6px;">${ayuda}</div>
+          ${items.map(c => fila(c, detalle(c), boton ? boton(c) : '')).join('')}
+        </div>`;
+
+      const html =
+        bloque('📞 Llamar hoy', 'Tienen la próxima llamada para hoy o ya pasó.', llamar,
+          c => 'tocaba el ' + fmtDate(c.proximaLlamada)) +
+        bloque('⏳ Presupuestos parados', `Más de ${DIAS_PRESUPUESTO_PARADO} días sin respuesta. Llama tú al cliente antes de que se enfríe.`, parados,
+          c => diasDesde(c.updatedAt) + ' días · ' + fmtMoney(c.presupuesto)) +
+        bloque('🔍 ¿Se hizo la obra?', `Aceptados hace más de ${DIAS_OBRA_SIN_CERRAR} días y sin finalizar. Pregunta al cliente si ya está hecho: si lo está y el partner no te avisó, hay fuga.`, sinCerrar,
+          c => diasDesde(c.updatedAt) + ' días · ' + fmtMoney(c.facturado || c.presupuesto)) +
+        bloque('🆕 Nuevos sin contactar', 'Llevan más de un día en "Nuevo".', nuevos,
+          c => diasDesde(c.createdAt || c.fecha) + ' días') +
+        bloque('⭐ Reseñas por pedir', 'Trabajos finalizados a los que aún no se ha pedido reseña.', resenas,
+          c => '', c => ` <button class="btn btn-success btn-sm" onclick="event.stopPropagation(); pedirResena('${c.id}')">Pedir reseña</button>`);
+
+      document.getElementById('tareas-hoy').innerHTML = html ||
+        '<p style="color:var(--text2); font-size:.85rem;">Todo al día. No hay nada pendiente para hoy.</p>';
+    }
+
     async function renderDashboard() {
       const list = await getAll("contactos");
       
@@ -2215,6 +2431,8 @@
       const totalPrevMonth = list.filter(c => c.fecha && c.fecha.startsWith(prevMonthStr)).length;
       const diff = totalThisMonth.length - totalPrevMonth;
       document.getElementById('kpi-mes-sub').textContent = `${diff >= 0 ? '+' : ''}${diff} vs mes anterior (${totalPrevMonth})`;
+
+      renderTareasHoy(list);
 
       // ─── Charts Drawing ───
       // Months labels
@@ -2409,44 +2627,55 @@
     
     
     
-    // Nueva versión: devuelve un objeto con el beneficio fijo, el beneficio de porcentaje y el total
+    // Devuelve el beneficio fijo, el de porcentaje, el total y el % aplicado.
+    // Contactos con partner asignado: reglas de PARTNERS. Contactos antiguos sin partner
+    // (anteriores a FECHA_ACUERDOS): reglas antiguas por servicio, para no alterar lo ya liquidado.
+    const FECHA_ACUERDOS = '2026-10-23';
     function calcularBeneficiosDesglosados(c) {
-      let estado = (c.estado || '').toLowerCase();
-        if (estado.includes('rechazado') || estado.includes('no interesado') || estado.includes('descartado')) {
-          return { fijo: 0, porcentaje: 0, total: 0 };
-        }
-        let s = (c.servicio || '').toLowerCase();
-      let o = (c.origen || '').toLowerCase();
-      let f = parseFloat(c.facturado) || 0;
-      let p = parseFloat(c.presupuesto) || 0;
-      let v = f > 0 ? f : p; 
-      
+      const vacio = { fijo: 0, porcentaje: 0, total: 0, pct: 0 };
+      const estado = (c.estado || '').toLowerCase();
+      if (estado.includes('no interesado') || estado.includes('descartado')) return vacio;
+      const s = (c.servicio || '').toLowerCase();
+      const f = parseFloat(c.facturado) || 0;
+      const p = parseFloat(c.presupuesto) || 0;
+      const v = f > 0 ? f : p;
+      // El porcentaje solo se gana con la obra aceptada; un presupuesto enviado aún no es dinero.
+      const aceptado = ['Aceptado', 'Finalizado'].includes(c.estado);
+
       let bFijo = 0;
-      let bPorcentaje = 0;
-      
-      if (s.includes('albañiler') || s.includes('alba&ntilde;iler') || s.includes('albailer') || s.includes('reforma') || s.includes('toldo') || s.includes('cerramiento') || s.includes('pvc') || (s.includes('cerraj') && (s.includes('puerta') || s.includes('garage') || s.includes('garaje')))) {
-        if (o.includes('toño') || o.includes('to&ntilde;o') || o.includes('too')) {
-          bPorcentaje = v * 0.02;
+      let pct = 0;
+
+      if (c.partner) {
+        const acuerdo = PARTNERS[c.partner];
+        if (!acuerdo) return vacio;
+        if (esReforma(c.servicio)) {
+          pct = esOrigenAmigo(c.origen) ? PCT_REFORMAS_AMIGO : acuerdo.pctReformas;
         } else {
-          bPorcentaje = v * 0.05;
+          // Pago por lead: se debe al pasar el contacto, se cierre o no el trabajo.
+          bFijo = acuerdo.fijo;
         }
-      } 
-      else if (s.includes('cerraj')) {
-        bFijo = 30;
-      } 
-      else if (s.includes('radón') || s.includes('rad&oacute;n') || s.includes('radn') || s.includes('radon')) {
-        bFijo = 25;
-        bPorcentaje = v * 0.05;
-      } 
-      else {
-        // Resto de oficios (fontanería, pintura, electricidad, etc)
-        bFijo = 15;
+      } else if ((c.fecha || '') < FECHA_ACUERDOS) {
+        if (estado.includes('rechazado')) return vacio;
+        if (esReforma(c.servicio) || (s.includes('cerraj') && (s.includes('puerta') || s.includes('garaje')))) {
+          pct = esOrigenAmigo(c.origen) ? 0.02 : 0.05;
+        } else if (s.includes('cerraj')) {
+          bFijo = 30;
+        } else if (s.includes('radón') || s.includes('radon')) {
+          bFijo = 25;
+          pct = 0.05;
+        } else {
+          bFijo = 15;
+        }
+      } else {
+        return vacio; // contacto nuevo sin partner: todavía no se ha pasado a nadie
       }
-      
+
+      const bPorcentaje = aceptado ? v * pct : 0;
       return {
         fijo: bFijo,
         porcentaje: bPorcentaje,
-        total: bFijo + bPorcentaje
+        total: bFijo + bPorcentaje,
+        pct: bPorcentaje > 0 ? pct : 0
       };
     }
 
@@ -2688,9 +2917,9 @@
         return;
       }
 
-      const headers = ['Fecha', 'Nombre', 'Teléfono', 'Email', 'Localidad', 'Servicio', 'Origen', 'Estado', 'Prioridad', 'Presupuesto (€)', 'Facturado (€)', 'Motivo Descarte', 'Creado', 'Actualizado'];
+      const headers = ['Fecha', 'Nombre', 'Teléfono', 'Email', 'Localidad', 'Servicio', 'Origen', 'Estado', 'Prioridad', 'Presupuesto (€)', 'Facturado (€)', 'Motivo Descarte', 'Partner', 'Comisión (€)', 'Próxima llamada', 'Reseña pedida', 'Creado', 'Actualizado'];
       const rows = filteredContacts.map(c => [
-        c.fecha, c.nombre, c.telefono, c.email || '', c.localidad, c.servicio, c.origen, c.estado, c.prioridad, c.presupuesto || 0, c.facturado || 0, c.motivoDescarte || '', c.createdAt, c.updatedAt
+        c.fecha, c.nombre, c.telefono, c.email || '', c.localidad, c.servicio, c.origen, c.estado, c.prioridad, c.presupuesto || 0, c.facturado || 0, c.motivoDescarte || '', c.partner || '', calcularBeneficio(c).toFixed(2), c.proximaLlamada || '', c.resenaPedida || '', c.createdAt, c.updatedAt
       ]);
 
       const csvContent = [headers, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(';')).join('\n');
@@ -2971,7 +3200,6 @@
       try {
         await initDB();
         await loadConfig();
-        await seedDatabaseIfEmpty();
         navigate('dashboard');
       } catch (err) {
         console.error("No se pudo iniciar la base de datos:", err);
@@ -3023,12 +3251,14 @@
       const year = parts[0];
       const month = parts[1];
       const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-      document.getElementById('informe-titulo').textContent = 'Liquidaci\u00f3n de Comisiones - ' + monthNames[parseInt(month)-1] + ' ' + year;
+      const partnerSel = document.getElementById('informe-partner').value;
+      document.getElementById('informe-titulo').textContent = 'Liquidaci\u00f3n de Comisiones - ' + (partnerSel ? partnerSel + ' - ' : '') + monthNames[parseInt(month)-1] + ' ' + year;
 
       const todosContactos = await getAll('contactos');
       informeContactos = todosContactos.filter(function(c) {
         if (!c.fecha) return false;
-        return c.fecha.startsWith(monthVal) && c.estado !== 'Descartado' && c.estado !== 'Rechazado' && c.estado !== 'No interesado';
+        if (partnerSel && c.partner !== partnerSel) return false;
+        return c.fecha.startsWith(monthVal) && calcularBeneficio(c) > 0;
       });
       informeContactos.sort(function(a,b) { return a.fecha.localeCompare(b.fecha); });
 
@@ -3059,7 +3289,7 @@
             + check
             + '<td>' + fmtDate(c.fecha) + '</td>'
             + '<td>' + c.nombre + ' (' + c.localidad + ')' + informeTagLiquidado(c) + '</td>'
-            + '<td>' + c.servicio + '</td>'
+            + '<td>' + c.servicio + (c.partner ? ' <span style="font-size:0.8rem;color:#888;">(' + c.partner + ')</span>' : '') + '</td>'
             + '<td style="text-align:right; font-weight:600;">' + fmtMoney(desglosado.fijo) + '</td>'
             + '</tr>';
           if (incluido) subfijo += desglosado.fijo;
@@ -3067,13 +3297,13 @@
 
         if (desglosado.porcentaje > 0) {
           const v = (parseFloat(c.facturado) || 0) > 0 ? (parseFloat(c.facturado) || 0) : (parseFloat(c.presupuesto) || 0);
-          const pctAplicado = Math.abs(desglosado.porcentaje - (v * 0.02)) < 0.01 ? '2%' : '5%';
+          const pctAplicado = (desglosado.pct * 100).toLocaleString('es-ES') + '%';
 
           htmlPct += '<tr' + rowClass + '>'
             + check
             + '<td>' + fmtDate(c.fecha) + '</td>'
             + '<td>' + c.nombre + ' (' + c.localidad + ')' + informeTagLiquidado(c) + '</td>'
-            + '<td>' + c.servicio + ' <span style="font-size:0.8rem;color:#888;">(' + (c.origen || 'Propio') + ')</span></td>'
+            + '<td>' + c.servicio + ' <span style="font-size:0.8rem;color:#888;">(' + (c.origen || 'Propio') + (c.partner ? ' · ' + c.partner : '') + ')</span></td>'
             + '<td style="text-align:right;">' + fmtMoney(v) + '</td>'
             + '<td style="text-align:right;">' + pctAplicado + '</td>'
             + '<td style="text-align:right; font-weight:600;">' + fmtMoney(desglosado.porcentaje) + '</td>'
@@ -3192,6 +3422,7 @@
         <div>
           <label style="font-size:.85rem; color:var(--text2); display:block; margin-bottom:4px;">Seleccionar Mes</label>
           <input type="month" id="informe-month" class="input-field" onchange="generarInformeMensual()">
+          <select id="informe-partner" class="input-field" onchange="generarInformeMensual()" style="margin-left:6px;"></select>
           <div id="informe-contador" style="font-size:.8rem; color:var(--text2); margin-top:6px;"></div>
         </div>
         <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;">
