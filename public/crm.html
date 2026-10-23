@@ -1026,6 +1026,18 @@
         <!-- PAGE: ESTADÍSTICAS -->
         <!-- ════════════════════════════════════════════ -->
         <section id="page-estadisticas" class="page">
+          <div class="card" style="margin-bottom:1.25rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:.5rem; flex-wrap:wrap;">
+              <div class="card-title" style="margin:0;">Llamadas y WhatsApp desde la web</div>
+              <div style="display:flex; align-items:center; gap:.5rem;">
+                <button class="btn btn-ghost btn-sm" onclick="cambiarMesClics(-1)">‹</button>
+                <span id="clics-mes-label" style="min-width:8.5rem; text-align:center; font-weight:600;"></span>
+                <button class="btn btn-ghost btn-sm" onclick="cambiarMesClics(1)">›</button>
+              </div>
+            </div>
+            <p style="color:var(--text2); font-size:.8rem; margin:.4rem 0 1rem;">Cuenta las veces que alguien pulsa "Llamar" o "WhatsApp" en la web. No todas acaban en llamada o mensaje: es una señal de interés, no un cliente.</p>
+            <div id="clics-web"><p style="color:var(--text2); font-size:.85rem;">Cargando…</p></div>
+          </div>
           <div class="charts-grid">
             <div class="card">
               <div class="card-title">Servicios Más Solicitados</div>
@@ -2732,7 +2744,63 @@
     }
 
     // ─── Estadísticas Detalladas ───
+    // ─── Pulsaciones de Llamar/WhatsApp en la web (tabla web_clicks vía /api/track) ───
+    let clicsMesOffset = 0;
+    function cambiarMesClics(delta) {
+      clicsMesOffset = Math.min(0, clicsMesOffset + delta);
+      renderClicsWeb();
+    }
+
+    async function renderClicsWeb() {
+      const box = document.getElementById('clics-web');
+      const d = new Date();
+      d.setDate(1);
+      d.setMonth(d.getMonth() + clicsMesOffset);
+      const mes = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+      const label = d.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+      document.getElementById('clics-mes-label').textContent = label.charAt(0).toUpperCase() + label.slice(1);
+
+      let r;
+      try {
+        const res = await fetch('/api/track?mes=' + mes, { headers: getCrmHeaders() });
+        if (!res.ok) throw new Error(res.status);
+        r = await res.json();
+      } catch (e) {
+        box.innerHTML = '<p style="color:var(--text2); font-size:.85rem;">No se han podido cargar los datos de la web.</p>';
+        return;
+      }
+
+      const total = r.llamadas + r.whatsapp;
+      if (total === 0) {
+        box.innerHTML = '<p style="color:var(--text2); font-size:.85rem;">Ninguna pulsación registrada este mes.</p>';
+        return;
+      }
+
+      const lista = (map, max) => {
+        const entries = Object.entries(map)
+          .map(([name, v]) => [name, v.llamadas, v.whatsapp, v.llamadas + v.whatsapp])
+          .sort((a, b) => b[3] - a[3])
+          .slice(0, max);
+        const top = entries.length ? entries[0][3] : 1;
+        return entries.map(([name, ll, wa, t]) => `
+          <div class="cat-item">
+            <span class="cat-name" title="${escapeHtml(name)}">${escapeHtml(name)}</span>
+            <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:${(t / top) * 100}%"></div></div>
+            <span class="cat-amount" title="${ll} llamadas, ${wa} WhatsApp">📞${ll} · 💬${wa}</span>
+          </div>`).join('');
+      };
+
+      box.innerHTML = `
+        <p style="font-size:1rem; margin-bottom:1rem;"><strong>${total}</strong> pulsaciones: <strong>${r.llamadas}</strong> en Llamar y <strong>${r.whatsapp}</strong> en WhatsApp.</p>
+        <div class="charts-grid">
+          <div><div class="card-title" style="font-size:.85rem;">Por servicio</div><div class="cat-list">${lista(r.servicios, 8)}</div></div>
+          <div><div class="card-title" style="font-size:.85rem;">Por municipio</div><div class="cat-list">${lista(r.municipios, 8)}</div></div>
+          <div><div class="card-title" style="font-size:.85rem;">Páginas que más traen</div><div class="cat-list">${lista(r.paginas, 8)}</div></div>
+        </div>`;
+    }
+
     async function renderEstadisticas() {
+      renderClicsWeb();
       const list = await getAll("contactos");
       if (list.length === 0) {
         const placeholder = '<p style="color:var(--text2); font-size:.85rem;">Carga datos para visualizar estadísticas.</p>';
