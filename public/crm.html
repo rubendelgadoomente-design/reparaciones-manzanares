@@ -1601,6 +1601,7 @@
       "Fontanería", "Electricidad", "Cerrajería", "Aire acondicionado",
       "Calderas", "Persianas", "Manitas", "Albañilería", "Pintura",
       "Toldos", "Cerramientos PVC", "Gas Radón", "Reformas", "Climatización",
+      "Puertas y vallas: reparación", "Puertas y vallas: instalación o motor",
       "Electrodomésticos", "Otro"
     ];
 
@@ -1613,7 +1614,8 @@
     // fijo: lo que paga el partner por cada lead que se le pasa.
     // pctReformas: % sobre la base imponible de las reformas que ejecuta (solo trabajos aceptados).
     const PARTNERS = {
-      "Jose": { fijo: 15, pctReformas: 0.05 },
+      // porServicio: fijo distinto para servicios concretos (prima sobre "fijo").
+      "Jose": { fijo: 15, pctReformas: 0.05, porServicio: { "Puertas y vallas: reparación": 30, "Puertas y vallas: instalación o motor": 80 } },
       "Aurelio": { fijo: 25, pctReformas: 0 },
       "Kevin (cerrajero 24h)": { fijo: 30, pctReformas: 0 }
     };
@@ -1626,7 +1628,7 @@
     const DIAS_OBRA_SIN_CERRAR = 30;
 
     // Servicios y orígenes que deben existir aunque el aparato tenga listas antiguas guardadas.
-    const SERVICIOS_OBLIGATORIOS = ["Reformas", "Climatización"];
+    const SERVICIOS_OBLIGATORIOS = ["Reformas", "Climatización", "Puertas y vallas: reparación", "Puertas y vallas: instalación o motor"];
     const ORIGENES_OBLIGATORIOS = ["Toño"];
 
     function esReforma(servicio) {
@@ -2652,7 +2654,8 @@
           pct = esOrigenAmigo(c.origen) ? PCT_REFORMAS_AMIGO : acuerdo.pctReformas;
         } else {
           // Pago por lead: se debe al pasar el contacto, se cierre o no el trabajo.
-          bFijo = acuerdo.fijo;
+          const porServicio = acuerdo.porServicio || {};
+          bFijo = c.servicio in porServicio ? porServicio[c.servicio] : acuerdo.fijo;
         }
       } else if ((c.fecha || '') < FECHA_ACUERDOS) {
         if (estado.includes('rechazado')) return vacio;
