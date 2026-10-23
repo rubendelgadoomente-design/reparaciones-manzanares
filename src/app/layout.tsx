@@ -203,28 +203,22 @@ export default function RootLayout({
               gtag('js', new Date());
               gtag('config', 'G-MZ2KMK12PM');
 
-              window.trackEvent = async function(type, service = '', location = '') {
+              // Apunta cada pulsación en "Llamar" o "WhatsApp" (en cualquier botón o enlace de la web).
+              // sendBeacon sigue enviando aunque el móvil abra ya el marcador o WhatsApp.
+              window.trackEvent = function(type, button) {
                 try {
-                  // Track in our local stats
-                  await fetch('/api/track', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type, service, location })
-                  });
-                  
-                  // Track in Google Analytics too
+                  var payload = JSON.stringify({ type: type, page: window.location.pathname, button: button || '' });
+                  if (!(navigator.sendBeacon && navigator.sendBeacon('/api/track', payload))) {
+                    fetch('/api/track', { method: 'POST', body: payload, keepalive: true });
+                  }
                   if (typeof gtag === 'function') {
-                    gtag('event', type, {
-                      'service': service,
-                      'location': location
-                    });
+                    gtag('event', type, { 'service': button || '', 'page': window.location.pathname });
                   }
                 } catch (e) {
                   console.error('Tracking failed', e);
                 }
               };
 
-              // Global event delegation for clicks on elements with data-track-event
               document.addEventListener('click', function(e) {
                 // Close mobile menu when a link inside the drawer is clicked
                 if (e.target.closest('.mobile-drawer a')) {
@@ -232,12 +226,23 @@ export default function RootLayout({
                   if (checkbox) checkbox.checked = false;
                 }
 
+                const link = e.target.closest('a[href]');
+                const href = link ? (link.getAttribute('href') || '') : '';
+                let type = '';
+                if (href.indexOf('tel:') === 0) type = 'call';
+                else if (href.indexOf('wa.me/') !== -1 || href.indexOf('api.whatsapp.com') !== -1) type = 'whatsapp';
+                if (type) {
+                  window.trackEvent(type, link.getAttribute('data-track-service') || '');
+                  return;
+                }
+
+                // Otros eventos marcados (p. ej. envío del formulario) solo van a Google Analytics
                 const target = e.target.closest('[data-track-event]');
-                if (target) {
-                  const eventType = target.getAttribute('data-track-event');
-                  const service = target.getAttribute('data-track-service') || '';
-                  const location = target.getAttribute('data-track-location') || '';
-                  window.trackEvent(eventType, service, location);
+                if (target && typeof gtag === 'function') {
+                  gtag('event', target.getAttribute('data-track-event'), {
+                    'service': target.getAttribute('data-track-service') || '',
+                    'page': window.location.pathname
+                  });
                 }
               });
 
