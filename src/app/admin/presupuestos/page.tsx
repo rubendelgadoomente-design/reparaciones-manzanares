@@ -29,6 +29,16 @@ export default function PresupuestosPage() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Guarda una copia en el registro (/admin/presupuestos/historial). Nunca bloquea al usuario.
+  const registrar = (tipo: 'importar_word' | 'generar_pdf', data: object) => {
+    fetch('/api/presupuestos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tipo, data }),
+      keepalive: true
+    }).catch(() => {});
+  };
+
   const procesarWord = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -37,6 +47,7 @@ export default function PresupuestosPage() {
       const arrayBuffer = await file.arrayBuffer();
       const result = await mammoth.extractRawText({ arrayBuffer });
       const text = result.value;
+      registrar('importar_word', { archivo: file.name, texto: text.slice(0, 100000) });
 
       // Lógica de parseo
       const lineas = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
@@ -119,6 +130,7 @@ export default function PresupuestosPage() {
   };
 
   const handlePrint = () => {
+    registrar('generar_pdf', { emisor, cliente, partidas, notas, subtotal, iva, total });
     window.print();
   };
 
