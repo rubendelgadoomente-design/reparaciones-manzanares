@@ -410,6 +410,7 @@ export default function PresupuestosPage() {
           
           <div className="print-btn-container">
             <button className="btn-print" onClick={handlePrint}>🖨️ Generar PDF</button>
+            <p style={{fontSize: '11px', color: '#94a3b8', textAlign: 'center', margin: '8px 0 0'}}>Se guarda una copia de cada documento importado y generado.</p>
           </div>
         </div>
 
