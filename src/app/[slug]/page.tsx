@@ -51,6 +51,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description = `¿Planeas una ${service.name.toLowerCase()} en ${location}? Presupuesto cerrado y gratuito, sin sorpresas. Coordinamos todos los gremios con un único interlocutor. Llama al ${PHONE_NUMBER}.`;
   }
 
+  // Ajustes puntuales por página según Search Console (semana 06-12/11/2026)
+  const pageOverrides: Record<string, { title: string; description: string }> = {
+    'persianista-mataelpino': {
+      title: 'Persianistas en Mataelpino | Reparación Rápida',
+      description: `¿Persiana rota en Mataelpino? Arreglo rápido de cintas, lamas y motores. Presupuesto cerrado y asistencia local sin intermediarios: ${PHONE_NUMBER}.`
+    },
+    'electricista-collado-villalba': {
+      title: 'Electricistas en Collado Villalba | Averías y Cuadros',
+      description: `¿Avería eléctrica en Collado Villalba? Llegamos en ${arrivalTime}. Cuadros, cortocircuitos y boletines con tarifas claras. Llama ahora al ${PHONE_NUMBER}.`
+    }
+  };
+  const override = pageOverrides[resolvedParams.slug];
+  if (override) {
+    title = override.title;
+    description = override.description;
+  }
+
   return {
     title,
     description,
