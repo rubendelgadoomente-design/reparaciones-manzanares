@@ -11,5 +11,15 @@
       "destination": "https://www.reparacionesmanzanares.es/$1",
       "permanent": true
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/resumen-diario?franja=1",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/resumen-diario?franja=2",
+      "schedule": "0 7 * * *"
+    }
   ]
 }
