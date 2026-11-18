@@ -405,6 +405,7 @@ export default function RootLayout({
                 <li><a href="/fontanero-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Fontanería Urgente</a></li>
                 <li><a href="/electricista-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Electricista 24 Horas</a></li>
                 <li><a href="/cerrajero-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Cerrajero de Urgencia</a></li>
+                <li><a href="/cerrajero-collado-villalba" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Cerrajero en Collado Villalba</a></li>
                 <li><a href="/reparaciones-hogar-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Reparaciones del Hogar</a></li>
                 <li><a href="/reparacion-calderas-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Reparación de Calderas</a></li>
                 <li><a href="/aire-acondicionado-manzanares-el-real" style={{ color: '#A0AEC0', textDecoration: 'none' }}>Aire Acondicionado</a></li>

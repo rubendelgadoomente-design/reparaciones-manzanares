@@ -101,7 +101,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2>2. Mosquiteras: tipos, averías y cuándo sustituirlas</h2>
 
-      <p>La Sierra de Madrid tiene un ecosistema natural extraordinario, pero eso incluye mosquitos, moscas y avispas durante los meses cálidos (mayo a octubre). En zonas cercanas a embalses como el de Santillana (<a href="/persianista-manzanares-el-real">Manzanares el Real</a>, <a href="/persianista-soto-del-real">Soto del Real</a>) o arroyos de montaña (<a href="/persianista-cercedilla">Cercedilla</a>, <a href="/persianista-los-molinos">Los Molinos</a>), las mosquiteras son imprescindibles.</p>
+      <p>La Sierra de Madrid tiene un ecosistema natural extraordinario, pero eso incluye mosquitos, moscas y avispas durante los meses cálidos (mayo a octubre). En zonas cercanas a embalses como el de Santillana (<a href="/persianista-manzanares-el-real">Manzanares el Real</a>, <a href="/persianista-soto-del-real">Soto del Real</a>) o arroyos de montaña (<a href="/persianista-cercedilla">Cercedilla</a>, <a href="/persianista-los-molinos">Los Molinos</a>), las mosquiteras son imprescindibles. Si vives en Miraflores o en Mataelpino, tienes los detalles en nuestras páginas de <a href="/persianista-miraflores-de-la-sierra">reparación de persianas y mosquiteras en Miraflores de la Sierra</a> y de <a href="/persianista-mataelpino">persianistas en Mataelpino</a>.</p>
 
       <h3>2.1 Tipos de mosquiteras y cuál elegir</h3>
       <ul>
