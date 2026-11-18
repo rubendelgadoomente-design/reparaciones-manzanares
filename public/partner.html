@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1e3a8a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mis trabajos">
+<title>Mis trabajos · Reparaciones Manzanares</title>
+<style>
+  :root { --azul:#1e3a8a; --azul2:#2563eb; --gris:#64748b; --borde:#e2e8f0; --fondo:#f1f5f9; --verde:#16a34a; --rojo:#dc2626; --ambar:#d97706; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--fondo); color:#0f172a; font-size:16px; }
+  header { background:var(--azul); color:#fff; padding:16px; padding-top:calc(16px + env(safe-area-inset-top)); position:sticky; top:0; z-index:2; }
+  header h1 { margin:0; font-size:20px; }
+  header p { margin:4px 0 0; opacity:.85; font-size:14px; }
+  .pestanas { display:flex; gap:8px; padding:12px 16px 0; }
+  .pestanas button { flex:1; padding:10px; border:1px solid var(--borde); background:#fff; border-radius:10px; font-size:15px; font-weight:600; color:var(--gris); }
+  .pestanas button.activa { background:var(--azul2); color:#fff; border-color:var(--azul2); }
+  main { padding:12px 16px 40px; max-width:640px; margin:0 auto; }
+  .tarjeta { background:#fff; border-radius:14px; padding:16px; margin-bottom:12px; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+  .cab { display:flex; justify-content:space-between; gap:8px; align-items:flex-start; }
+  .nombre { font-weight:700; font-size:17px; }
+  .sub { color:var(--gris); font-size:14px; margin-top:2px; }
+  .desc { font-size:14px; margin-top:8px; white-space:pre-wrap; }
+  .badge { font-size:12px; font-weight:700; padding:4px 8px; border-radius:999px; white-space:nowrap; background:#e2e8f0; color:#334155; }
+  .b-Contactado { background:#dbeafe; color:#1e40af; }
+  .b-Presupuestado { background:#fef3c7; color:#92400e; }
+  .b-Realizado { background:#dcfce7; color:#166534; }
+  .b-No-sale { background:#fee2e2; color:#991b1b; }
+  .contacto { display:flex; gap:8px; margin-top:12px; }
+  .contacto a { flex:1; text-align:center; padding:10px; border-radius:10px; text-decoration:none; font-weight:600; font-size:15px; border:1px solid var(--borde); color:#0f172a; }
+  .estados { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:14px; }
+  .estados button { padding:12px 6px; border-radius:10px; border:2px solid var(--borde); background:#fff; font-size:15px; font-weight:600; color:#334155; }
+  .estados button.sel { border-color:var(--azul2); background:#eff6ff; color:var(--azul); }
+  .extra { margin-top:12px; display:none; }
+  .extra.ver { display:block; }
+  label { display:block; font-size:14px; color:var(--gris); margin:10px 0 4px; }
+  input[type=number], textarea { width:100%; padding:12px; border:1px solid var(--borde); border-radius:10px; font-size:16px; font-family:inherit; }
+  .check { display:flex; align-items:center; gap:10px; margin-top:12px; font-size:15px; }
+  .check input { width:22px; height:22px; }
+  .guardar { width:100%; margin-top:14px; padding:14px; border:none; border-radius:10px; background:var(--verde); color:#fff; font-size:16px; font-weight:700; display:none; }
+  .guardar.ver { display:block; }
+  .guardar:disabled { opacity:.6; }
+  .ok { color:var(--verde); font-size:14px; margin-top:8px; text-align:center; }
+  .vacio, .aviso { text-align:center; color:var(--gris); padding:40px 16px; }
+  .aviso b { color:#0f172a; }
+  .error { color:var(--rojo); }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="titulo">Mis trabajos</h1>
+  <p>Toca cómo va cada trabajo y pulsa Guardar.</p>
+</header>
+<div class="pestanas" id="pestanas" hidden>
+  <button id="tab-abiertos" class="activa" onclick="verPestana('abiertos')">En curso</button>
+  <button id="tab-cerrados" onclick="verPestana('cerrados')">Cerrados</button>
+</div>
+<main id="lista"><p class="aviso">Cargando…</p></main>
+
+<script>
+  const ESTADOS = ['Contactado', 'Presupuestado', 'Realizado', 'No sale'];
+  const CERRADOS = ['Realizado', 'No sale'];
+
+  // La clave viene en el enlace (?k=...). Se guarda en el móvil para que el icono
+  // de la pantalla de inicio siga funcionando aunque se abra sin ella.
+  let clave = new URLSearchParams(location.search).get('k') || '';
+  try {
+    if (clave) localStorage.setItem('partner_clave', clave);
+    else clave = localStorage.getItem('partner_clave') || '';
+  } catch (e) {}
+
+  let trabajos = [];
+  let pestana = 'abiertos';
+  const borradores = {}; // cambios sin guardar, por trabajo
+
+  function esc(t) {
+    return String(t ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+  }
+  function fecha(iso) { return iso ? String(iso).slice(0, 10).split('-').reverse().join('/') : ''; }
+  function soloDigitos(t) { return String(t || '').replace(/\D/g, ''); }
+  function waTel(t) { const d = soloDigitos(t); return d.length === 9 ? '34' + d : d; }
+
+  async function cargar() {
+    const lista = document.getElementById('lista');
+    if (!clave) {
+      lista.innerHTML = '<p class="aviso"><b>Falta tu enlace personal.</b><br>Ábrelo desde el WhatsApp que te mandó Rubén.</p>';
+      return;
+    }
+    try {
+      const res = await fetch('/api/partner', { headers: { 'x-partner-clave': clave }, cache: 'no-store' });
+      if (res.status === 401) {
+        try { localStorage.removeItem('partner_clave'); } catch (e) {}
+        lista.innerHTML = '<p class="aviso"><b>Este enlace ya no vale.</b><br>Pide a Rubén que te mande el nuevo.</p>';
+        return;
+      }
+      if (!res.ok) throw new Error();
+      const datos = await res.json();
+      trabajos = datos.trabajos || [];
+      document.getElementById('titulo').textContent = 'Trabajos de ' + datos.partner;
+      document.getElementById('pestanas').hidden = false;
+      pintar();
+    } catch (e) {
+      lista.innerHTML = '<p class="aviso error">No se pudo cargar. Comprueba la cobertura y vuelve a abrir.</p>';
+    }
+  }
+
+  function verPestana(p) {
+    pestana = p;
+    document.getElementById('tab-abiertos').classList.toggle('activa', p === 'abiertos');
+    document.getElementById('tab-cerrados').classList.toggle('activa', p === 'cerrados');
+    pintar();
+  }
+
+  function valor(t, campo) {
+    const b = borradores[t.id];
+    return b && campo in b ? b[campo] : t[campo];
+  }
+
+  function pintar() {
+    const visibles = trabajos.filter(t => (pestana === 'cerrados') === CERRADOS.includes(t.estado));
+    const nAbiertos = trabajos.filter(t => !CERRADOS.includes(t.estado)).length;
+    document.getElementById('tab-abiertos').textContent = 'En curso (' + nAbiertos + ')';
+    document.getElementById('tab-cerrados').textContent = 'Cerrados (' + (trabajos.length - nAbiertos) + ')';
+    const lista = document.getElementById('lista');
+    if (!visibles.length) {
+      lista.innerHTML = '<p class="vacio">' + (pestana === 'abiertos' ? 'No tienes trabajos pendientes.' : 'Todavía no hay trabajos cerrados.') + '</p>';
+      return;
+    }
+    lista.innerHTML = visibles.map(tarjeta).join('');
+  }
+
+  function tarjeta(t) {
+    const est = valor(t, 'estado');
+    const cambiado = !!borradores[t.id];
+    const tel = soloDigitos(t.telefono);
+    const sub = [t.servicio, t.localidad, fecha(t.fecha)].filter(Boolean).map(esc).join(' · ');
+    return `
+    <div class="tarjeta" id="t-${esc(t.id)}">
+      <div class="cab">
+        <div>
+          <div class="nombre">${esc(t.nombre || 'Sin nombre')}</div>
+          <div class="sub">${sub}</div>
+        </div>
+        <span class="badge b-${esc(t.estado.replace(/ /g, '-'))}">${esc(t.estado)}</span>
+      </div>
+      ${t.descripcion ? `<div class="desc">${esc(t.descripcion)}</div>` : ''}
+      ${tel ? `<div class="contacto">
+        <a href="tel:${esc(tel)}">📞 Llamar</a>
+        <a href="https://wa.me/${esc(waTel(tel))}" target="_blank" rel="noopener">💬 WhatsApp</a>
+      </div>` : ''}
+      <div class="estados">
+        ${ESTADOS.map(e => `<button class="${e === est ? 'sel' : ''}" onclick="elegir('${esc(t.id)}','${e}')">${e}</button>`).join('')}
+      </div>
+      <div class="extra ${est === 'Presupuestado' || est === 'Realizado' ? 'ver' : ''}">
+        <label>Importe del presupuesto (€, sin IVA)</label>
+        <input type="number" inputmode="decimal" min="0" step="1" value="${valor(t, 'presupuesto') || ''}" oninput="cambiar('${esc(t.id)}','presupuesto',this.value)">
+      </div>
+      <div class="extra ${est === 'Realizado' ? 'ver' : ''}">
+        <label>Importe de la factura (€, sin IVA)</label>
+        <input type="number" inputmode="decimal" min="0" step="1" value="${valor(t, 'factura') || ''}" oninput="cambiar('${esc(t.id)}','factura',this.value)">
+        <label class="check"><input type="checkbox" ${valor(t, 'resena') ? 'checked' : ''} onchange="cambiar('${esc(t.id)}','resena',this.checked)"> El cliente ha dejado reseña en Google</label>
+      </div>
+      <div class="extra ver">
+        <label>Nota para Rubén (opcional)</label>
+        <textarea rows="2" maxlength="500" oninput="cambiar('${esc(t.id)}','nota',this.value)">${esc(valor(t, 'nota'))}</textarea>
+      </div>
+      <button class="guardar ${cambiado ? 'ver' : ''}" onclick="guardar('${esc(t.id)}', this)">Guardar</button>
+      ${t._ok ? '<div class="ok">✓ Guardado. Rubén ya lo ve.</div>' : ''}
+    </div>`;
+  }
+
+  function buscar(id) { return trabajos.find(t => t.id === id); }
+
+  function elegir(id, estado) {
+    cambiar(id, 'estado', estado);
+    pintarUna(id);
+  }
+
+  function cambiar(id, campo, v) {
+    const t = buscar(id);
+    if (!t) return;
+    t._ok = false;
+    borradores[id] = Object.assign(borradores[id] || {}, { [campo]: v });
+    const boton = document.querySelector('#t-' + CSS.escape(id) + ' .guardar');
+    if (boton) boton.classList.add('ver');
+  }
+
+  function pintarUna(id) {
+    const t = buscar(id);
+    const nodo = document.getElementById('t-' + id);
+    if (t && nodo) nodo.outerHTML = tarjeta(t);
+  }
+
+  async function guardar(id, boton) {
+    const t = buscar(id);
+    const datos = Object.assign({}, t, borradores[id] || {});
+    if (datos.estado === 'Pendiente') { alert('Elige primero cómo va el trabajo.'); return; }
+    if (datos.estado === 'Realizado' && !(Number(datos.factura) > 0)) {
+      if (!confirm('No has puesto el importe de la factura. ¿Guardar igualmente?')) return;
+    }
+    boton.disabled = true;
+    boton.textContent = 'Guardando…';
+    try {
+      const res = await fetch('/api/partner', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          k: clave, id,
+          estado: datos.estado,
+          presupuesto: Number(datos.presupuesto) || 0,
+          factura: Number(datos.factura) || 0,
+          resena: !!datos.resena,
+          nota: datos.nota || ''
+        })
+      });
+      if (!res.ok) throw new Error();
+      Object.assign(t, borradores[id]);
+      t.presupuesto = Number(t.presupuesto) || 0;
+      t.factura = Number(t.factura) || 0;
+      delete borradores[id];
+      t._ok = true;
+      const cambiaPestana = (pestana === 'cerrados') !== CERRADOS.includes(t.estado);
+      if (cambiaPestana) {
+        pintar();
+      } else pintarUna(id);
+    } catch (e) {
+      boton.disabled = false;
+      boton.textContent = 'Guardar';
+      alert('No se ha podido guardar. Comprueba la cobertura y vuelve a intentarlo.');
+    }
+  }
+
+  cargar();
+</script>
+</body>
+</html>

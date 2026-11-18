@@ -97,7 +97,13 @@ async function chatDestino(): Promise<string> {
   return id;
 }
 
-function construirResumen(list: any[], hoy: string): string {
+// Partners con portal (PARTNER_CLAVES): sus nombres, para el bloque de trabajos parados.
+function partnersConPortal(): string[] {
+  return (process.env.PARTNER_CLAVES || '').split(',').map(p => p.split(':')[0].trim().toLowerCase()).filter(Boolean);
+}
+const DIAS_PARTNER_PARADO = 5;
+
+function construirResumen(list: any[], hoy: string, estadosPartner: Map<string, any> = new Map()): string {
   const vistos = new Set<string>();
   const grupo = (filtro: (c: any) => boolean) =>
     list.filter(c => !vistos.has(c.id) && filtro(c)).map(c => { vistos.add(c.id); return c; });
@@ -105,6 +111,17 @@ function construirResumen(list: any[], hoy: string): string {
   const llamar = grupo(c => c.proximaLlamada && c.proximaLlamada <= hoy && ABIERTOS.includes(c.estado));
   const parados = grupo(c => c.estado === 'Presupuesto enviado' && diasDesde(c.updatedAt) >= DIAS_PRESUPUESTO_PARADO && !(c.proximaLlamada > hoy));
   const sinCerrar = grupo(c => c.estado === 'Aceptado' && diasDesde(c.updatedAt) >= DIAS_OBRA_SIN_CERRAR);
+  // Trabajos pasados a un partner con portal que llevan días sin que el partner marque nada.
+  const conPortal = partnersConPortal();
+  const ultimoMovPartner = (c: any) => estadosPartner.get(c.id)?.updated_at || c.createdAt || c.fecha;
+  const partnerParados = grupo(c => {
+    const p = String(c.partner || '').trim().toLowerCase();
+    if (!p || !conPortal.some(n => p.startsWith(n))) return false;
+    if (!ABIERTOS.includes(c.estado)) return false;
+    if (['Realizado', 'No sale'].includes(estadosPartner.get(c.id)?.estado)) return false;
+    return diasDesde(ultimoMovPartner(c)) >= DIAS_PARTNER_PARADO;
+  });
+  // Después de los de partner: un trabajo ya pasado a un partner no cuenta como "nuevo sin contactar".
   const nuevos = grupo(c => c.estado === 'Nuevo' && diasDesde(c.createdAt || c.fecha) >= 1);
   const resenas = grupo(c => c.estado === 'Finalizado' && !c.resenaPedida && (c.fecha || '') >= FECHA_ACUERDOS);
 
@@ -126,7 +143,9 @@ function construirResumen(list: any[], hoy: string): string {
     bloque('⏳ Presupuestos parados', parados, c => `${diasDesde(c.updatedAt)} días · ${euros(c.presupuesto)}`) +
     bloque('🔍 ¿Se hizo la obra?', sinCerrar, c => `aceptado hace ${diasDesde(c.updatedAt)} días`) +
     bloque('🆕 Nuevos sin contactar', nuevos, c => `${diasDesde(c.createdAt || c.fecha)} días`) +
-    bloque('⭐ Reseñas por pedir', resenas, () => '');
+    bloque('⭐ Reseñas por pedir', resenas, () => '') +
+    bloque('🔧 Partner sin avances', partnerParados, c =>
+      `${esc(c.partner)}: ${esc(estadosPartner.get(c.id)?.estado || 'sin marcar')} hace ${diasDesde(ultimoMovPartner(c))} días`);
 
   const fechaTxt = hoy.split('-').reverse().join('/');
   if (!cuerpo) return `☀️ <b>Buenos días, ${fechaTxt}</b>\n\nTodo al día: no hay nada pendiente en el CRM.`;
@@ -155,7 +174,13 @@ export async function GET(request: Request) {
     }
 
     const { rows } = await sql`SELECT data FROM crm_leads;`;
-    const texto = construirResumen(rows.map(r => r.data), fecha);
+    // Lo que han marcado los partners en su portal (la tabla puede no existir todavía).
+    const estadosPartner = new Map<string, any>();
+    try {
+      const { rows: ep } = await sql`SELECT lead_id, estado, updated_at FROM partner_estados;`;
+      ep.forEach(e => estadosPartner.set(e.lead_id, e));
+    } catch { /* sin portal de partners todavía */ }
+    const texto = construirResumen(rows.map(r => r.data), fecha, estadosPartner);
     await telegram('sendMessage', { chat_id: chatId, text: texto, parse_mode: 'HTML', disable_web_page_preview: true });
     await guardarConfig('resumen_enviado', fecha);
     return NextResponse.json({ ok: true, enviado: true });
