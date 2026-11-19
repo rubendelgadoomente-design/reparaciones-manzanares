@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!-- saved from url=(0079)file:///C:/Users/ruben/.gemini/antigravity/scratch/contactos-manager/index.html -->
 <html lang="es" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
@@ -523,7 +523,7 @@
             <div class="kpi-card purple">
               <div class="kpi-label">Beneficio Fijo Mes</div>
               <div class="kpi-value" id="kpi-beneficio-fijo">0,00 &euro;</div>
-              <div class="kpi-sub">Leads pasados (15&euro;, 25&euro;, 30&euro;)</div>
+              <div class="kpi-sub">Leads pasados (15&euro;, 20&euro;, 25&euro;, 30&euro;)</div>
             </div>
             <div class="kpi-card green">
               <div class="kpi-label">Beneficio % Mes</div>
@@ -870,6 +870,8 @@
 
               <select id="filter-origen" onchange="applyFilters()"><option value="">Todos los Orígenes</option><option value="Google Orgánico">Google Orgánico</option><option value="Google Ads">Google Ads</option><option value="Google Business Profile">Google Business Profile</option><option value="WhatsApp">WhatsApp</option><option value="Llamada directa">Llamada directa</option><option value="Recomendación">Recomendación</option><option value="Otro">Otro</option></select>
 
+              <select id="filter-partner" onchange="applyFilters()"><option value="">Todos los Partners</option></select>
+
               <select id="filter-prioridad" onchange="applyFilters()">
                 <option value="">Todas las Prioridades</option>
               </select>
@@ -912,7 +914,7 @@
               <th data-sort="presupuesto">PRESUPUESTO ↕</th>
               <th data-sort="facturado">FACTURA ↕</th>
               <th>BENEFICIO</th>
-              <th data-sort="origen">ORIGEN ↕</th>
+              <th data-sort="origen">ORIGEN / PARTNER ↕</th>
               <th data-sort="updatedAt">ÚLTIMA MODIF. ↕</th>
               <th class="no-print">ACCIONES</th>
             </tr>
@@ -1417,7 +1419,7 @@
           </div>
           <div class="form-group">
             <label for="c-servicio">Servicio Solicitado</label>
-            <select id="c-servicio"><option value="Fontanería">Fontanería</option><option value="Electricidad">Electricidad</option><option value="Cerrajería">Cerrajería</option><option value="Aire acondicionado">Aire acondicionado</option><option value="Calderas">Calderas</option><option value="Persianas">Persianas</option><option value="Manitas">Manitas</option><option value="Albañilería">Albañilería</option><option value="Pintura">Pintura</option><option value="Electrodomésticos">Electrodomésticos</option><option value="Otro">Otro</option></select>
+            <select id="c-servicio" onchange="onServicioChange()"><option value="Fontanería">Fontanería</option><option value="Electricidad">Electricidad</option><option value="Cerrajería">Cerrajería</option><option value="Aire acondicionado">Aire acondicionado</option><option value="Calderas">Calderas</option><option value="Persianas">Persianas</option><option value="Manitas">Manitas</option><option value="Albañilería">Albañilería</option><option value="Pintura">Pintura</option><option value="Electrodomésticos">Electrodomésticos</option><option value="Otro">Otro</option></select>
           </div>
           <div class="form-group">
             <label for="c-origen">Origen del Contacto</label>
@@ -1458,6 +1460,10 @@
           <div class="form-group">
             <label for="c-proxima">Próxima llamada</label>
             <input type="date" id="c-proxima">
+          </div>
+          <div class="form-group" style="display:flex; align-items:center; gap:8px; padding-top:22px;">
+            <input type="checkbox" id="c-resena-recibida" style="width:18px; height:18px; margin:0; cursor:pointer;">
+            <label for="c-resena-recibida" style="margin:0; font-weight:normal; cursor:pointer;">Reseña Google recibida (descuento a 20 € para Nacho)</label>
           </div>
 
           <div class="form-group" id="group-descarte" style="display:none;">
@@ -1541,6 +1547,7 @@
               <div class="detail-row"><span>Tu Beneficio (Auto):</span><span id="f-beneficio" style="color:var(--accent); font-weight:bold;">0,00</span></div>
               <div class="detail-row"><span>Próxima llamada:</span><span id="f-proxima">—</span></div>
               <div class="detail-row"><span>Reseña pedida:</span><span id="f-resena">—</span></div>
+              <div class="detail-row"><span>Reseña recibida:</span><span id="f-resena-recibida">—</span></div>
               <div class="detail-row" id="f-row-descarte" style="display: flex;"><span>Motivo Descarte:</span><span id="f-descarte">Precio demasiado alto</span></div>
               <div class="detail-row"><span>Fecha Registro:</span><span id="f-fecha">10/07/2026</span></div>
               <div class="detail-row"><span>Última Actualización:</span><span id="f-actualizado">10/07/2026, 22:15</span></div>
@@ -1627,9 +1634,10 @@
     // pctReformas: % sobre la base imponible de las reformas que ejecuta (solo trabajos aceptados).
     const PARTNERS = {
       // porServicio: fijo distinto para servicios concretos (prima sobre "fijo").
+      "Nacho (Rodrimar)": { fijo: 25, fijoConResena: 20, pctReformas: 0.08 },
+      "Kevin (cerrajero 24h)": { fijo: 30, pctReformas: 0 },
       "Jose": { fijo: 15, pctReformas: 0.05, porServicio: { "Puertas y vallas: reparación": 30, "Puertas y vallas: instalación o motor": 80 } },
-      "Aurelio": { fijo: 25, pctReformas: 0 },
-      "Kevin (cerrajero 24h)": { fijo: 30, pctReformas: 0 }
+      "Radón": { fijo: 25, pctReformas: 0.05 }
     };
     // Reformas que llegan de Toño (sus webs de rank & rent): la comisión es el 2%.
     const PCT_REFORMAS_AMIGO = 0.02;
@@ -1836,6 +1844,7 @@
       fillSelect('filter-localidad', window.localidades, 'Todas las Localidades');
       fillSelect('filter-servicio', window.servicios, 'Todos los Servicios');
       fillSelect('filter-origen', window.origenes, 'Todos los Orígenes');
+      fillSelect('filter-partner', Object.keys(PARTNERS), 'Todos los Partners');
 
       fillSelect('c-localidad', window.localidades);
       fillSelect('c-servicio', window.servicios);
@@ -1955,6 +1964,7 @@
         document.getElementById('c-observaciones').value = contact.observaciones || '';
         document.getElementById('c-partner').value = contact.partner || '';
         document.getElementById('c-proxima').value = contact.proximaLlamada || '';
+        document.getElementById('c-resena-recibida').checked = Boolean(contact.resenaRecibida);
         
         // Load photos if edit
         if (contact.fotos && contact.fotos.length > 0) {
@@ -1963,8 +1973,30 @@
         }
       }
       
+      if (!contact) {
+        document.getElementById('c-partner').value = 'Nacho (Rodrimar)';
+        document.getElementById('c-proxima').value = '';
+        document.getElementById('c-resena-recibida').checked = false;
+        onServicioChange();
+      }
+
       toggleRejectionReason();
       modal.classList.add('open');
+    }
+
+    function onServicioChange() {
+      const s = (document.getElementById('c-servicio').value || '').toLowerCase();
+      const pSel = document.getElementById('c-partner');
+      if (!pSel) return;
+      if (s.includes('cerraj')) {
+        pSel.value = 'Kevin (cerrajero 24h)';
+      } else if (s.includes('radón') || s.includes('radon')) {
+        pSel.value = 'Radón';
+      } else {
+        if (pSel.value === 'Kevin (cerrajero 24h)' || pSel.value === 'Radón') {
+          pSel.value = 'Nacho (Rodrimar)';
+        }
+      }
     }
 
     function closeContactModal() {
@@ -2094,6 +2126,7 @@
       const observaciones = document.getElementById('c-observaciones').value;
       const partner = document.getElementById('c-partner').value;
       const proximaLlamada = document.getElementById('c-proxima').value;
+      const resenaRecibida = document.getElementById('c-resena-recibida').checked;
       
       const nowStr = new Date().toISOString();
       
@@ -2115,6 +2148,7 @@
         observaciones,
         partner,
         proximaLlamada,
+        resenaRecibida,
         fotos: selectedImagesBase64,
         createdAt: existing ? existing.createdAt : nowStr,
         updatedAt: nowStr,
@@ -2133,6 +2167,7 @@
         if (existing.localidad !== localidad) changes.push(`Localidad modificada de "${existing.localidad}" a "${localidad}"`);
         if (existing.servicio !== servicio) changes.push(`Servicio modificado de "${existing.servicio}" a "${servicio}"`);
         if ((existing.partner || '') !== partner) changes.push(`Partner: "${existing.partner || 'sin asignar'}" → "${partner || 'sin asignar'}"`);
+        if (Boolean(existing.resenaRecibida) !== resenaRecibida) changes.push(`Reseña en Google ${resenaRecibida ? 'recibida' : 'desmarcada'}`);
 
         if (changes.length > 0) {
           contact.historial.push({
@@ -2205,6 +2240,10 @@
       document.getElementById('f-partner').textContent = contact.partner || 'Sin asignar';
       document.getElementById('f-proxima').textContent = contact.proximaLlamada ? fmtDate(contact.proximaLlamada) : '—';
       document.getElementById('f-resena').textContent = contact.resenaPedida ? 'Sí, el ' + fmtDate(contact.resenaPedida) : 'No';
+      const fResRec = document.getElementById('f-resena-recibida');
+      if (fResRec) {
+        fResRec.innerHTML = contact.resenaRecibida ? '<span style="color:var(--green); font-weight:600;">✅ Sí (descuento 5€ en lead de Nacho)</span>' : '<span style="color:var(--text2);">No</span>';
+      }
       
       const rowDescarte = document.getElementById('f-row-descarte');
       if (contact.motivoDescarte) {
@@ -2557,6 +2596,7 @@
       document.getElementById('filter-localidad').value = '';
       document.getElementById('filter-estado').value = '';
       document.getElementById('filter-origen').value = '';
+      if (document.getElementById('filter-partner')) document.getElementById('filter-partner').value = '';
       document.getElementById('filter-prioridad').value = '';
       document.getElementById('filter-fecha-desde').value = '';
       document.getElementById('filter-fecha-hasta').value = '';
@@ -2577,6 +2617,7 @@
       const localidad = document.getElementById('filter-localidad').value;
       const estado = document.getElementById('filter-estado').value;
       const origen = document.getElementById('filter-origen').value;
+      const partner = document.getElementById('filter-partner') ? document.getElementById('filter-partner').value : '';
       const prioridad = document.getElementById('filter-prioridad').value;
       const desde = document.getElementById('filter-fecha-desde').value;
       const hasta = document.getElementById('filter-fecha-hasta').value;
@@ -2590,6 +2631,7 @@
         if (localidad && c.localidad !== localidad) return false;
         if (estado && c.estado !== estado) return false;
         if (origen && c.origen !== origen) return false;
+        if (partner && (c.partner || '') !== partner) return false;
         if (prioridad && c.prioridad !== prioridad) return false;
         if (desde && c.fecha < desde) return false;
         if (hasta && c.fecha > hasta) return false;
@@ -2659,15 +2701,44 @@
       let bFijo = 0;
       let pct = 0;
 
+      if (c.liquidado) {
+        if (estado.includes('rechazado')) return vacio;
+        if (esReforma(c.servicio) || (s.includes('cerraj') && (s.includes('puerta') || s.includes('garaje')))) {
+          pct = esOrigenAmigo(c.origen) ? 0.02 : 0.05;
+        } else if (s.includes('cerraj')) {
+          bFijo = 30;
+        } else if (s.includes('radón') || s.includes('radon')) {
+          bFijo = 25;
+          pct = 0.05;
+        } else {
+          bFijo = 15;
+        }
+        const bPorcentaje = v * pct;
+        return { fijo: bFijo, porcentaje: bPorcentaje, total: bFijo + bPorcentaje, pct: bPorcentaje > 0 ? pct : 0 };
+      }
+
       if (c.partner) {
-        const acuerdo = PARTNERS[c.partner];
+        let acuerdo = PARTNERS[c.partner];
+        if (!acuerdo) {
+          const pLow = c.partner.toLowerCase();
+          if (pLow.includes('nacho') || pLow.includes('rodrimar')) acuerdo = PARTNERS["Nacho (Rodrimar)"];
+          else if (pLow.includes('kevin')) acuerdo = PARTNERS["Kevin (cerrajero 24h)"];
+          else if (pLow.includes('jose')) acuerdo = PARTNERS["Jose"];
+          else if (pLow.includes('radón') || pLow.includes('radon')) acuerdo = PARTNERS["Radón"];
+        }
         if (!acuerdo) return vacio;
         if (esReforma(c.servicio)) {
           pct = esOrigenAmigo(c.origen) ? PCT_REFORMAS_AMIGO : acuerdo.pctReformas;
         } else {
           // Pago por lead: se debe al pasar el contacto, se cierre o no el trabajo.
           const porServicio = acuerdo.porServicio || {};
-          bFijo = c.servicio in porServicio ? porServicio[c.servicio] : acuerdo.fijo;
+          if (c.servicio in porServicio) {
+            bFijo = porServicio[c.servicio];
+          } else if (acuerdo.fijoConResena && c.resenaRecibida) {
+            bFijo = acuerdo.fijoConResena;
+          } else {
+            bFijo = acuerdo.fijo;
+          }
         }
       } else if ((c.fecha || '') < FECHA_ACUERDOS) {
         if (estado.includes('rechazado')) return vacio;
@@ -2721,7 +2792,7 @@
             <td style="text-align:right">${fmtMoney(c.presupuesto)}</td>
             <td style="text-align:right">${fmtMoney(c.facturado)}</td>
             <td style="text-align:right;font-weight:bold;color:var(--accent)">${fmtMoney(calcularBeneficio(c))}</td>
-            <td><span style="font-size:.8rem;color:var(--text2)">${c.origen}</span></td>
+            <td><span style="font-size:.8rem;color:var(--text2)">${c.origen || ''}</span>${c.partner ? `<br><small style="color:var(--accent); font-weight:600;">${c.partner}${c.resenaRecibida ? ' ⭐' : ''}</small>` : ''}</td>
             <td style="font-size:.8rem;color:var(--text2)">${fmtDateTime(c.updatedAt)}</td>
             <td class="no-print">
               <div style="display:flex; gap:6px;">
@@ -2988,9 +3059,9 @@
         return;
       }
 
-      const headers = ['Fecha', 'Nombre', 'Teléfono', 'Email', 'Localidad', 'Servicio', 'Origen', 'Estado', 'Prioridad', 'Presupuesto (€)', 'Facturado (€)', 'Motivo Descarte', 'Partner', 'Comisión (€)', 'Próxima llamada', 'Reseña pedida', 'Creado', 'Actualizado'];
+      const headers = ['Fecha', 'Nombre', 'Teléfono', 'Email', 'Localidad', 'Servicio', 'Origen', 'Estado', 'Prioridad', 'Presupuesto (€)', 'Facturado (€)', 'Motivo Descarte', 'Partner', 'Comisión (€)', 'Próxima llamada', 'Reseña pedida', 'Reseña recibida', 'Creado', 'Actualizado'];
       const rows = filteredContacts.map(c => [
-        c.fecha, c.nombre, c.telefono, c.email || '', c.localidad, c.servicio, c.origen, c.estado, c.prioridad, c.presupuesto || 0, c.facturado || 0, c.motivoDescarte || '', c.partner || '', calcularBeneficio(c).toFixed(2), c.proximaLlamada || '', c.resenaPedida || '', c.createdAt, c.updatedAt
+        c.fecha, c.nombre, c.telefono, c.email || '', c.localidad, c.servicio, c.origen, c.estado, c.prioridad, c.presupuesto || 0, c.facturado || 0, c.motivoDescarte || '', c.partner || '', calcularBeneficio(c).toFixed(2), c.proximaLlamada || '', c.resenaPedida || '', c.resenaRecibida ? 'Sí' : 'No', c.createdAt, c.updatedAt
       ]);
 
       const csvContent = [headers, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(';')).join('\n');
@@ -3360,7 +3431,7 @@
             + check
             + '<td>' + fmtDate(c.fecha) + '</td>'
             + '<td>' + c.nombre + ' (' + c.localidad + ')' + informeTagLiquidado(c) + '</td>'
-            + '<td>' + c.servicio + (c.partner ? ' <span style="font-size:0.8rem;color:#888;">(' + c.partner + ')</span>' : '') + '</td>'
+            + '<td>' + c.servicio + (c.partner ? ' <span style="font-size:0.8rem;color:#888;">(' + c.partner + ')</span>' : '') + (c.resenaRecibida && desglosado.fijo === 20 ? ' <span style="font-size:0.75rem; background:#dcfce7; color:#15803d; padding:1px 5px; border-radius:4px; font-weight:600;" title="Descuento aplicado por reseña Google">Reseña</span>' : '') + '</td>'
             + '<td style="text-align:right; font-weight:600;">' + fmtMoney(desglosado.fijo) + '</td>'
             + '</tr>';
           if (incluido) subfijo += desglosado.fijo;
@@ -3508,7 +3579,7 @@
         <h2 style="margin-top:0; color:var(--text); font-size:1.4rem;" id="informe-titulo">Liquidaci&oacute;n de Comisiones</h2>
         
         <div style="margin-top:20px;">
-          <h4 style="margin:0 0 10px 0; border-bottom: 1px solid var(--border); padding-bottom:5px; color:var(--accent)">1. Comisiones Fijas (15&euro;, 25&euro;, 30&euro;)</h4>
+          <h4 style="margin:0 0 10px 0; border-bottom: 1px solid var(--border); padding-bottom:5px; color:var(--accent)">1. Comisiones Fijas (15&euro;, 20&euro;, 25&euro;, 30&euro;)</h4>
           <table class="data-table" style="margin-bottom: 20px; width:100%;">
             <thead>
               <tr>
@@ -3530,7 +3601,7 @@
         </div>
 
         <div style="margin-top:20px;">
-          <h4 style="margin:0 0 10px 0; border-bottom: 1px solid var(--border); padding-bottom:5px; color:var(--accent)">2. Comisiones a Porcentaje (5%, 2%)</h4>
+          <h4 style="margin:0 0 10px 0; border-bottom: 1px solid var(--border); padding-bottom:5px; color:var(--accent)">2. Comisiones a Porcentaje (2%, 5%, 8%)</h4>
           <table class="data-table" style="margin-bottom: 20px; width:100%;">
             <thead>
               <tr>
