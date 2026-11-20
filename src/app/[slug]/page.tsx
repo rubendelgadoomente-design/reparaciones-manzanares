@@ -33,6 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const isCerrajeria = service.id === 'cerrajeria';
   const isFontaneria = service.id === 'fontaneria';
   const isManitas = service.id === 'manitas';
+  const isProyecto = PROJECT_SERVICES.includes(service.id);
 
   let title = `${service.title} en ${location} | En ${arrivalTime} · ${PHONE_NUMBER}`;
   let description = `¿Avería en ${location}? Llegamos en ${arrivalTime}. Tarifas transparentes, sin intermediarios ni costes ocultos. Llama ahora: ${PHONE_NUMBER}.`;
@@ -46,6 +47,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   } else if (isManitas) {
     title = `Manitas a Domicilio en ${location} | Reparaciones del Hogar Rápidas`;
     description = `Manitas profesional en ${location}. Arreglos rápidos del hogar: colgar lámparas, montaje de muebles, persianas y pequeños arreglos. Llama al ${PHONE_NUMBER}.`;
+  } else if (service.id === 'radon') {
+    title = `Medición de Gas Radón en ${location} | Test y Mitigación`;
+    description = `Medición de gas radón en ${location} con detectores homologados y, si los niveles salen altos, soluciones para reducirlo. Presupuesto sin compromiso: ${PHONE_NUMBER}.`;
+  } else if (service.id === 'cerramientos') {
+    title = `Ventanas y Cerramientos en ${location} | Aluminio y PVC`;
+    description = `Ventanas, puertas y cerramientos de aluminio y PVC en ${location}. Visita de medición y presupuesto cerrado sin compromiso. Llama al ${PHONE_NUMBER}.`;
+  } else if (service.id === 'tejados') {
+    title = `Reparación de Tejados en ${location} | Goteras y Panel Sándwich`;
+    description = `Arreglo de goteras, tejas rotas y cambio completo de tejado en ${location}, también de panel sándwich. Visita y presupuesto sin compromiso: ${PHONE_NUMBER}.`;
   } else if (isReforma) {
     title = `${service.title} en ${location} | Presupuesto Gratis 2026`;
     description = `¿Planeas una ${service.name.toLowerCase()} en ${location}? Presupuesto cerrado y gratuito, sin sorpresas. Coordinamos todos los gremios con un único interlocutor. Llama al ${PHONE_NUMBER}.`;
@@ -60,6 +70,31 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     'electricista-collado-villalba': {
       title: 'Electricistas en Collado Villalba | Averías y Cuadros',
       description: `¿Avería eléctrica en Collado Villalba? Llegamos en ${arrivalTime}. Cuadros, cortocircuitos y boletines con tarifas claras. Llama ahora al ${PHONE_NUMBER}.`
+    },
+    // Semana 11-17/11/2026
+    'persianista-miraflores-de-la-sierra': {
+      title: 'Persianista en Miraflores de la Sierra | Persianas y Mosquiteras',
+      description: `Reparación de persianas y mosquiteras en Miraflores de la Sierra: cintas rotas, lamas caídas y motores. Presupuesto cerrado sin intermediarios: ${PHONE_NUMBER}.`
+    },
+    'fontanero-soto-del-real': {
+      title: 'Desatascos y Fontanero en Soto del Real | Urgente 24h',
+      description: `¿Fregadero, inodoro o arqueta atascados en Soto del Real? Desatascos con máquina, fugas y fontanería urgente. Llegamos en ${arrivalTime}. Llama: ${PHONE_NUMBER}.`
+    },
+    'fontanero-cercedilla': {
+      title: 'Desatascos y Desatrancos en Cercedilla | Fontanero 24h',
+      description: `¿Desagüe, inodoro o arqueta atascados en Cercedilla? Desatrancos con máquina, fugas y fontanería urgente. Llegamos en ${arrivalTime}. Llama: ${PHONE_NUMBER}.`
+    },
+    'cerramientos-pvc-collado-villalba': {
+      title: 'Ventanas de Aluminio en Collado Villalba | Cerramientos',
+      description: `Ventanas, puertas y cerramientos de aluminio en Collado Villalba, con rotura de puente térmico. Medición y presupuesto cerrado sin compromiso: ${PHONE_NUMBER}.`
+    },
+    'cerramientos-pvc-colmenar-viejo': {
+      title: 'Ventanas de Aluminio en Colmenar Viejo | Cerramientos',
+      description: `Ventanas, puertas y cerramientos de aluminio en Colmenar Viejo, con rotura de puente térmico. Medición y presupuesto cerrado sin compromiso: ${PHONE_NUMBER}.`
+    },
+    'cerramientos-pvc-guadarrama': {
+      title: 'Ventanas de Aluminio en Guadarrama | Cerramientos',
+      description: `Ventanas, puertas y cerramientos de aluminio en Guadarrama, con rotura de puente térmico. Medición y presupuesto cerrado sin compromiso: ${PHONE_NUMBER}.`
     }
   };
   const override = pageOverrides[resolvedParams.slug];
@@ -76,6 +111,69 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
   };
 }
+
+// Servicios que se venden con visita y presupuesto, no como urgencia 24h
+const PROJECT_SERVICES = ['radon', 'cerramientos', 'tejados'];
+
+// Contenido extra para páginas concretas (según Search Console)
+type PageExtra = { h1?: string; heading: string; paragraphs: string[]; faqs: { q: string; a: string }[] };
+
+const aluminioExtra = (loc: string): PageExtra => ({
+  h1: `Ventanas y Cerramientos de Aluminio`,
+  heading: `Ventanas de aluminio en ${loc}`,
+  paragraphs: [
+    `En ${loc} instalamos ventanas, puertas balconeras y cerramientos de terraza de aluminio con rotura de puente térmico (RPT). Es la opción más pedida en la sierra: aísla del frío casi como el PVC, aguanta mejor el sol y el paso de los años, y admite perfiles más finos y más colores.`,
+    `Medimos en tu casa, te explicamos las opciones (corredera, abatible, oscilobatiente, con o sin persiana) y te damos un presupuesto cerrado por escrito antes de empezar. También cambiamos solo la puerta de entrada o cerramos una terraza o un porche de aluminio y cristal.`
+  ],
+  faqs: [
+    {
+      q: `¿Merece la pena cambiar a ventanas de aluminio con rotura de puente térmico en ${loc}?`,
+      a: `Sí, sobre todo si tus ventanas son de aluminio antiguo sin rotura de puente térmico o tienen vidrio simple. Con aluminio RPT y doble vidrio notarás menos frío junto a la ventana, menos condensación en invierno y menos gasto de calefacción.`
+    },
+    {
+      q: `¿Hacéis cerramientos de terraza y puertas de aluminio en ${loc}?`,
+      a: `Sí. Además de ventanas, cerramos terrazas y porches con aluminio y cristal y cambiamos puertas de entrada y balconeras. Te visitamos, medimos y te damos presupuesto cerrado sin compromiso.`
+    }
+  ]
+});
+
+const desatascosExtra = (loc: string, palabra: string): PageExtra => ({
+  heading: `${palabra} en ${loc}`,
+  paragraphs: [
+    `Si en ${loc} se te ha atascado el fregadero, el inodoro, la ducha, una bajante o la arqueta del jardín, te lo desatascamos con máquina desatascadora y dejamos el desagüe funcionando y comprobado antes de irnos. En chalets con parcela el problema suele estar en las arquetas, por grasas o por raíces que se cuelan en la tubería.`,
+    `Antes de empezar te decimos el precio. Y si el atasco está fuera de tu parcela, en la red general del municipio, te lo decimos claro para que avises al ayuntamiento o al Canal y no pagues por algo que no te toca.`
+  ],
+  faqs: [
+    {
+      q: `¿Desatascáis arquetas y desagües de chalets en ${loc}?`,
+      a: `Sí. Desatascamos arquetas, bajantes, inodoros, fregaderos y duchas con máquina desatascadora. En urbanizaciones con mucho arbolado es habitual que las raíces se metan en la tubería de la arqueta; lo detectamos y te explicamos cómo evitar que vuelva a pasar.`
+    },
+    {
+      q: `¿Cómo sé si el atasco es mío o de la red general en ${loc}?`,
+      a: `Si se atasca un solo desagüe, el problema está en tu casa. Si se atascan varios a la vez o rebosa la arqueta del jardín, puede estar en la acometida o en la red general. Lo comprobamos en la visita y, si es de la red municipal, te lo decimos para que no pagues una reparación que no te corresponde.`
+    }
+  ]
+});
+
+const pageExtras: Record<string, PageExtra> = {
+  'fontanero-soto-del-real': desatascosExtra('Soto del Real', 'Desatascos'),
+  'fontanero-cercedilla': desatascosExtra('Cercedilla', 'Desatascos y desatrancos'),
+  'cerramientos-pvc-collado-villalba': aluminioExtra('Collado Villalba'),
+  'cerramientos-pvc-colmenar-viejo': aluminioExtra('Colmenar Viejo'),
+  'cerramientos-pvc-guadarrama': aluminioExtra('Guadarrama'),
+  'persianista-miraflores-de-la-sierra': {
+    heading: 'Mosquiteras en Miraflores de la Sierra',
+    paragraphs: [
+      'En Miraflores de la Sierra también reparamos y cambiamos mosquiteras: enrollables, plisadas, correderas y fijas. Cambiamos la malla rota, los muelles o las guías sin tener que sustituir toda la mosquitera, y si hace falta te la hacemos nueva a medida para tu ventana o puerta.'
+    ],
+    faqs: [
+      {
+        q: '¿Arregláis mosquiteras en Miraflores de la Sierra o hay que cambiarlas enteras?',
+        a: 'Casi siempre se pueden arreglar: cambiamos la malla, el muelle de las enrollables o las guías. Solo recomendamos cambiarla entera si el marco está doblado o el modelo ya no tiene repuestos. Te damos el precio antes de hacer nada.'
+      }
+    ]
+  }
+};
 
 // Reverse search to decode the slug
 function decodeSlug(slug: string) {
@@ -302,6 +400,16 @@ function ServicePriceTable({ serviceName }: { serviceName: string }) {
       { service: "Encimera de Silestone o Granito nacional", price: "Desde 1.200€", time: "3 días" },
       { service: "Enchufes y adecuación eléctrica según REBT", price: "Desde 450€", time: "2 días" }
     ],
+    "cerramientos": [
+      { service: "Ventana de aluminio con rotura de puente térmico", price: "Según medidas", time: "3-5 semanas fabricación" },
+      { service: "Puerta balconera o de entrada de aluminio", price: "Según medidas", time: "3-5 semanas fabricación" },
+      { service: "Cerramiento de terraza o porche", price: "Bajo presupuesto", time: "1-3 días de montaje" }
+    ],
+    "tejados": [
+      { service: "Reparación de gotera / cambio de tejas", price: "Bajo presupuesto", time: "1 día" },
+      { service: "Cambio integral de tejado", price: "Bajo presupuesto", time: "Según superficie" },
+      { service: "Tejado de panel sándwich", price: "Bajo presupuesto", time: "Según superficie" }
+    ],
     "reformas-banos": [
       { service: "Cambio de bañera por plato de ducha (Kit completo)", price: "Desde 890€", time: "24-48 horas" },
       { service: "Reforma de baño estándar (alicatado + sanitarios)", price: "Desde 2.600€", time: "5-7 días" },
@@ -378,6 +486,8 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
   const location = locationData.name;
   const baseUrl = 'https://www.reparacionesmanzanares.es';
   const slug = resolvedParams.slug;
+  const pageExtra = pageExtras[slug];
+  const isProyecto = PROJECT_SERVICES.includes(service.id);
   const isReforma = service.id.startsWith('reformas');
 
   const breadcrumbJsonLd = {
@@ -457,6 +567,15 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
       q: `¿Qué garantía tienen los trabajos de reformas de ${service.name.toLowerCase()} en ${location}?`,
       a: `Todas nuestras reformas en ${location} están totalmente garantizadas. Ofrecemos 3 años de garantía en todas las instalaciones y elementos mecánicos (según ley), y 1 año para acabados y remates de pintura o carpintería.`
     }
+  ] : isProyecto ? [
+    {
+      q: `¿Hacéis visita y presupuesto de ${service.name.toLowerCase()} en ${location} sin compromiso?`,
+      a: `Sí. Vamos a verlo a tu casa en ${location}, te explicamos las opciones y te damos un presupuesto cerrado por escrito antes de empezar, sin compromiso.`
+    },
+    {
+      q: `¿Trabajáis en todas las urbanizaciones y barrios de ${location}?`,
+      a: `Sí. Trabajamos en todo el casco urbano de ${location} y en las urbanizaciones como ${locationData.neighborhoods}.`
+    }
   ] : [
     {
       q: `¿Atendéis urgencias de ${service.name.toLowerCase()} en ${location} las 24 horas?`,
@@ -476,7 +595,7 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
     }
   ];
 
-  const allFAQs = [...service.faqs, ...localFAQs];
+  const allFAQs = [...(pageExtra?.faqs ?? []), ...service.faqs, ...localFAQs];
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -582,11 +701,13 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
       <section style={{ backgroundColor: 'var(--color-primary)', color: 'white', padding: '5rem 0' }}>
         <div className="container" style={{ textAlign: 'center' }}>
           <h1 style={{ color: 'white', fontSize: '3rem', marginBottom: '1rem', lineHeight: 1.15 }}>
-             {service.emoji} {service.title} en <span style={{ color: 'var(--color-accent)' }}>{location}</span>
+             {service.emoji} {pageExtra?.h1 ?? service.title} en <span style={{ color: 'var(--color-accent)' }}>{location}</span>
           </h1>
           <p style={{ fontSize: '1.2rem', color: '#CBD5E1', maxWidth: '850px', margin: '0 auto', lineHeight: 1.6 }}>
             {isReforma 
               ? `Estudio de reformas, diseño de interiores y obras a medida en ${location}. Te ofrecemos asesoramiento técnico profesional, proyectos de medición gratuitos y presupuesto cerrado por contrato.`
+              : isProyecto
+              ? `Te visitamos en ${location}, valoramos el trabajo y te damos un presupuesto cerrado por escrito, sin compromiso. Un único interlocutor de principio a fin.`
               : `Servicio técnico urgente las 24h. Solucionamos averías en ${location} (con desplazamientos rápidos por ${locationData.localReferences}) con operarios autorizados y asistencia en unos ${locationData.timeToArrive}.`
             }
           </p>
@@ -635,6 +756,15 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
                 <p style={{ marginBottom: '2rem', fontStyle: 'italic', paddingLeft: '1rem', borderLeft: '3px solid var(--color-accent)', color: 'var(--color-text-muted)' }}>
                   {locationData.uniqueContent}
                 </p>
+
+                {pageExtra && (
+                  <div style={{ marginBottom: '2rem' }}>
+                    <h3 style={{ fontSize: '1.6rem', marginBottom: '1rem', color: 'var(--color-primary)' }}>{pageExtra.heading}</h3>
+                    {pageExtra.paragraphs.map((p, i) => (
+                      <p key={`extra-${i}`} style={{ marginBottom: '1.25rem' }}>{p}</p>
+                    ))}
+                  </div>
+                )}
 
                 {/* TRUST SIGNALS BLOCK */}
                 <TrustSignals isReforma={isReforma} />

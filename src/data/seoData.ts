@@ -245,7 +245,7 @@ export const services: Service[] = [
       "En el campo de los desatascos, el uso de maquinaria electromecánica de espirales flexibles combinada con equipos de hidropresión de agua permite restablecer la sección interna original de la tubería sin dañar sus paredes. La inspección mediante cámara de empuje con cabezal autonivelante y emisor de radiofrecuencia nos revela con total nitidez la presencia de raíces intrusivas, sedimentos de jabón solidificado u objetos sólidos acumulados en las bajantes de la finca.",
       "Nuestra empresa colabora estrechamente con proveedores líderes en el sector para ofrecer componentes y repuestos que cumplan con los más estrictos estándares de durabilidad y ahorro de agua. Recomendamos e instalamos griferías ecológicas y sistemas de descarga de marcas reputadas como Roca, Grohe, Tres, Hansgrohe y mecanismos de alimentación y evacuación Geberit. Esto garantiza no solo un correcto comportamiento funcional, sino también una reducción directa en el consumo de agua del hogar.",
       "Asimismo, el mantenimiento e instalación de sistemas de producción de agua caliente sanitaria (ACS), como termos eléctricos con calderines vitrificados de las marcas Junkers, Ariston o Fleck, forman parte fundamental de nuestra actividad habitual. Analizamos las necesidades volumétricas de cada familia y configuramos ánodos de magnesio específicos para proteger el equipo contra la corrosión electrolítica y acumulación de sedimentos calcáreos en las resistencias de calentamiento.",
-      "Ofrecemos un servicio de atención urgente las 24 horas del día, así como planes de mantenimiento preventivo para comunidades de vecinos y locales de restauración. La limpieza periódica de arquetas y el vaciado e higienización de fosas sépticas resultan esenciales para evitar retornos indeseados de aguas fecales y proliferación de olores insalubres. La respuesta rápida de un instalador autorizado garantiza la seguridad de su hogar."
+      "Ofrecemos un servicio de atención urgente las 24 horas del día, así como planes de mantenimiento preventivo para comunidades de vecinos y locales de restauración. La limpieza periódica de arquetas resulta esencial para evitar retornos indeseados de aguas fecales y proliferación de olores insalubres. La respuesta rápida de un instalador autorizado garantiza la seguridad de su hogar."
     ],
     "tasks": [
       "Detección y reparación de fugas de agua ocultas",
@@ -311,8 +311,8 @@ export const services: Service[] = [
         "a": "Es un pequeño depósito empotrado en el suelo del baño que conecta los desagües del lavabo, bidé y ducha, manteniendo una barrera de agua para evitar que los olores del colector salgan al exterior. Se limpia desenroscando la tapa embellecedora y retirando manualmente los residuos acumulados en su interior."
       },
       {
-        "q": "¿Hacéis desatascos urgentes con camión cuba en urbanizaciones residenciales?",
-        "a": "Sí, disponemos de camiones cuba y furgones con equipos de hidropresión capaces de succionar lodos pesados y proyectar agua a más de 200 bares de presión. Esto desintegra tapones complejos en acometidas generales, alcantarillados de comunidades y arquetas obstruidas por raíces o sedimentos endurecidos."
+        "q": "¿Hacéis desatascos urgentes en chalets y urbanizaciones?",
+        "a": "Sí. Desatascamos fregaderos, inodoros, duchas, bajantes y arquetas de la parcela con máquina desatascadora, y comprobamos que el desagüe queda funcionando antes de irnos. Si el atasco está en la red general del municipio, te lo decimos con claridad para que no pagues por algo que no te corresponde."
       },
       {
         "q": "¿Qué garantía tienen las reparaciones de fontanería urgente según la normativa de la Comunidad de Madrid?",
@@ -1308,6 +1308,57 @@ export const services: Service[] = [
       {
         "q": "¿Qué garantía tienen los cerramientos instalados?",
         "a": "Todos nuestros cerramientos tienen garantía de 10 años en perfiles y herrajes principales, 5 años en sellados y juntas de estanqueidad, y 2 años en la mano de obra de instalación. Los vidrios están cubiertos por la garantía del fabricante de 5 años."
+      }
+    ]
+  },
+  {
+    "id": "tejados",
+    "name": "Tejados",
+    "title": "Reparación de Tejados",
+    "slugBase": "reparacion-tejados",
+    "emoji": "🏠",
+    "description": "Reparación de goteras y tejados, cambio integral de cubierta y tejados de panel sándwich en la Sierra de Madrid. Presupuesto gratis.",
+    "longDescription": [
+      "Los tejados de la Sierra de Madrid sufren más que en la ciudad: heladas, nieve, viento y cambios bruscos de temperatura entre el día y la noche. Con los años las tejas se mueven o se rompen, los remates se abren y aparecen goteras que, si no se arreglan a tiempo, acaban dañando vigas, techos y aislamiento.",
+      "Reparamos goteras, cambiamos tejas rotas o movidas, rehacemos cumbreras y limas, y sellamos chimeneas, claraboyas y encuentros con paredes, que es por donde entra el agua en la mayoría de los casos. Antes de tocar nada revisamos el tejado y te explicamos qué está fallando y qué opciones tienes.",
+      "Cuando el tejado está demasiado deteriorado, hacemos el cambio integral de cubierta. Una de las soluciones más usadas es el panel sándwich: paneles con aislamiento incorporado que se montan rápido, pesan poco, no dan problemas con las heladas y mejoran mucho el aislamiento de la vivienda. Es habitual en casetas, garajes, porches, naves y también en viviendas, con acabado imitación teja si se quiere conservar el aspecto tradicional.",
+      "También cambiamos tejados de uralita antiguos por panel sándwich u otras cubiertas modernas, y aprovechamos la obra para mejorar el aislamiento térmico, lo que se nota en la factura de calefacción de los inviernos de la sierra.",
+      "Te visitamos, valoramos el estado del tejado y te damos un presupuesto cerrado por escrito antes de empezar, sin compromiso. Un único interlocutor de principio a fin."
+    ],
+    "tasks": [
+      "Reparación de goteras y filtraciones",
+      "Cambio de tejas rotas o movidas",
+      "Arreglo de cumbreras, limas y remates",
+      "Sellado de chimeneas y claraboyas",
+      "Cambio integral de tejado",
+      "Tejados de panel sándwich (también imitación teja)",
+      "Sustitución de cubiertas de uralita",
+      "Mejora del aislamiento de la cubierta"
+    ],
+    "faqs": [
+      {
+        "q": "Tengo una gotera, ¿hay que cambiar todo el tejado?",
+        "a": "Casi nunca. La mayoría de las goteras vienen de unas pocas tejas rotas o movidas, de un remate abierto o del sellado de una chimenea o claraboya. Revisamos el tejado, localizamos por dónde entra el agua y te decimos si basta con una reparación o si el tejado necesita algo más."
+      },
+      {
+        "q": "¿Qué es un tejado de panel sándwich y qué ventajas tiene?",
+        "a": "Es un panel formado por dos chapas con aislamiento en medio. Se monta rápido, pesa poco, aísla del frío y del calor y aguanta bien las heladas. Existe con acabado imitación teja, así que sirve tanto para garajes, porches y casetas como para viviendas."
+      },
+      {
+        "q": "¿Se puede cambiar un tejado de uralita por panel sándwich?",
+        "a": "Sí, es uno de los cambios más habituales. La retirada de uralita (fibrocemento con amianto) debe hacerla una empresa autorizada siguiendo la normativa; te lo explicamos en la visita y lo incluimos en el presupuesto para que no haya sorpresas."
+      },
+      {
+        "q": "¿Cuándo es mejor revisar el tejado en la sierra?",
+        "a": "Lo ideal es revisarlo antes del invierno, en otoño, o justo después de una nevada o un temporal fuerte. Una revisión a tiempo evita que una teja rota acabe en una gotera que estropee el techo o el aislamiento."
+      },
+      {
+        "q": "¿Necesito licencia para arreglar o cambiar el tejado?",
+        "a": "Para reparaciones puntuales normalmente basta con una comunicación al ayuntamiento. Un cambio completo de cubierta suele requerir declaración responsable o licencia de obra, según el municipio. Te indicamos qué hace falta en tu caso."
+      },
+      {
+        "q": "¿Hacéis presupuesto sin compromiso?",
+        "a": "Sí. Vamos a ver el tejado, te explicamos qué le pasa y te damos un presupuesto cerrado por escrito, sin compromiso."
       }
     ]
   },

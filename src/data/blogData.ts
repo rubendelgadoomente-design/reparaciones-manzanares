@@ -8,6 +8,8 @@ export interface BlogPost {
   category: string;
   imageUrl: string;
   relatedServiceSlug: string;
+  seoTitle?: string;
+  seoDescription?: string;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -63,6 +65,8 @@ export const blogPosts: BlogPost[] = [
   
   {
     slug: "reparacion-persianas-mosquiteras-sierra-madrid-guia-precios",
+    seoTitle: "Reparación de Persianas y Mosquiteras en la Sierra de Madrid: Precios 2026",
+    seoDescription: "Precios 2026 y averías habituales de persianas y mosquiteras en la Sierra de Madrid: cintas, lamas, motores y mallas rotas. Pide presupuesto sin compromiso.",
     title: "Reparación de persianas en la Sierra de Madrid: Averías comunes, precios y cuándo cambiar la mosquitera",
     excerpt: "Guía completa sobre reparación de persianas y mosquiteras en chalets y viviendas de la Sierra Norte de Madrid. Averías más frecuentes, precios orientativos 2026 y consejos para el mantenimiento preventivo antes del invierno.",
     publishDate: "25 de Septiembre, 2026",
