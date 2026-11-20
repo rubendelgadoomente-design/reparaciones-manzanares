@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!post) return { title: 'Artículo no encontrado' };
 
   return {
-    title: `${post.title} | Consejos de Expertos`,
-    description: post.excerpt,
+    title: post.seoTitle ?? `${post.title} | Consejos de Expertos`,
+    description: post.seoDescription ?? post.excerpt,
     alternates: {
       canonical: `https://www.reparacionesmanzanares.es/blog/${resolvedParams.slug}`
     }

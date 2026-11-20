@@ -458,6 +458,9 @@ export default function Home() {
                    className="btn" style={{ backgroundColor: '#25D366', color: 'white', fontSize: '1.1rem', padding: '1rem 2rem' }}>
                   💬 Enviar WhatsApp
                 </a>
+                <Link href="/reformas-banos-manzanares-el-real" className="btn" style={{ backgroundColor: 'transparent', border: '2px solid white', color: 'white', fontSize: '1.1rem', padding: '1rem 2rem' }}>
+                  🛁 Presupuesto cerrado para reformar tu baño
+                </Link>
               </div>
             </div>
           </div>

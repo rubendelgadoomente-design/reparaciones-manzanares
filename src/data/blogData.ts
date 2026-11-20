@@ -8,6 +8,8 @@ export interface BlogPost {
   category: string;
   imageUrl: string;
   relatedServiceSlug: string;
+  seoTitle?: string;
+  seoDescription?: string;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -63,6 +65,8 @@ export const blogPosts: BlogPost[] = [
   
   {
     slug: "reparacion-persianas-mosquiteras-sierra-madrid-guia-precios",
+    seoTitle: "Reparación de Persianas y Mosquiteras en la Sierra de Madrid: Precios 2026",
+    seoDescription: "Precios 2026 y averías habituales de persianas y mosquiteras en la Sierra de Madrid: cintas, lamas, motores y mallas rotas. Pide presupuesto sin compromiso.",
     title: "Reparación de persianas en la Sierra de Madrid: Averías comunes, precios y cuándo cambiar la mosquitera",
     excerpt: "Guía completa sobre reparación de persianas y mosquiteras en chalets y viviendas de la Sierra Norte de Madrid. Averías más frecuentes, precios orientativos 2026 y consejos para el mantenimiento preventivo antes del invierno.",
     publishDate: "25 de Septiembre, 2026",
@@ -101,7 +105,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2>2. Mosquiteras: tipos, averías y cuándo sustituirlas</h2>
 
-      <p>La Sierra de Madrid tiene un ecosistema natural extraordinario, pero eso incluye mosquitos, moscas y avispas durante los meses cálidos (mayo a octubre). En zonas cercanas a embalses como el de Santillana (<a href="/persianista-manzanares-el-real">Manzanares el Real</a>, <a href="/persianista-soto-del-real">Soto del Real</a>) o arroyos de montaña (<a href="/persianista-cercedilla">Cercedilla</a>, <a href="/persianista-los-molinos">Los Molinos</a>), las mosquiteras son imprescindibles.</p>
+      <p>La Sierra de Madrid tiene un ecosistema natural extraordinario, pero eso incluye mosquitos, moscas y avispas durante los meses cálidos (mayo a octubre). En zonas cercanas a embalses como el de Santillana (<a href="/persianista-manzanares-el-real">Manzanares el Real</a>, <a href="/persianista-soto-del-real">Soto del Real</a>) o arroyos de montaña (<a href="/persianista-cercedilla">Cercedilla</a>, <a href="/persianista-los-molinos">Los Molinos</a>), las mosquiteras son imprescindibles. Si vives en Miraflores o en Mataelpino, tienes los detalles en nuestras páginas de <a href="/persianista-miraflores-de-la-sierra">reparación de persianas y mosquiteras en Miraflores de la Sierra</a> y de <a href="/persianista-mataelpino">persianistas en Mataelpino</a>.</p>
 
       <h3>2.1 Tipos de mosquiteras y cuál elegir</h3>
       <ul>
