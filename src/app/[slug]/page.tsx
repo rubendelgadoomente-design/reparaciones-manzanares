@@ -33,6 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const isCerrajeria = service.id === 'cerrajeria';
   const isFontaneria = service.id === 'fontaneria';
   const isManitas = service.id === 'manitas';
+  const isTejados = service.id === 'tejados';
 
   let title = `${service.title} en ${location} | En ${arrivalTime} · ${PHONE_NUMBER}`;
   let description = `¿Avería en ${location}? Llegamos en ${arrivalTime}. Tarifas transparentes, sin intermediarios ni costes ocultos. Llama ahora: ${PHONE_NUMBER}.`;
@@ -46,6 +47,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   } else if (isManitas) {
     title = `Manitas a Domicilio en ${location} | Reparaciones del Hogar Rápidas`;
     description = `Manitas profesional en ${location}. Arreglos rápidos del hogar: colgar lámparas, montaje de muebles, persianas y pequeños arreglos. Llama al ${PHONE_NUMBER}.`;
+  } else if (isTejados) {
+    title = `Reparación de Tejados en ${location} | Goteras y Panel Sándwich`;
+    description = `¿Goteras o tejas rotas en ${location}? Reparamos tejados y hacemos el cambio integral con panel sándwich imitación teja. Visita y presupuesto gratis: ${PHONE_NUMBER}.`;
   } else if (isReforma) {
     title = `${service.title} en ${location} | Presupuesto Gratis 2026`;
     description = `¿Planeas una ${service.name.toLowerCase()} en ${location}? Presupuesto cerrado y gratuito, sin sorpresas. Coordinamos todos los gremios con un único interlocutor. Llama al ${PHONE_NUMBER}.`;
@@ -285,6 +289,12 @@ function ServicePriceTable({ serviceName }: { serviceName: string }) {
       { service: "Encimera de Silestone o Granito nacional", price: "Desde 1.200€", time: "3 días" },
       { service: "Enchufes y adecuación eléctrica según REBT", price: "Desde 450€", time: "2 días" }
     ],
+    "tejados": [
+      { service: "Revisión de tejado y diagnóstico de goteras", price: "Gratis con presupuesto", time: "1 visita" },
+      { service: "Reparación de gotera puntual / tejas rotas", price: "Desde 150€", time: "1 día" },
+      { service: "Limpieza de canalones y bajantes", price: "Bajo presupuesto", time: "Medio día" },
+      { service: "Cambio integral con panel sándwich imitación teja", price: "50-90€/m²", time: "1-2 semanas" }
+    ],
     "reformas-banos": [
       { service: "Cambio de bañera por plato de ducha (Kit completo)", price: "Desde 890€", time: "24-48 horas" },
       { service: "Reforma de baño estándar (alicatado + sanitarios)", price: "Desde 2.600€", time: "5-7 días" },
@@ -361,7 +371,8 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
   const location = locationData.name;
   const baseUrl = 'https://www.reparacionesmanzanares.es';
   const slug = resolvedParams.slug;
-  const isReforma = service.id.startsWith('reformas');
+  const isTejados = service.id === 'tejados';
+  const isReforma = service.id.startsWith('reformas') || isTejados;
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -377,7 +388,7 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
         "@type": "ListItem",
         "position": 2,
         "name": service.name,
-        "item": isReforma ? `${baseUrl}/reformas-integrales-manzanares-el-real` : `${baseUrl}/${service.slugBase}-manzanares-el-real`
+        "item": isReforma && !isTejados ? `${baseUrl}/reformas-integrales-manzanares-el-real` : `${baseUrl}/${service.slugBase}-manzanares-el-real`
       },
       {
         "@type": "ListItem",
@@ -568,7 +579,9 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
              {service.emoji} {service.title} en <span style={{ color: 'var(--color-accent)' }}>{location}</span>
           </h1>
           <p style={{ fontSize: '1.2rem', color: '#CBD5E1', maxWidth: '850px', margin: '0 auto', lineHeight: 1.6 }}>
-            {isReforma 
+            {isTejados
+              ? `Reparación de goteras, sustitución de tejas y cambio integral de tejado con panel sándwich imitación teja en ${location}. Subimos a revisar tu cubierta y te damos presupuesto cerrado sin compromiso.`
+              : isReforma 
               ? `Estudio de reformas, diseño de interiores y obras a medida en ${location}. Te ofrecemos asesoramiento técnico profesional, proyectos de medición gratuitos y presupuesto cerrado por contrato.`
               : `Servicio técnico urgente las 24h. Solucionamos averías en ${location} (con desplazamientos rápidos por ${locationData.localReferences}) con operarios autorizados y asistencia en unos ${locationData.timeToArrive}.`
             }
@@ -626,6 +639,27 @@ export default async function ServiceLocationPage({ params }: { params: Promise<
                 {firstBatch.map((p, i) => (
                   <p key={`fb-${i}`} style={{ marginBottom: '1.5rem' }} dangerouslySetInnerHTML={{ __html: p }}></p>
                 ))}
+
+                {/* REAL WORK PHOTOS (services with gallery) */}
+                {service.gallery && service.gallery.length > 0 && (
+                  <div style={{ margin: '3rem 0' }}>
+                    <h3 style={{ fontSize: '1.4rem', color: 'var(--color-primary)', marginBottom: '1rem', fontWeight: 700 }}>
+                      📸 Trabajos reales de {service.name.toLowerCase()} de nuestro equipo
+                    </h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '0.75rem' }}>
+                      {service.gallery.map((img) => (
+                        <img
+                          key={img.src}
+                          src={img.src}
+                          alt={img.alt}
+                          title={img.alt}
+                          loading="lazy"
+                          style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: 'var(--radius-md)', display: 'block' }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* CALCULATORS - Rendered dynamically */}
                 {service.id === 'calderas' && (
