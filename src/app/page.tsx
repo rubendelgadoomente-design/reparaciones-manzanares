@@ -165,6 +165,7 @@ export default function Home() {
                   <option value="calderas">Revisión/Avería Caldera</option>
                   <option value="persianas">Reparación de Persianas</option>
                   <option value="puertas-garaje">Puerta de Garaje</option>
+                  <option value="tejados">Tejado / Goteras</option>
                   <option value="cerrajeria">Cerrajería</option>
                   <option value="reformas">Reforma / Presupuesto</option>
                 </select>
@@ -254,6 +255,12 @@ export default function Home() {
                 desc: 'Instalación y reparación de puertas de garaje automáticas, seccionales y puertas peatonales de seguridad.',
                 slug: 'puertas-garaje-manzanares-el-real',
                 icon: '🚗'
+              },
+              {
+                title: 'Reparación de Tejados',
+                desc: 'Goteras, tejas rotas, canalones y cambio integral de tejado con panel sándwich imitación teja en chalets.',
+                slug: 'reparacion-tejados-manzanares-el-real',
+                icon: '🏠'
               },
               {
                 title: 'Reparaciones del Hogar',

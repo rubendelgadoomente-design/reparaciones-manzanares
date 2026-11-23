@@ -228,6 +228,7 @@ export interface Service {
   longDescription: string[];
   tasks: string[];
   faqs: ServiceFAQ[];
+  gallery?: { src: string; alt: string }[];
 }
 
 export const services: Service[] = [
@@ -1418,6 +1419,66 @@ export const services: Service[] = [
         "q": "¿Qué mantenimiento requiere un toldo o pérgola?",
         "a": "Muy poco. Recomendamos no recoger el toldo si la lona está mojada por la lluvia (dejarlo secar primero para evitar moho), lavar la lona una vez al año con agua y jabón neutro (sin máquinas a presión), y revisar anualmente la tornillería de los anclajes a la fachada."
       }
+    ]
+  },
+  {
+    "id": "tejados",
+    "name": "Tejados",
+    "title": "Reparación de Tejados y Cubiertas",
+    "slugBase": "reparacion-tejados",
+    "emoji": "🏠",
+    "description": "Reparación de goteras, sustitución de tejas y cambio integral de tejado con panel sándwich imitación teja en chalets de la Sierra de Madrid. Visita y presupuesto gratis.",
+    "longDescription": [
+      "El tejado es la parte de la vivienda que más sufre en la Sierra de Madrid. Las heladas del invierno, la nieve acumulada en la cubierta, las rachas de viento y los cambios bruscos de temperatura entre el día y la noche rompen tejas, abren juntas y desplazan las piezas de la cumbrera. El resultado son goteras, manchas de humedad en los techos de la planta alta y, con el tiempo, vigas y tableros de madera dañados.",
+      "Reparamos todo tipo de averías en tejados de chalets y viviendas unifamiliares: localización y reparación de goteras, sustitución de tejas rotas o desplazadas, recibido de cumbreras y limatesas, sellado de encuentros con chimeneas y paredes, y reparación de canalones y bajantes. Antes de presupuestar subimos a la cubierta, revisamos el estado real del tejado y te enseñamos fotos de lo que hemos encontrado.",
+      "Cuando el tejado tiene muchos años, las tejas están porosas o la estructura de debajo ha empezado a ceder, parchear ya no sale a cuenta. En esos casos realizamos el cambio integral del tejado con panel sándwich imitación teja: retiramos la teja antigua, revisamos y sustituimos la madera o los rastreles dañados, y colocamos paneles de chapa con núcleo aislante de poliuretano que imitan la teja árabe tradicional.",
+      "El panel sándwich es la solución más demandada en la sierra por tres motivos: pesa mucho menos que la teja cerámica (descarga la estructura del chalet), aísla del frío y del calor desde el primer día y se instala muy rápido, de modo que la vivienda queda cubierta en pocos días. Rematamos cumbreras, aleros, chimeneas y encuentros con piezas específicas del mismo color para que el acabado sea estanco y estético.",
+      "También hacemos limpieza de canalones y revisiones preventivas antes del invierno, impermeabilización de terrazas y cubiertas planas, y tejados de porches, garajes y casetas. Todos los trabajos se realizan con línea de vida, arnés y medios de seguridad para trabajos en altura.",
+      "La visita de revisión y el presupuesto son gratuitos y sin compromiso. Te entregamos un presupuesto cerrado por escrito, con el detalle de la retirada de escombros y la gestión de residuos incluida, para que no haya sorpresas al final de la obra."
+    ],
+    "tasks": [
+      "Reparación de goteras y filtraciones",
+      "Sustitución de tejas rotas o desplazadas",
+      "Cambio integral de tejado con panel sándwich imitación teja",
+      "Recibido de cumbreras, limatesas y aleros",
+      "Sellado de chimeneas y encuentros con paredes",
+      "Reparación y limpieza de canalones y bajantes",
+      "Impermeabilización de terrazas y cubiertas planas",
+      "Tejados de porches, garajes y casetas"
+    ],
+    "faqs": [
+      {
+        "q": "¿Qué es el panel sándwich imitación teja y por qué se usa tanto en la sierra?",
+        "a": "Es un panel formado por dos chapas de acero lacado con un núcleo aislante de poliuretano, con la cara exterior moldeada y pintada imitando la teja árabe. Pesa mucho menos que la teja cerámica, aísla del frío y del calor y se instala en pocos días, por lo que es ideal para renovar tejados de chalets de la Sierra de Madrid sin cargar la estructura."
+      },
+      {
+        "q": "¿Cuánto cuesta cambiar un tejado por panel sándwich?",
+        "a": "Depende de los metros, del estado de la estructura de madera y de los remates (cumbreras, chimeneas, aleros). Como referencia, el cambio integral con retirada de la teja antigua suele moverse entre 50 y 90 € por metro cuadrado. Tras la visita gratuita te damos un presupuesto cerrado por escrito."
+      },
+      {
+        "q": "¿Se puede reparar solo una gotera o hay que cambiar el tejado entero?",
+        "a": "En la mayoría de los casos una gotera se soluciona reparando la zona afectada: sustituyendo tejas rotas, recolocando piezas desplazadas o sellando el encuentro con la chimenea. Solo recomendamos el cambio integral cuando las tejas están muy deterioradas, hay goteras en varios puntos o la madera de debajo está dañada."
+      },
+      {
+        "q": "¿Cuánto se tarda en cambiar un tejado completo?",
+        "a": "Un tejado de chalet de tamaño medio (100-150 m²) con panel sándwich se renueva normalmente en una o dos semanas, según el estado de la estructura y el tiempo. Trabajamos por zonas para que la vivienda no quede descubierta por la noche ni con riesgo de lluvia."
+      },
+      {
+        "q": "¿Necesito licencia para reparar o cambiar el tejado?",
+        "a": "Una reparación puntual suele requerir solo una comunicación de obra menor o declaración responsable en el ayuntamiento. El cambio integral de cubierta puede necesitar licencia según el municipio y si se modifica la estructura. Te indicamos qué trámite corresponde en tu localidad antes de empezar."
+      },
+      {
+        "q": "¿Cada cuánto conviene revisar el tejado?",
+        "a": "Recomendamos una revisión al año, idealmente en otoño antes de las primeras heladas y nevadas, y siempre después de un temporal fuerte de viento. Una revisión a tiempo con limpieza de canalones evita goteras y reparaciones mucho más caras."
+      }
+    ],
+    "gallery": [
+      { "src": "/trabajos/tejados/tejado-panel-sandwich-retirada-teja-antigua.jpg", "alt": "Retirada de teja antigua y colocación de panel sándwich imitación teja en chalet" },
+      { "src": "/trabajos/tejados/tejado-panel-sandwich-colocacion.jpg", "alt": "Operario colocando panel sándwich en el cambio integral de un tejado" },
+      { "src": "/trabajos/tejados/tejado-panel-sandwich-remate-chimenea.jpg", "alt": "Remate de chimenea en tejado de panel sándwich imitación teja" },
+      { "src": "/trabajos/tejados/tejado-panel-sandwich-cumbrera.jpg", "alt": "Colocación de cumbrera en tejado de panel sándwich" },
+      { "src": "/trabajos/tejados/tejado-panel-sandwich-imitacion-teja-terminado.jpg", "alt": "Tejado de panel sándwich imitación teja terminado" },
+      { "src": "/trabajos/tejados/cambio-integral-tejado-chalet-terminado.jpg", "alt": "Cambio integral de tejado de chalet terminado con panel sándwich" }
     ]
   },
   {

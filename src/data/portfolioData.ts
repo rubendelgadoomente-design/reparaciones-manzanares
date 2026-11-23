@@ -12,6 +12,17 @@ export interface PortfolioItem {
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    id: "tejado-panel-sandwich",
+    img: "/trabajos/tejados/tejado-panel-sandwich-retirada-teja-antigua.jpg",
+    title: "Cambio Integral de Tejado con Panel Sándwich",
+    place: "Sierra de Madrid",
+    desc: "Retirada de la teja antigua y nueva cubierta de panel sándwich imitación teja con remates de cumbrera y chimenea.",
+    alt: "Cambio integral de tejado con panel sándwich imitación teja en chalet de la Sierra de Madrid",
+    titleAttr: "Renovación de tejado con panel sándwich en chalet",
+    width: 1200,
+    height: 675
+  },
+  {
     id: "piscina-manzanares",
     img: "/trabajos/reforma-piscina-manzanares-el-real.jpg",
     title: "Rehabilitación Integral de Piscina",
