@@ -1430,7 +1430,7 @@ export const services: Service[] = [
     "description": "Reparación de goteras, sustitución de tejas y cambio integral de tejado con panel sándwich imitación teja en chalets de la Sierra de Madrid. Visita y presupuesto gratis.",
     "longDescription": [
       "El tejado es la parte de la vivienda que más sufre en la Sierra de Madrid. Las heladas del invierno, la nieve acumulada en la cubierta, las rachas de viento y los cambios bruscos de temperatura entre el día y la noche rompen tejas, abren juntas y desplazan las piezas de la cumbrera. El resultado son goteras, manchas de humedad en los techos de la planta alta y, con el tiempo, vigas y tableros de madera dañados.",
-      "Reparamos todo tipo de averías en tejados de chalets y viviendas unifamiliares: localización y reparación de goteras, sustitución de tejas rotas o desplazadas, recibido de cumbreras y limatesas, sellado de encuentros con chimeneas y paredes, y reparación de canalones y bajantes. Antes de presupuestar subimos a la cubierta, revisamos el estado real del tejado y te enseñamos fotos de lo que hemos encontrado.",
+      "Reparamos todo tipo de averías en tejados de teja, pizarra y panel sándwich de chalets y viviendas unifamiliares: localización y reparación de goteras, sustitución de tejas rotas o desplazadas, recibido de cumbreras y limatesas, sellado de encuentros con chimeneas y paredes, y reparación de canalones y bajantes. Antes de presupuestar subimos a la cubierta, revisamos el estado real del tejado y te enseñamos fotos de lo que hemos encontrado.",
       "Cuando el tejado tiene muchos años, las tejas están porosas o la estructura de debajo ha empezado a ceder, parchear ya no sale a cuenta. En esos casos realizamos el cambio integral del tejado con panel sándwich imitación teja: retiramos la teja antigua, revisamos y sustituimos la madera o los rastreles dañados, y colocamos paneles de chapa con núcleo aislante de poliuretano que imitan la teja árabe tradicional.",
       "El panel sándwich es la solución más demandada en la sierra por tres motivos: pesa mucho menos que la teja cerámica (descarga la estructura del chalet), aísla del frío y del calor desde el primer día y se instala muy rápido, de modo que la vivienda queda cubierta en pocos días. Rematamos cumbreras, aleros, chimeneas y encuentros con piezas específicas del mismo color para que el acabado sea estanco y estético.",
       "También hacemos limpieza de canalones y revisiones preventivas antes del invierno, impermeabilización de terrazas y cubiertas planas, y tejados de porches, garajes y casetas. Todos los trabajos se realizan con línea de vida, arnés y medios de seguridad para trabajos en altura.",
@@ -1478,7 +1478,9 @@ export const services: Service[] = [
       { "src": "/trabajos/tejados/tejado-panel-sandwich-remate-chimenea.jpg", "alt": "Remate de chimenea en tejado de panel sándwich imitación teja" },
       { "src": "/trabajos/tejados/tejado-panel-sandwich-cumbrera.jpg", "alt": "Colocación de cumbrera en tejado de panel sándwich" },
       { "src": "/trabajos/tejados/tejado-panel-sandwich-imitacion-teja-terminado.jpg", "alt": "Tejado de panel sándwich imitación teja terminado" },
-      { "src": "/trabajos/tejados/cambio-integral-tejado-chalet-terminado.jpg", "alt": "Cambio integral de tejado de chalet terminado con panel sándwich" }
+      { "src": "/trabajos/tejados/cambio-integral-tejado-chalet-terminado.jpg", "alt": "Cambio integral de tejado de chalet terminado con panel sándwich" },
+      { "src": "/trabajos/tejados/tejado-pizarra-impermeabilizacion-limahoya.jpg", "alt": "Impermeabilización de limahoya y encuentros en tejado de pizarra" },
+      { "src": "/trabajos/tejados/tejado-pizarra-sellado-chimenea.jpg", "alt": "Reparación y sellado de chimenea en tejado de pizarra" }
     ]
   },
   {
